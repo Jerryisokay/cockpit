@@ -56,18 +56,28 @@ export default {
     themes(){
       return store.state.base.THEMES
     },
-    // nav_data(){
-    //   return store.state.base.NAV_DATA
-    // },
-    // leftNav(){
-    //   return this.menuData.slice(0,3)
-    // },
-    // rightNav(){
-    //   return this.menuData.slice(3,6)
-    // },
   },
   mounted(){
+    let routes = this.$route.path.split('/')
+    let id = routes[ routes.length - 1 ] || 'homepage'
+
     this.$store.dispatch('loadNavDataAction')
+    .then( data => {
+      let isCurrent = false
+      data.map( (item, index ) => {
+        if(item.id == id){
+          isCurrent = true
+          this.$store.dispatch('setPageIndexAction', {index})
+        }
+      })
+      if(!isCurrent){
+        throw new Errow()
+      }
+    })
+    .catch(() =>{
+      this.$store.dispatch('setPageIndexAction', {index: 0})
+      this.$router.push({ path: '/' })
+    })
     // console.log( this.menuData )
   },
   methods:{

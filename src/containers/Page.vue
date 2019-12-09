@@ -4,11 +4,12 @@
       <div class="aside-dialog" :key="'dialog_1_' + i " v-for="(v,i) in leftMenu">
         <div class="aside-dialog-inner">
           <Angleborder type="2"></Angleborder>
-          <Piechart v-if="v.type == 0 && v.style != 1" :options="v" :id="'pie_1_' + i + '_' + pageIndex " ></Piechart>
-          <SinglePiechart v-if="v.type == 0 && v.style == 1" :options="v" :id="'singlepie_1_' + i" ></SinglePiechart>
-          <Barchart v-if="v.type == 1" :options="v" :id="'bar_1_' + i"></Barchart>
-          <Linechart v-if="v.type == 2" :options="v" :id="'line_1_' + i"></Linechart>
-          <Radarchart v-if="v.type == 3" :options="v" :id="'radar_1_' + i"></Radarchart>
+          <Piechart v-if="v.type == 0 && v.style != 1" :options="v" :id="'pie_' + i + '_' + pageIndex"></Piechart>
+          <SinglePiechart v-if="v.type == 0 && v.style == 1" :options="v" :id="'singlepie_' + i + '_' + pageIndex" ></SinglePiechart>
+          <Barchart v-if="v.type == 1" :options="v" :id="'bar_' + i + '_' + pageIndex"></Barchart>
+          <Linechart v-if="v.type == 2" :options="v" :id="'line_' + i + '_' + pageIndex"></Linechart>
+          <Radarchart v-if="v.type == 3" :options="v" :id="'radar_' + i + '_' + pageIndex"></Radarchart>
+          <Funnelchart v-if="v.type == 4" :options="v" :id="'funnel_' + i + '_' + pageIndex"></Funnelchart>
         </div>
       </div>
       <!-- <div class="aside-dialog">
@@ -47,11 +48,12 @@
       <div class="aside-dialog" :key="'dialog_2_' + i " v-for="(v,i) in rightMenu">
         <div class="aside-dialog-inner">
           <Angleborder type="2"></Angleborder>
-          <Piechart v-if="v.type == 0 && v.style != 1" :options="v" :id="'pie_2_' + i" ></Piechart>
-          <SinglePiechart v-if="v.type == 0 && v.style == 1" :options="v" :id="'singlepie_2_' + i" ></SinglePiechart>
-          <Barchart v-if="v.type == 1" :options="v" :id="'bar_2_' + i"></Barchart>
-          <Linechart v-if="v.type == 2" :options="v" :id="'line_2_' + i"></Linechart>
-          <Radarchart v-if="v.type == 3" :options="v" :id="'radar_2_' + i"></Radarchart>
+          <Piechart v-if="v.type == 0 && v.style != 1" :options="v" :id="'pie_' + i + '_' + pageIndex" ></Piechart>
+          <SinglePiechart v-if="v.type == 0 && v.style == 1" :options="v" :id="'singlepie_' + i + '_' + pageIndex" ></SinglePiechart>
+          <Barchart v-if="v.type == 1" :options="v" :id="'bar_' + i + '_' + pageIndex"></Barchart>
+          <Linechart v-if="v.type == 2" :options="v" :id="'line_' + i + '_' + pageIndex"></Linechart>
+          <Radarchart v-if="v.type == 3" :options="v" :id="'radar_' + i + '_' + pageIndex"></Radarchart>
+          <Funnelchart v-if="v.type == 4" :options="v" :id="'funnel_' + i + '_' + pageIndex"></Funnelchart>
         </div>
       </div>
 
@@ -115,19 +117,6 @@ export default {
     pageIndex(){
       return store.state.base.PAGE_INDEX
     },
-    // leftMenu(){
-    //   const list = this.list
-    //   console.log('====================================');
-    //   console.log(list);
-    //   console.log('====================================');
-    //   const length = Math.ceil(list.length /2)
-    //   return list.slice(0, length)
-    // },
-    // rightMenu(){
-    //   const list = this.list
-    //   const length = Math.ceil(list.length /2)
-    //   return list.slice(length, list.length)
-    // },
   },
   mounted(){
     window.onresize = () =>{
@@ -137,7 +126,9 @@ export default {
   },
   watch:{ //监听路由变化
     $route(to,from){
-      this.initial()
+      setTimeout(() => {
+        this.initial()
+      },50)
     }
   },
   methods:{
@@ -151,7 +142,6 @@ export default {
         this.leftMenu = list.slice(0, length)
         this.rightMenu = list.slice(length)
       })
-      console.log('1')
     }
   },
   components:{

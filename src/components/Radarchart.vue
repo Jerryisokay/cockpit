@@ -58,7 +58,20 @@ export default {
   },
   mounted(){
     // console.log(this.options)
-    this.drawPie()
+    setTimeout( () => {
+      this.drawChart()
+    },200)
+  },
+  watch:{
+    options:{
+      immediate:true,
+      handler:function(){
+        setTimeout( () => {
+          this.myChart && this.myChart.clear()
+          this.drawChart()
+        },200)
+     }
+    }
   },
   methods: {
     getIndexOfKey(key, value, arr){
@@ -68,10 +81,10 @@ export default {
       } )
       return index
     },
-    drawPie(){
-      let myChart = this.$echarts.init(document.getElementById(this.id))
+    drawChart(){
+      this.myChart = this.$echarts.init(this.$el)
       let color = ["#19D672", "#FD517D"]
-      myChart.setOption({
+      this.myChart.setOption({
         title : {
             text: this.options.title,
             // subtext: '纯属虚构',

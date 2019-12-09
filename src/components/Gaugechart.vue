@@ -38,11 +38,22 @@ export default {
     })
 
   },
+  watch:{
+    options:{
+      immediate:true,
+      handler:function(){
+        setTimeout( () => {
+          this.myChart && this.myChart.clear()
+          this.drawChart()
+        },200)
+     }
+    }
+  },
   methods: {
     drawChart(){
-      let myChart = this.$echarts.init(document.getElementById(this.id))
+      this.myChart = this.$echarts.init(this.$el)
       let color = ["#19D672", "#FD517D"]
-      myChart.setOption({
+      this.myChart.setOption({
         title : {
             text: this.options.name,
             // subtext: '纯属虚构',

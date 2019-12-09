@@ -18,15 +18,21 @@ export default {
       type:Object,
       default(){
         return {
-          name: '访问来源',
-          titles: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎'],
-          data: [
-              {value:100, name:'直接访问'},
-              {value:220, name:'邮件营销'},
-              {value:280, name:'联盟广告'},
-              {value:400, name:'视频广告'},
-              {value:500, name:'搜索引擎'}
+          title: '访问来源',
+          description:'',
+          // titles: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎'],
+          series:[
+            {
+              data: [
+                {value:100, name:'直接访问'},
+                {value:220, name:'邮件营销'},
+                {value:280, name:'联盟广告'},
+                {value:400, name:'视频广告'},
+                {value:500, name:'搜索引擎'}
+              ]
+            }
           ]
+
         }
       }
     }
@@ -38,13 +44,32 @@ export default {
     })
 
   },
+  watch:{
+    options:{
+      immediate:true,
+      handler:function(){
+        setTimeout( () => {
+          this.myChart && this.myChart.clear()
+          this.drawChart()
+        },200)
+     }
+    }
+  },
   methods: {
     drawChart(){
-      let myChart = this.$echarts.init(document.getElementById(this.id))
+      this.myChart = this.$echarts.init(this.$el)
       let color = ["#19D672", "#FD517D"]
-      myChart.setOption({
+      let data = [], name = ''
+      if(Array.isArray(this.options.series) && this.options.series.length && Array.isArray(this.options.series[0].data)){
+        name = this.options.series[0].name
+        data = this.options.series[0].data
+      }
+
+
+      this.myChart.setOption({
         title : {
-            text: this.options.name,
+            text: this.options.title,
+            subtext: this.options.description,
             x:'left',
             fontSize: 16,
             textStyle: {
@@ -55,8 +80,8 @@ export default {
             trigger: 'item',
             confine: true,
             formatter: "{b}: <br />{c} ({d}%)",
-            backgroundColor: '#264e94',
-            padding: [0, 5],
+            // backgroundColor: '#264e94',
+            // padding: [0, 5],
             textStyle:{
               fontSize: 12
             }
@@ -67,13 +92,13 @@ export default {
         //     data: this.options.titles
         // },
         calculable: true,
-        color: ['#ffc03d','#01edd9','#3c95fb'],
+        color: this.options.colors,
         textStyle: {
           color:'#dce2f2'
         },
         series: [
           {
-              name:'漏斗图',
+              name: name,
               type:'funnel',
               left: '10%',
               top: 60,
@@ -107,7 +132,7 @@ export default {
                       fontSize: 12
                   }
               },
-              data: this.options.data
+              data: data
           }
         ]
       });

@@ -63,9 +63,20 @@ export default {
     // console.log(this.options)
     this.drawChart()
   },
+  watch:{
+    options:{
+      immediate:true,
+      handler:function(){
+        setTimeout( () => {
+          this.myChart && this.myChart.clear()
+          this.drawChart()
+        },200)
+     }
+    }
+  },
   methods: {
     drawChart(){
-      let myChart = this.$echarts.init(document.getElementById(this.id))
+      this.myChart = this.$echarts.init(this.$el)
       let series = []
       Array.isArray(this.options.series) && this.options.series.map( (item, index) => {
         let data = []
@@ -82,7 +93,7 @@ export default {
         )
       })
       console.log(series)
-      myChart.setOption({
+      this.myChart.setOption({
         title : {
             text: this.options.title,
             x:'left',

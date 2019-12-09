@@ -21,16 +21,7 @@
           </div>
         </div>
         <router-view></router-view>
-        <!-- <div class="aside-lf aside-dialog" :style='{"height": pageHeight - 130 + "px"}'></div>
-        <div class="aside-rt aside-dialog" :style='{"height": pageHeight - 130 + "px"}'></div> -->
       </div>
-      <!-- 背景部分 -->
-      <!-- <div class="map-box"> -->
-        <!-- <Linechart :id="charts[0].id" :options="charts[0].options" class="float-window"></Linechart>
-        <Piechart :id="charts[1].id" :options="charts[1].options" class="float-window"></Piechart> -->
-        <!-- <Mapchart @drag="dragData" :theme="theme"></Mapchart> -->
-
-      <!-- </div> -->
     </div>
   </div>
 </template>
@@ -51,7 +42,6 @@ export default {
     return {
       status: 1,
       pageHeight: document.documentElement.clientHeight,
-      // pageIndex: store.state.PAGE_INDEX,
       dragData: {
         lng: null,
         lat: null,

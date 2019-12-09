@@ -12,22 +12,22 @@ const menus = [
     name: '菜单1',
     id: 'menu1',
   },
-  // {
-  //   name: '菜单2',
-  //   id: 'menu2',
-  // },
-  // {
-  //   name: '菜单3',
-  //   id: 'menu3',
-  // },
-  // {
-  //   name: '菜单4',
-  //   id: 'menu4',
-  // },
-  // {
-  //   name: '菜单5',
-  //   id: 'menu5',
-  // },
+  {
+    name: '菜单2',
+    id: 'menu2',
+  },
+  {
+    name: '菜单3',
+    id: 'menu3',
+  },
+  {
+    name: '菜单4',
+    id: 'menu4',
+  },
+  {
+    name: '菜单5',
+    id: 'menu5',
+  },
 ]
 
 const charts = {
@@ -200,24 +200,122 @@ const charts = {
     {
       title: '访问来源',
       description :'单位/人',
-      type: 0,
+      type: 3,
       style: 0,
       colors:['#19D672','#FD517D','#76A5D9'],
       series: [
         {
           name: '一般量级统计',
           data: [
-            {value:60, name:'一般量级统计', max:100}
+            {value:60, name:'Mon', max:100},
+            {value:30, name:'Tue', max:100},
+            {value:10, name:'Wed', max:100},
+            {value:75, name:'Thu', max:100},
+            {value:30, name:'Fri', max:100},
+            {value:10, name:'Sat', max:100},
+            {value:75, name:'Sun', max:100}
+          ]
+        },
+        {
+          name: '一般量级统计1',
+          data: [
+            {value:30, name:'Mon', max:100},
+            {value:10, name:'Tue', max:100},
+            {value:10, name:'Wed', max:100},
+            {value:65, name:'Thu', max:100},
+            {value:20, name:'Fri', max:100},
+            {value:10, name:'Sat', max:100},
+            {value:55, name:'Sun', max:100},
+          ]
+        }
+      ],
+      treeData: null,
+      sunburstData:null,
+      scatterData:null,
+      riverData:null
+    },
+    {
+      title: '访问来源',
+      description :'单位/人',
+      type: 0,
+      style: 1,
+      colors:['#19D672','#FD517D','#76A5D9'],
+      series: [
+        {
+          name: '一般量级统计',
+          data: [
+            {value:40, name:'一般量级统计', max:100}
+          ]
+        },{
+          name: '高危量级统计',
+          data: [
+            {value:30, name:'高危量级统计', max:100}
+          ]
+        }
+      ],
+      treeData: null,
+      sunburstData:null,
+      scatterData:null,
+      riverData:null
+    },
+    {
+      title: '访问来源',
+      description :'单位/人',
+      type: 0,
+      style: 1,
+      colors:['#19D672','#FD517D','#76A5D9'],
+      series: [
+        {
+          name: '一般量级统计',
+          data: [
+            {value:33, name:'一般量级统计', max:100}
           ]
         },{
           name: '严重量级统计',
           data: [
-            {value:60, name:'严重量级统计', max:100}
+            {value:22, name:'严重量级统计', max:100}
           ],
         },{
           name: '高危量级统计',
           data: [
-            {value:50, name:'高危量级统计', max:100}
+            {value:44, name:'高危量级统计', max:100}
+          ]
+        }
+      ],
+      treeData: null,
+      sunburstData:null,
+      scatterData:null,
+      riverData:null
+    },
+    {
+      title: '访问来源',
+      description :'单位/人',
+      type: 4,
+      style: 0,
+      colors:['#19D672','#FD517D','#76A5D9'],
+      series: [
+        {
+          name: '一般量级统计',
+          data: [
+            {value:60, name:'Mon', max:100},
+            {value:30, name:'Tue', max:100},
+            {value:10, name:'Wed', max:100},
+            {value:75, name:'Thu', max:100},
+            {value:30, name:'Fri', max:100},
+            {value:10, name:'Sat', max:100},
+            {value:75, name:'Sun', max:100}
+          ]
+        },
+        {
+          name: '一般量级统计1',
+          data: [
+            {value:30, name:'Mon', max:100},
+            {value:10, name:'Tue', max:100},
+            {value:10, name:'Wed', max:100},
+            {value:65, name:'Thu', max:100},
+            {value:20, name:'Fri', max:100},
+            {value:10, name:'Sat', max:100},
+            {value:55, name:'Sun', max:100},
           ]
         }
       ],

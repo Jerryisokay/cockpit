@@ -59,26 +59,25 @@ export default {
     }
   },
   watch:{
-    $route:{
+    options:{
       immediate:true,
       handler:function(){
-        // this.drawPie()
+        setTimeout( () => {
+          this.myChart && this.myChart.clear()
+          this.drawChart()
+        },200)
      }
     }
   },
   mounted(){
-    console.log(this.options)
-    // setTimeout( () => {
-    //   this.drawPie()
-    // })
-    let _self = this
-    _self.$nextTick(()=> {
-      _self.drawPie()
-    })
+    // console.log(' Pie chart mounted ')
+    setTimeout( () => {
+      this.drawChart()
+    },200)
   },
   methods: {
-    drawPie(){
-      this.myChart = this.$echarts.init(document.getElementById(this.id))
+    drawChart(){
+      this.myChart = this.$echarts.init(this.$el)
       // let color = ["#19D672", "#FD517D"]
       let data = []
       if(Array.isArray(this.options.series) && this.options.series.length && Array.isArray(this.options.series[0].data)){

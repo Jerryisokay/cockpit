@@ -75,6 +75,17 @@ export default {
       return values
     }
   },
+  watch:{
+    options:{
+      immediate:true,
+      handler:function(){
+        setTimeout( () => {
+          this.myChart && this.myChart.clear()
+          this.drawChart()
+        },200)
+     }
+    }
+  },
   mounted(){
     this.drawChart()
   },
@@ -84,7 +95,7 @@ export default {
       return Math.ceil(num/ divider ) * divider
     },
     drawChart(){
-      let myChart = this.$echarts.init(document.getElementById(this.id))
+      this.myChart = this.$echarts.init(this.$el)
       let color = ["#19D672", "#FD517D"]
       let dataShadow = []
       var max = this.getDataMax(Math.max(...this.values))
@@ -155,7 +166,7 @@ export default {
         containLabel : true
       }
       // console.log(this.options.direction)
-      myChart.setOption({
+      this.myChart.setOption({
         title : {
             text: this.options.title,
             x:'left',
