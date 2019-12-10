@@ -19,41 +19,42 @@ export default {
       default(){
         return {
           title: '访问来源',
-          data: [820, 932, 901, 934, 1290, 1330, 1320],
+          title: '访问来源',
+          description: '单位/人',
+          type: 9,
+          style: 0,
+          colors: ['#19D672', '#FD517D', '#76A5D9'],
+          series: [],
+          sunburstData: null,
+          treeData: null,
+          scatterData: null,
+          riverData: [['2015/11/08',10,'DQ'],['2015/11/09',15,'DQ'],['2015/11/10',35,'DQ']]
         }
       }
     }
   },
   computed:{
-    indicator(){
-      const indicator = []
+    titles(){
       const titles = []
-      Array.isArray(this.options.series) && this.options.series.map( v =>{
-        v.data.map( d => {
-          if(titles.indexOf(d.name) < 0){
-            indicator.push({
-              name: d.name,
-              max: d.max
-            })
-            titles.push( d.name )
+      Array.isArray(this.options.riverData) && this.options.riverData.map( v =>{
+        Array.isArray(v) && v.length >= 2 && v.map( d => {
+          if(titles.indexOf(d[2]) < 0){
+            titles.push( d[2] )
           }
         })
       })
-      return indicator
+      return titles
     },
-    data(){
-      const data = []
-      Array.isArray(this.options.series) && this.options.series.map( item => {
-        let values = []
-        Array.isArray(item.data) && item.data.map( v => {
-          values.push(v.value)
-        })
-        data.push({
-            value : values,
-            name : item.name
+    categories(){
+      const categories = []
+      Array.isArray(this.options.riverData) && this.options.riverData.map( v =>{
+        Array.isArray(v) && v.length >= 2 && v.map( d => {
+          if(categories.indexOf(d[0]) < 0){
+            categories.push( d[0] )
+          }
         })
       })
-      return data
+      return categories
     }
   },
   mounted(){
@@ -74,16 +75,10 @@ export default {
     }
   },
   methods: {
-    getIndexOfKey(key, value, arr){
-      let index = -1;
-      arr.map( (v, i) => {
-        if(v[key] === value) index = i
-      } )
-      return index
-    },
     drawChart(){
       this.myChart = this.$echarts.init(this.$el)
-      let color = ["#19D672", "#FD517D"]
+
+      let data = this.options.riverData
       this.myChart.setOption({
         title : {
             text: this.options.title,
@@ -93,77 +88,78 @@ export default {
               color: '#ffffff',//'#76a5d9'
             },
         },
-        legend:{
-            top : 25,
-            formatter: (value) => {
-                var texts=value;
-                if(texts.length>6){ //限定字数
-                    texts=texts.substr(0,6)+'...';
-                }
-                return texts;
-            },
-            textStyle: {
-              color: '#ffffff',
-              fontSize: 11
-            },
-            icon: 'circle'
-        },
-        radar: {
-            name: {
-              textStyle: {
-                  color: '#fff',
-                  fontSize: 10
+        graphic:[
+          {
+            type:'text',  //副标题文字
+            right: 20,
+            top:10,
+            z:3,
+            style:{
+                text: this.options.description,
+                // textAlign:'center',
+                fill:'#fff',
+                fontSize:12,
+                // height:60
+            }
+          }
+        ],
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'line',
+              lineStyle: {
+                  // color: 'rgba(0,0,0,0.2)',
+                  width: 1,
+                  type: 'solid'
               }
             },
-            center: ['50%', '60%'],
-            nameGap : 5,
-            radius : '60%',
-            splitArea : {
-                show : false,
-                areaStyle : {
-                    color: 'rgba(0,0,0,0)', // 图表背景的颜色
-                },
-            },
-            indicator: this.indicator,
-            // [
-            //   { name: '销售（sales）', max: 6500},
-            //   { name: '管理（Administration）', max: 16000},
-            //   { name: '信息技术（Information Techology）', max: 30000},
-            //   { name: '客服（Customer Support）', max: 38000},
-            //   { name: '研发（Development）', max: 52000},
-            //   { name: '市场（Marketing）', max: 25000}
-            // ]
-        },
-        grid: {
-            position: 'center',
-        },
-        tooltip : {
-            confine: true,
-            backgroundColor: '#264e94',
-            padding: [0, 5],
-            textStyle:{
-              fontSize: 12
+            position:  function (pos, params, dom, rect, size) {
+                // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。
+                var obj = {top: 60};
+                obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;
+                return obj;
             }
         },
-
-        series: [{
-            name: '预算 vs 开销（Budget vs spending）',
-            type: 'radar',
-            symbol: 'circle', // 拐点的样式，还可以取值'rect','angle'等
-            symbolSize: 8, // 拐点的大小
-            areaStyle: {
-              normal: {
-                color: '#ccc'
+        singleAxis: {
+            top: 50,
+            bottom: 50,
+            axisTick: {},
+            axisLabel: {
+              fontSize: 10,
+              color: '#fff'
+            },
+            type: 'time',
+            axisPointer: {
+                animation: true,
+                label: {
+                    show: true
+                }
+            },
+            splitLine: {
+                show: true,
+                lineStyle: {
+                    type: 'dashed',
+                    opacity: 0.2
+                }
+            }
+        },
+        series: [
+        {
+            type: 'themeRiver',
+            itemStyle: {
+              emphasis: {
+                  shadowBlur: 20,
+                  shadowColor: 'rgba(0, 0, 0, 0.8)'
               }
             },
-            emphasis: {
-              areaStyle: {
-                color:"#222"
-              }
+            label:{
+              color: '#fff',
+              fontSize: 10
             },
-            data : this.data
+            avoidLabelOverlap: false,
+            data: data
         }],
-        color: color,
+        color: this.options.colors,
       });
     }
   }
