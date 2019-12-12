@@ -1,6 +1,7 @@
 import Mock from 'mockjs'
 import treeData from './tree.json'
 import riverData from './river.js'
+import scoreData from './score.js'
 
 
 
@@ -158,43 +159,6 @@ const charts = {
       sunburstData: null,
       scatterData: null,
       riverData: null
-    },
-    {
-      title: '访问来源',
-      description: '单位/人',
-      type: 3,
-      style: 0,
-      colors: ['#19D672', '#FD517D', '#76A5D9'],
-      series: [
-        {
-          name: '一般量级统计',
-          data: [
-            { value: 60, name: 'Mon', max: 100 },
-            { value: 30, name: 'Tue', max: 100 },
-            { value: 10, name: 'Wed', max: 100 },
-            { value: 75, name: 'Thu', max: 100 },
-            { value: 30, name: 'Fri', max: 100 },
-            { value: 10, name: 'Sat', max: 100 },
-            { value: 75, name: 'Sun', max: 100 }
-          ]
-        },
-        {
-          name: '一般量级统计1',
-          data: [
-            { value: 30, name: 'Mon', max: 100 },
-            { value: 10, name: 'Tue', max: 100 },
-            { value: 10, name: 'Wed', max: 100 },
-            { value: 65, name: 'Thu', max: 100 },
-            { value: 20, name: 'Fri', max: 100 },
-            { value: 10, name: 'Sat', max: 100 },
-            { value: 55, name: 'Sun', max: 100 },
-          ]
-        }
-      ],
-      treeData: null,
-      sunburstData: null,
-      scatterData: null,
-      riverData: null
     }
   ],
   "menu1": [
@@ -238,25 +202,13 @@ const charts = {
     {
       title: '访问来源',
       description: '单位/人',
-      type: 0,
-      style: 1,
+      type: 8,
+      style: 0,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
-      series: [
-        {
-          name: '一般量级统计',
-          data: [
-            { value: 40, name: '一般量级统计', max: 100 }
-          ]
-        }, {
-          name: '高危量级统计',
-          data: [
-            { value: 30, name: '高危量级统计', max: 100 }
-          ]
-        }
-      ],
+      series: [],
       treeData: null,
       sunburstData: null,
-      scatterData: null,
+      scatterData: scoreData.data,
       riverData: null
     },
     {

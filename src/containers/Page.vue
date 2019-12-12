@@ -13,41 +13,12 @@
           <Gaugechart v-if="v.type == 5" :id="'gauge_1_' + i + '_' + pageIndex"></Gaugechart>
           <Treechart v-if="v.type == 6" :options="v" :id="'treechart_1_' + i + '_' + pageIndex"></Treechart>
           <Sunburstchart v-if="v.type == 7" :options="v" :id="'sunburst_1_' + i + '_' + pageIndex"></Sunburstchart>
+          <Scatterchart v-if="v.type == 8" :options="v" :id="'scatterchart_1_' + i + '_' + pageIndex"></Scatterchart>
           <ThemeRiverchart v-if="v.type == 9" :options="v" :id="'themeriverchart_1_' + i + '_' + pageIndex"></ThemeRiverchart>
         </div>
       </div>
-      <!-- <div class="aside-dialog">
-        <div class="aside-dialog-inner">
-          <Angleborder type="2"></Angleborder>
-          <Piechart id="pie1"></Piechart>
-        </div>
-      </div>
-      <div class="aside-dialog">
-        <div class="aside-dialog-inner">
-          <Angleborder type="2"></Angleborder>
-          <SinglePiechart id="pie2"></SinglePiechart>
-        </div>
-      </div>
-      <div class="aside-dialog">
-        <div class="aside-dialog-inner">
-          <Angleborder type="2"></Angleborder>
-          <Linechart id="line1"></Linechart>
-        </div>
-      </div>
-      <div class="aside-dialog">
-        <div class="aside-dialog-inner">
-          <Angleborder type="2"></Angleborder>
-          <Barchart id="bar1"></Barchart>
-        </div>
-      </div>
-      <div class="aside-dialog">
-        <div class="aside-dialog-inner">
-          <Angleborder type="2"></Angleborder>
-          <Barchart id="bar2" direction="1"></Barchart>
-        </div>
-      </div> -->
-
     </div>
+
     <div class="aside-rt aside-dialog-group" :style='{"height": pageHeight - 110 + "px"}'>
       <div class="aside-dialog" :key="'dialog_2_' + i " v-for="(v,i) in rightMenu">
         <div class="aside-dialog-inner">
@@ -61,34 +32,11 @@
           <Gaugechart v-if="v.type == 5" :id="'gauge_2_' + i + '_' + pageIndex"></Gaugechart>
           <Treechart v-if="v.type == 6" :options="v" :id="'treechart_2_' + i + '_' + pageIndex"></Treechart>
           <Sunburstchart v-if="v.type == 7" :options="v" :id="'sunburst_2_' + i + '_' + pageIndex"></Sunburstchart>
+          <Scatterchart v-if="v.type == 8" :options="v" :id="'scatterchart_2_' + i + '_' + pageIndex"></Scatterchart>
           <ThemeRiverchart v-if="v.type == 9" :options="v" :id="'themeriverchart_2_' + i + '_' + pageIndex"></ThemeRiverchart>
         </div>
       </div>
 
-      <!-- <div class="aside-dialog">
-        <div class="aside-dialog-inner">
-          <Angleborder type="2"></Angleborder>
-          <Gaugechart id="gauge1"></Gaugechart>
-        </div>
-      </div>
-      <div class="aside-dialog">
-        <div class="aside-dialog-inner">
-          <Angleborder type="2"></Angleborder>
-          <Scatterchart id="scatter1"></Scatterchart>
-        </div>
-      </div>
-      <div class="aside-dialog">
-        <div class="aside-dialog-inner">
-          <Angleborder type="2"></Angleborder>
-          <Radarchart id="radar1"></Radarchart>
-        </div>
-      </div>
-      <div class="aside-dialog">
-        <div class="aside-dialog-inner">
-          <Angleborder type="2"></Angleborder>
-          <Funnelchart id="funnel1"></Funnelchart>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
