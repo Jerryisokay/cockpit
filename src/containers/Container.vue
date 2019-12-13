@@ -1,5 +1,5 @@
 <template>
-  <div class="root-container">
+  <div class="root-container" :class="theme">
     <div class="container" :style='{"min-height": pageHeight + "px"}'>
       <!-- 导航 -->
       <Navigator></Navigator>

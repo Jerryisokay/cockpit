@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import store from '@/store'
+
 //单维度的
 export default {
   name: "piechart",
@@ -10,7 +12,16 @@ export default {
     return {
       themeColors:{
         dark: {
-          textColor: 'dce2f2'
+          textColor: '#dce2f2',
+          emphasisColor: '#dce2f2',
+          backgroundColor: '#dce2f2',
+          shadowColor1: 'rgba(255, 255, 255, 0.5)',
+        },
+        light: {
+          textColor: '#333333',
+          emphasisColor: '#c6044d',
+          backgroundColor: '#c6044d',
+          shadowColor1: 'rgba(255, 255, 255, 0.5)',
         }
       }
     };
@@ -56,10 +67,22 @@ export default {
         if(titles.indexOf(v.name) < 0) titles.push( v.name )
       })
       return titles
-    }
+    },
+    theme(){
+      return store.state.base.THEME_TYPE
+    },
   },
   watch:{
     options:{
+      immediate:true,
+      handler:function(){
+        setTimeout( () => {
+          this.myChart && this.myChart.clear()
+          this.drawChart()
+        },200)
+     }
+    },
+    theme:{
       immediate:true,
       handler:function(){
         setTimeout( () => {
@@ -93,7 +116,10 @@ export default {
             x:'left',
             fontSize: 16,
             textStyle: {
-              color:'#dce2f2'
+              color: this.themeColors[this.theme].textColor
+            },
+            subtextStyle:{
+              color: this.themeColors[this.theme].textColor
             }
         },
         grid:{
@@ -114,13 +140,13 @@ export default {
             x : 'center',
             y : 'bottom',
             textStyle: {
-              color:'#dce2f2',
+              color: this.themeColors[this.theme].textColor,
               fontSize: 11
             }
         },
         color: this.options.colors || ['#ffc03d','#01edd9','#3c95fb'],
         textStyle: {
-          color:'#dce2f2'
+          color: this.themeColors[this.theme].textColor
         },
         series: [
           {
@@ -129,7 +155,7 @@ export default {
             radius: [33, 45],
             avoidLabelOverlap: false,
             itemStyle:{
-              shadowColor: 'rgba(255, 255, 255, 0.5)',
+              shadowColor: this.themeColors[this.theme].shadowColor1,
               shadowBlur: 2,
             },
             label: {
