@@ -3,11 +3,40 @@
 </template>
 
 <script>
+import store from '@/store'
+
 export default {
   name: "linechart",
   data() {
     return {
-      chart: ""
+     themeColors:{
+        dark: {
+          textColor: '#dce2f2',
+          textColor2: '#cccccc',
+          emphasisColor: '#ffc911',
+          backgroundColor: '#264e94',
+          tooltipEmphasisColor: '#1eee10',
+          shadowColor1: 'rgba(255, 255, 255, 0.5)',
+          shadowColor2: '#2584e8',
+          fillColor1:'#83bff6',
+          fillColor2:'rgba(255,255,255,0.05)',
+          fillColor3:'rgba(255,255,255,0.1)',
+          lineColor:'rgba(255,255,255,0.2)'
+        },
+        light: {
+          textColor: '#333333',
+          textColor2: '#dce2f2',
+          emphasisColor: '#c6044d',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          tooltipEmphasisColor: '#ffffff',
+          shadowColor1: 'rgba(255, 255, 255, 0.5)',
+          shadowColor2: '#77022e',
+          fillColor1: '#77022e',
+          fillColor2: 'rgba(0,0,0,0.05)',
+          fillColor3: 'rgba(0,0,0,0.1)',
+          lineColor: '#dddddd'
+        }
+      }
     };
   },
   props: {
@@ -57,7 +86,9 @@ export default {
       })
       return titles
     },
-    values(){}
+    theme(){
+      return store.state.base.THEME_TYPE
+    }
   },
   mounted(){
     // console.log(this.options)
@@ -65,6 +96,15 @@ export default {
   },
   watch:{
     options:{
+      immediate:true,
+      handler:function(){
+        setTimeout( () => {
+          this.myChart && this.myChart.clear()
+          this.drawChart()
+        },200)
+     }
+    },
+    theme:{
       immediate:true,
       handler:function(){
         setTimeout( () => {
@@ -98,7 +138,7 @@ export default {
             text: this.options.title,
             x:'left',
             textStyle:{
-              color: '#ffffff',//'#76a5d9'
+              color: this.themeColors[this.theme].textColor,//'#76a5d9'
             },
         },
         tooltip : {
@@ -106,7 +146,7 @@ export default {
             formatter: '{a}: {c}({b})',
             // padding: [0, 5],
             textStyle:{
-              color: '#cccccc',
+              color: this.themeColors[this.theme].textColor2,
               fontSize: 12,
             }
         },
@@ -119,7 +159,7 @@ export default {
             style:{
                 text: this.options.description,
                 // textAlign:'center',
-                fill:'#fff',
+                fill: this.themeColors[this.theme].textColor,
                 fontSize:12,
                 // height:60
             }
@@ -139,7 +179,7 @@ export default {
               show:true,
               textStyle:{
                 fontSize: 10,
-                color: '#ffffff',//'#76a5d9'
+                color: this.themeColors[this.theme].textColor,//'#76a5d9'
               },
             },
         },
@@ -149,7 +189,7 @@ export default {
               //  改变轴线颜色
               lineStyle: {
                   // 使用深浅的间隔色
-                  color: ['rgba(255,255,255,0.2)'],
+                  color: this.themeColors[this.theme].lineColor,
                   type: 'dashed'
               },
 
@@ -158,7 +198,7 @@ export default {
               show:true,
               textStyle:{
                 fontSize: 10,
-                color: '#ffffff',//'#76a5d9'
+                color: this.themeColors[this.theme].textColor,//'#76a5d9'
               },
               formatter: (value) => {
                   var texts=value;

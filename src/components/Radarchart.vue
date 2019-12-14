@@ -3,11 +3,25 @@
 </template>
 
 <script>
+import store from '@/store'
 export default {
   name: "radarchart",
   data() {
     return {
-      chart: ""
+      themeColors:{
+        dark: {
+          textColor: '#dce2f2',
+          backgroundColor:'#ccc',
+          tooltipBackgroundColor: '#264e94',
+          backgroundEmphasisColor:'#333'
+        },
+        light: {
+          textColor: '#333333',
+          shadowColor1: 'rgba(255, 255, 255, 0.5)',
+          tooltipBackgroundColor: '#c6044d',
+          backgroundEmphasisColor: '#77022e',
+        }
+      }
     };
   },
   props: {
@@ -54,6 +68,9 @@ export default {
         })
       })
       return data
+    },
+    theme(){
+      return store.state.base.THEME_TYPE
     }
   },
   mounted(){
@@ -64,6 +81,15 @@ export default {
   },
   watch:{
     options:{
+      immediate:true,
+      handler:function(){
+        setTimeout( () => {
+          this.myChart && this.myChart.clear()
+          this.drawChart()
+        },200)
+     }
+    },
+    theme:{
       immediate:true,
       handler:function(){
         setTimeout( () => {
@@ -83,14 +109,13 @@ export default {
     },
     drawChart(){
       this.myChart = this.$echarts.init(this.$el)
-      let color = ["#19D672", "#FD517D"]
       this.myChart.setOption({
         title : {
             text: this.options.title,
             // subtext: '纯属虚构',
             x:'left',
             textStyle:{
-              color: '#ffffff',//'#76a5d9'
+              color: this.themeColors[this.theme].textColor,
             },
         },
         legend:{
@@ -103,7 +128,7 @@ export default {
                 return texts;
             },
             textStyle: {
-              color: '#ffffff',
+              color: this.themeColors[this.theme].textColor,
               fontSize: 11
             },
             icon: 'circle'
@@ -111,7 +136,7 @@ export default {
         radar: {
             name: {
               textStyle: {
-                  color: '#fff',
+                  color: this.themeColors[this.theme].textColor,
                   fontSize: 10
               }
             },
@@ -125,21 +150,13 @@ export default {
                 },
             },
             indicator: this.indicator,
-            // [
-            //   { name: '销售（sales）', max: 6500},
-            //   { name: '管理（Administration）', max: 16000},
-            //   { name: '信息技术（Information Techology）', max: 30000},
-            //   { name: '客服（Customer Support）', max: 38000},
-            //   { name: '研发（Development）', max: 52000},
-            //   { name: '市场（Marketing）', max: 25000}
-            // ]
         },
         grid: {
             position: 'center',
         },
         tooltip : {
             confine: true,
-            backgroundColor: '#264e94',
+            backgroundColor: this.themeColors[this.theme].tooltipBackgroundColor,
             padding: [0, 5],
             textStyle:{
               fontSize: 12
@@ -153,17 +170,17 @@ export default {
             symbolSize: 8, // 拐点的大小
             areaStyle: {
               normal: {
-                color: '#ccc'
+                color: this.themeColors[this.theme].backgroundColor
               }
             },
             emphasis: {
               areaStyle: {
-                color:"#222"
+                color: this.themeColors[this.theme].backgroundEmphasisColor
               }
             },
             data : this.data
         }],
-        color: color,
+        color: this.options.colors,
       });
     }
   }

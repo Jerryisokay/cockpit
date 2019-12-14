@@ -383,7 +383,7 @@ div::-webkit-scrollbar-corner{
   border-right: 2px solid #16d2c3;
   border-bottom: 2px solid #16d2c3;
 }
-.dark .mid-container-angle-right-bottom{
+.light .mid-container-angle-right-bottom{
   right: 10px;
   bottom: -8px;
   border-right: 2px solid #c6044d;

@@ -3,11 +3,26 @@
 </template>
 
 <script>
+import store from '@/store'
+
 export default {
   name: "funnelchart",
   data() {
     return {
-      chart: ""
+      themeColors:{
+        dark: {
+          textColor: '#dce2f2',
+          shadowColor1: 'rgba(255, 255, 255, 0.5)',
+          shadowColor2: '#2584e8',
+          borderColor:'#fff'
+        },
+        light: {
+          textColor: '#333333',
+          shadowColor1: 'rgba(255, 255, 255, 0.5)',
+          shadowColor2: '#77022e',
+          borderColor: '#77022e'
+        }
+      }
     };
   },
   props: {
@@ -44,8 +59,22 @@ export default {
     })
 
   },
+  computed:{
+    theme(){
+      return store.state.base.THEME_TYPE
+    }
+  },
   watch:{
     options:{
+      immediate:true,
+      handler:function(){
+        setTimeout( () => {
+          this.myChart && this.myChart.clear()
+          this.drawChart()
+        },200)
+     }
+    },
+    theme:{
       immediate:true,
       handler:function(){
         setTimeout( () => {
@@ -58,7 +87,6 @@ export default {
   methods: {
     drawChart(){
       this.myChart = this.$echarts.init(this.$el)
-      let color = ["#19D672", "#FD517D"]
       let data = [], name = ''
       if(Array.isArray(this.options.series) && this.options.series.length && Array.isArray(this.options.series[0].data)){
         name = this.options.series[0].name
@@ -73,7 +101,10 @@ export default {
             x:'left',
             fontSize: 16,
             textStyle: {
-              color:'#dce2f2'
+              color: this.themeColors[this.theme].textColor
+            },
+            subtextStyle:{
+              color: this.themeColors[this.theme].textColor
             }
         },
         tooltip: {
@@ -94,7 +125,7 @@ export default {
         calculable: true,
         color: this.options.colors,
         textStyle: {
-          color:'#dce2f2'
+          color: this.themeColors[this.theme].textColor
         },
         series: [
           {
@@ -124,7 +155,7 @@ export default {
                   }
               },
               itemStyle: {
-                  borderColor: '#fff',
+                  borderColor: this.themeColors[this.theme].borderColor,
                   borderWidth: 1
               },
               emphasis: {

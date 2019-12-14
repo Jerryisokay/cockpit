@@ -3,11 +3,32 @@
 </template>
 
 <script>
+import store from '@/store'
+
 export default {
   name: "scatterchart",
   data() {
     return {
-      chart: ""
+      themeColors:{
+        dark: {
+          textColor: '#dce2f2',
+          textColor2: '#cccccc',
+          emphasisColor: '#ffc911',
+          backgroundColor: '#264e94',
+          shadowColor1: 'rgba(0, 0, 0, 0.5)',
+          shadowColor2: '#2584e8',
+          lineColor:'rgba(255,255,255,0.2)'
+        },
+        light: {
+          textColor: '#333333',
+          textColor2: '#dce2f2',
+          emphasisColor: '#c6044d',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          shadowColor1: 'rgba(0, 0, 0, 0.5)',
+          shadowColor2: '#77022e',
+          lineColor: '#dddddd'
+        }
+      }
     };
   },
   props: {
@@ -53,10 +74,22 @@ export default {
         })
       })
       return Math.max(...values)
+    },
+    theme(){
+      return store.state.base.THEME_TYPE
     }
   },
   watch:{
     options:{
+      immediate:true,
+      handler:function(){
+        setTimeout( () => {
+          this.myChart && this.myChart.clear()
+          this.drawChart()
+        },200)
+     }
+    },
+    theme:{
       immediate:true,
       handler:function(){
         setTimeout( () => {
@@ -105,15 +138,15 @@ export default {
                       return param.data[3];
                   },
                   textStyle: {
-                    color: '#fff'
+                    color: this.themeColors[this.theme].textColor,
                   },
                   position: 'top'
               }
           },
           itemStyle: {
               normal: {
-                  shadowBlur: 10,
-                  shadowColor: 'rgba(120, 36, 50, 0.5)',
+                  shadowBlur: 5,
+                  shadowColor: this.themeColors[this.theme].shadowColor1,
                   shadowOffsetY: 5,
               }
           }
@@ -125,10 +158,9 @@ export default {
       this.myChart.setOption({
         title : {
             text: this.options.title,
-            // subtext: '纯属虚构',
             x:'left',
             textStyle:{
-              color: '#ffffff',//'#76a5d9'
+              color: this.themeColors[this.theme].textColor,//'#76a5d9'
             },
         },
         graphic:[
@@ -140,9 +172,8 @@ export default {
             style:{
                 text: this.options.description,
                 // textAlign:'center',
-                fill:'#fff',
+                fill: this.themeColors[this.theme].textColor,
                 fontSize:12,
-                // height:60
             }
           }
         ],
@@ -152,7 +183,7 @@ export default {
             x : 'center',
             y : 'top',
             textStyle: {
-              color:'#dce2f2',
+              color: this.themeColors[this.theme].textColor,
               fontSize: 11
             }
         },
@@ -160,14 +191,14 @@ export default {
             splitLine: {
                 lineStyle: {
                     type: 'dashed',
-                    color: 'rgba(255,255,255,0.3)'
+                    color: this.themeColors[this.theme].lineColor,
                 }
             },
             axisLabel: { //设置x轴的字
               show:true,
               interval:0,//使x轴横坐标全部显示
               textStyle: {//x轴字体样式
-                color: "#ffffff",
+                color: this.themeColors[this.theme].textColor,
                 margin: 15,
                 fontSize: 10
               }
@@ -177,14 +208,14 @@ export default {
             splitLine: {
                 lineStyle: {
                     type: 'dashed',
-                    color: 'rgba(255,255,255,0.3)'
+                    color: this.themeColors[this.theme].lineColor,
                 }
             },
             axisLabel:{
               show:true,
               textStyle:{
                 fontSize: 10,
-                color: '#ffffff',//'#76a5d9'
+                color: this.themeColors[this.theme].textColor,
               },
             },
             scale: true

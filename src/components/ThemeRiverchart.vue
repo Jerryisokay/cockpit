@@ -3,11 +3,24 @@
 </template>
 
 <script>
+import store from '@/store'
+
 export default {
   name: "radarchart",
   data() {
     return {
-      chart: ""
+      themeColors:{
+        dark: {
+          textColor: '#dce2f2',
+          shadowColor1: 'rgba(0, 0, 0, 0.2)',
+          fillColor1:'#282a36'
+        },
+        light: {
+          textColor: '#333333',
+          shadowColor1: '#77022e',
+          fillColor1: '#ffffff',
+        }
+      }
     };
   },
   props: {
@@ -55,6 +68,9 @@ export default {
         })
       })
       return categories
+    },
+    theme(){
+      return store.state.base.THEME_TYPE
     }
   },
   mounted(){
@@ -65,6 +81,15 @@ export default {
   },
   watch:{
     options:{
+      immediate:true,
+      handler:function(){
+        setTimeout( () => {
+          this.myChart && this.myChart.clear()
+          this.drawChart()
+        },200)
+     }
+    },
+    theme:{
       immediate:true,
       handler:function(){
         setTimeout( () => {
@@ -85,7 +110,7 @@ export default {
             // subtext: '纯属虚构',
             x:'left',
             textStyle:{
-              color: '#ffffff',//'#76a5d9'
+              color: this.themeColors[this.theme].textColor,
             },
         },
         graphic:[
@@ -97,9 +122,8 @@ export default {
             style:{
                 text: this.options.description,
                 // textAlign:'center',
-                fill:'#fff',
+                fill: this.themeColors[this.theme].textColor,
                 fontSize:12,
-                // height:60
             }
           }
         ],
@@ -126,7 +150,7 @@ export default {
             axisTick: {},
             axisLabel: {
               fontSize: 10,
-              color: '#fff'
+              color: this.themeColors[this.theme].textColor
             },
             type: 'time',
             axisPointer: {
@@ -153,7 +177,7 @@ export default {
               }
             },
             label:{
-              color: '#fff',
+              color: this.themeColors[this.theme].textColor,
               fontSize: 10
             },
             avoidLabelOverlap: false,

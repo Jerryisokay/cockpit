@@ -3,13 +3,22 @@
 </template>
 
 <script>
-
+import store from '@/store'
 export default {
   name: "treechart",
   data() {
     return {
-      themeColor:{
-
+      themeColors:{
+        dark: {
+          textColor: '#dce2f2',
+          shadowColor1: 'rgba(0, 0, 0, 0.2)',
+          fillColor1:'#282a36'
+        },
+        light: {
+          textColor: '#333333',
+          shadowColor1: '#77022e',
+          fillColor1: '#ffffff',
+        }
       }
     };
   },
@@ -39,7 +48,10 @@ export default {
     }
   },
   computed: {
-    values(){}
+    values(){},
+    theme(){
+      return store.state.base.THEME_TYPE
+    }
   },
   mounted(){
     // console.log(this.options)
@@ -47,6 +59,15 @@ export default {
   },
   watch:{
     options:{
+      immediate:true,
+      handler:function(){
+        setTimeout( () => {
+          this.myChart && this.myChart.clear()
+          this.drawChart()
+        },200)
+     }
+    },
+    theme:{
       immediate:true,
       handler:function(){
         setTimeout( () => {
@@ -63,13 +84,13 @@ export default {
       Array.isArray(data.children) && data.children.map(function (datum, index) {
           index % 2 === 0 && (datum.collapsed = true);
       });
-      console.log(data)
+      // console.log(data)
       this.myChart.setOption({
         title : {
             text: this.options.title,
             x:'left',
             textStyle:{
-              color: '#ffffff',//'#76a5d9'
+              color: this.themeColors[this.theme].textColor
             },
         },
         color: this.options.colors,
@@ -82,9 +103,8 @@ export default {
             style:{
                 text: this.options.description,
                 // textAlign:'center',
-                fill:'#fff',
+                fill: this.themeColors[this.theme].textColor,
                 fontSize:12,
-                // height:60
             }
           }
         ],
@@ -108,7 +128,7 @@ export default {
                       align: 'right',
                       fontSize: 8,
                       textStyle:{
-                        color: '#ffffff',//'#76a5d9'
+                        color: this.themeColors[this.theme].textColor,//'#76a5d9'
                       },
                   }
               },

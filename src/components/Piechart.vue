@@ -16,12 +16,20 @@ export default {
           emphasisColor: '#dce2f2',
           backgroundColor: '#dce2f2',
           shadowColor1: 'rgba(255, 255, 255, 0.5)',
+          shadowColor2: '#2584e8',
+          fillColor1:'#2584e8',
+          fillColor2:'#01162d',
+          fillColor3:'#040312',
         },
         light: {
           textColor: '#333333',
           emphasisColor: '#c6044d',
           backgroundColor: '#c6044d',
           shadowColor1: 'rgba(255, 255, 255, 0.5)',
+          shadowColor2: '#77022e',
+          fillColor1: '#77022e',
+          fillColor2: '#c6044d',
+          fillColor3: '#444',
         }
       }
     };
@@ -144,7 +152,7 @@ export default {
               fontSize: 11
             }
         },
-        color: this.options.colors || ['#ffc03d','#01edd9','#3c95fb'],
+        color: this.options.colors,
         textStyle: {
           color: this.themeColors[this.theme].textColor
         },
@@ -171,7 +179,7 @@ export default {
                 normal: {
                     show: true,
                     lineStyle: {
-                        color: '#fff'
+                        color: this.themeColors[this.theme].textColor,
                     },
                     smooth: 0.2
                 }
@@ -194,10 +202,10 @@ export default {
                 // r0: 52
             },
             style:{
-                fill:'#2584e8',
+                fill: this.themeColors[this.theme].fillColor1,
                 stroke:"#001f3c",
                 shadowBlur : 5,
-                shadowColor: '#2584e8'
+                shadowColor: this.themeColors[this.theme].shadowColor2
             },
             z:-2
           },{
@@ -210,7 +218,7 @@ export default {
                 r:50,
             },
             style:{
-                fill:'#040312',
+                fill: this.themeColors[this.theme].fillColor3,//'#040312',
             },
             z: -1
           },{
@@ -223,8 +231,8 @@ export default {
                 r:25,
             },
             style:{
-                fill:'#001f3c',
-                stroke:"#001f3c",
+                fill: this.themeColors[this.theme].fillColor2,
+                stroke: this.themeColors[this.theme].fillColor1,
                 // height:60
             },
             z:1
@@ -239,7 +247,7 @@ export default {
                 r0: 29
             },
             style:{
-                fill:'#097090',
+                fill:this.themeColors[this.theme].fillColor2,
             },
             z:2
           },{
@@ -251,7 +259,6 @@ export default {
                 text:'标题\n名称',
                 textAlign:'center',
                 fill:'#fff',
-                stroke:"#3c95fb",
                 width:25,
                 fontSize:14,
                 // height:60

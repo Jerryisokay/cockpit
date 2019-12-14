@@ -3,11 +3,24 @@
 </template>
 
 <script>
+import store from '@/store'
+
 export default {
   name: "singlepiechart",
   data() {
     return {
-      chart: ""
+      themeColors:{
+        dark: {
+          textColor: '#dce2f2',
+          shadowColor1: 'rgba(0, 0, 0, 0.2)',
+          fillColor1:'#282a36'
+        },
+        light: {
+          textColor: '#333333',
+          shadowColor1: '#77022e',
+          fillColor1: '#ffffff',
+        }
+      }
     };
   },
   props: {
@@ -56,7 +69,10 @@ export default {
         })
       })
       return titles
-    }
+    },
+    theme(){  //当前主题
+      return store.state.base.THEME_TYPE
+    },
   },
   mounted(){
     // console.log(this.options)
@@ -73,12 +89,20 @@ export default {
           this.drawChart()
         },200)
      }
+    },
+    theme:{
+      immediate:true,
+      handler:function(){
+        setTimeout( () => {
+          this.myChart && this.myChart.clear()
+          this.drawChart()
+        },200)
+     }
     }
   },
   methods: {
     drawChart(){
       this.myChart = this.$echarts.init(this.$el)
-      let color = ["#19D672", "#FD517D"];
       let series = []
 
       if(Array.isArray(this.options.series) && this.options.series.length){
@@ -100,15 +124,16 @@ export default {
                     position: 'center',
                     formatter: '{d}',
                     fontSize: 16,
-                    verticalAlign: 'center'
+                    verticalAlign: 'center',
+                    color: this.themeColors[this.theme].textColor
                 },
             },
             itemStyle: {
               shadowBlur : 5,
-              // shadowColor: 'rgba(255,255,255,0.2)',
+              shadowColor: this.themeColors[this.theme].shadowColor1,
             },
             data: [
-              {value:100 - parseFloat(data.value), name:'', itemStyle:{ color:'#282a36'}},
+              {value:100 - parseFloat(data.value), name:'', itemStyle:{ color:this.themeColors[this.theme].fillColor1}},
               {value: data.value, name: data.name, selected:true, label: {show: true}}
             ],
             color: this.options.colors[index],
@@ -127,19 +152,22 @@ export default {
             x:'left',
             fontSize: 16,
             textStyle: {
-              color:'#dce2f2'
+              color: this.themeColors[this.theme].textColor
+            },
+            subtextStyle:{
+              color: this.themeColors[this.theme].textColor
             }
         },
-        color: ['#ffc03d','#01edd9','#3c95fb'],
+        // color: ['#ffc03d','#01edd9','#3c95fb'],
         textStyle: {
-          color:'#dce2f2'
+          color: this.themeColors[this.theme].textColor
         },
         legend: {
           x : 'center',
           y : 'bottom',
           data: this.titles,
           textStyle: {
-            color:'#dce2f2',
+            color: this.themeColors[this.theme].textColor,
             fontSize: 11
           }
         },

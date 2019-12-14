@@ -3,11 +3,26 @@
 </template>
 
 <script>
+import store from '@/store'
+
 export default {
   name: "gaugechart",
   data() {
     return {
-      chart: ""
+      themeColors:{
+        dark: {
+          textColor: '#dce2f2',
+          shadowColor1: 'rgba(255, 255, 255, 0.5)',
+          shadowColor2: '#2584e8',
+          borderColor:'#fff'
+        },
+        light: {
+          textColor: '#333333',
+          shadowColor1: 'rgba(255, 255, 255, 0.5)',
+          shadowColor2: '#77022e',
+          borderColor: '#77022e'
+        }
+      }
     };
   },
   props: {
@@ -19,7 +34,7 @@ export default {
       default(){
         return {
           name: '访问来源',
-          titles: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎'],
+          description: '速度表',
           data: [
               {value:100, name:'直接访问'},
               {value:220, name:'邮件营销'},
@@ -38,8 +53,22 @@ export default {
     })
 
   },
+  computed:{
+    theme(){
+      return store.state.base.THEME_TYPE
+    }
+  },
   watch:{
     options:{
+      immediate:true,
+      handler:function(){
+        setTimeout( () => {
+          this.myChart && this.myChart.clear()
+          this.drawChart()
+        },200)
+     }
+    },
+    theme:{
       immediate:true,
       handler:function(){
         setTimeout( () => {
@@ -52,27 +81,33 @@ export default {
   methods: {
     drawChart(){
       this.myChart = this.$echarts.init(this.$el)
-      let color = ["#19D672", "#FD517D"]
       this.myChart.setOption({
         title : {
             text: this.options.name,
             // subtext: '纯属虚构',
             x:'left',
             textStyle:{
-              color: '#ffffff',//'#76a5d9'
+              color: this.themeColors[this.theme].textColor
             },
         },
         tooltip : {
             formatter: "{a} <br/>{c} {b}"
         },
-        // toolbox: {
-        //     show : true,
-        //     feature : {
-        //         mark : {show: true},
-        //         restore : {show: true},
-        //         saveAsImage : {show: true}
-        //     }
-        // },
+        graphic:[
+          {
+            type:'text',  //副标题
+            right: 20,
+            top:10,
+            z:3,
+            style:{
+                text: this.options.description,
+                // textAlign:'center',
+                fill: this.themeColors[this.theme].textColor,
+                fontSize:12,
+                // height:60
+            }
+          }
+        ],
         series : [
             {
                 name:'速度',
@@ -85,15 +120,15 @@ export default {
                     lineStyle: {       // 属性lineStyle控制线条样式
                         color: [[0.09, 'lime'],[0.82, '#1e90ff'],[1, '#ff4500']],
                         width: 1,
-                        shadowColor : '#fff', //默认透明
+                        shadowColor : this.themeColors[this.theme].shadowColor, //默认透明
                         shadowBlur: 9,
                     }
                 },
                 axisLabel: {            // 坐标轴小标记
                     textStyle: {       // 属性lineStyle控制线条样式
                         // fontWeight: 'bolder',
-                        color: '#fff',
-                        shadowColor : '#fff', //默认透明
+                        color: this.themeColors[this.theme].textColor,
+                        shadowColor : this.themeColors[this.theme].shadowColor, //默认透明
                         shadowBlur: 10,
                         fontSize:9
                     }
@@ -102,7 +137,7 @@ export default {
                     length :15,        // 属性length控制线长
                     lineStyle: {       // 属性lineStyle控制线条样式
                         color: 'auto',
-                        shadowColor : '#fff', //默认透明
+                        shadowColor : this.themeColors[this.theme].shadowColor, //默认透明
                         shadowBlur: 10
                     }
                 },
@@ -110,13 +145,13 @@ export default {
                     length :25,         // 属性length控制线长
                     lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
                         width:3,
-                        color: '#fff',
-                        shadowColor : '#fff', //默认透明
+                        color: this.themeColors[this.theme].textColor,
+                        shadowColor : this.themeColors[this.theme].shadowColor, //默认透明
                         shadowBlur: 10
                     }
                 },
                 pointer: {           // 分隔线
-                    shadowColor : '#fff', //默认透明
+                    shadowColor : this.themeColors[this.theme].shadowColor, //默认透明
                     shadowBlur: 5
                 },
                 title : {
@@ -124,8 +159,8 @@ export default {
                         // fontWeight: 'bolder',
                         fontSize: 16,
                         fontStyle: 'italic',
-                        color: '#fff',
-                        shadowColor : '#fff', //默认透明
+                        color: this.themeColors[this.theme].textColor,
+                        shadowColor : this.themeColors[this.theme].shadowColor, //默认透明
                         shadowBlur: 10,
                     },
                     offsetCenter: [0, '-20%'],
@@ -139,7 +174,7 @@ export default {
                     offsetCenter: [0, '60%'],       // x, y，单位px
                     textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
                         // fontWeight: 'bolder',
-                        color: '#fff'
+                        color: this.themeColors[this.theme].textColor
                     }
                 },
                 data:[{value: 40, name: 'km/h'}]

@@ -5,14 +5,38 @@
 </template>
 
 <script>
+import store from '@/store'
+
 export default {
   name: 'barchart',
   data(){
     return {
       themeColors:{
         dark: {
-          textColor: 'dce2f2',
-          lineColor: 'rgba(0,0,0,0.2)'
+          textColor: '#dce2f2',
+          textColor2: '#cccccc',
+          emphasisColor: '#ffc911',
+          backgroundColor: '#264e94',
+          tooltipEmphasisColor: '#1eee10',
+          shadowColor1: 'rgba(255, 255, 255, 0.5)',
+          shadowColor2: '#2584e8',
+          fillColor1:'#83bff6',
+          fillColor2:'rgba(255,255,255,0.05)',
+          fillColor3:'rgba(255,255,255,0.1)',
+          lineColor:'rgba(255,255,255,0.2)'
+        },
+        light: {
+          textColor: '#333333',
+          textColor2: '#dce2f2',
+          emphasisColor: '#c6044d',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          tooltipEmphasisColor: '#ffffff',
+          shadowColor1: 'rgba(255, 255, 255, 0.5)',
+          shadowColor2: '#77022e',
+          fillColor1: '#77022e',
+          fillColor2: 'rgba(0,0,0,0.05)',
+          fillColor3: 'rgba(0,0,0,0.1)',
+          lineColor: '#dddddd'
         }
       }
     }
@@ -56,6 +80,9 @@ export default {
     //   })
     //   return arr
     // },
+    theme(){
+      return store.state.base.THEME_TYPE
+    },
     titles(){
       const titles = []
       this.options.series.map( v =>{
@@ -77,6 +104,15 @@ export default {
   },
   watch:{
     options:{
+      immediate:true,
+      handler:function(){
+        setTimeout( () => {
+          this.myChart && this.myChart.clear()
+          this.drawChart()
+        },200)
+     }
+    },
+    theme:{
       immediate:true,
       handler:function(){
         setTimeout( () => {
@@ -120,7 +156,7 @@ export default {
           show:true,
           interval:0,//使x轴横坐标全部显示
           textStyle: {//x轴字体样式
-            color: "#ffffff",
+            color: this.themeColors[this.theme].textColor,
             margin: 15,
             fontSize: 10
           },
@@ -136,15 +172,11 @@ export default {
       }
       let yAxisOptions = {
         type: 'value',
-        // nameTextStyle:{
-        //   fontSize: 10,
-        //   color: '#ffffff'
-        // },
         axisLabel:{
           show:true,
           textStyle:{
             fontSize: 10,
-            color: '#ffffff',//'#76a5d9'
+            color: this.themeColors[this.theme].textColor
           },
         },
         splitLine: {
@@ -152,7 +184,7 @@ export default {
           //  改变轴线颜色
           lineStyle: {
               // 使用深浅的间隔色
-            color: ['rgba(255,255,255,0.2)'],
+            color:  this.themeColors[this.theme].lineColor,
             type: 'dashed'
           }
         },
@@ -165,26 +197,22 @@ export default {
         bottom: 10,
         containLabel : true
       }
-      // console.log(this.options.direction)
+      console.log(this.options.style)
       this.myChart.setOption({
         title : {
             text: this.options.title,
             x:'left',
             textStyle:{
-              color: '#ffffff',//'#76a5d9'
+              color: this.themeColors[this.theme].textColor
             },
-            // subtext: '单位：人',
-            // subtextStyle :{
-            //   color: '#ffffff'
-            // }
         },
         tooltip : {
             trigger: 'axis',
-            formatter: '{b}: <span style="color:#12ee10">{c1}</span>',
-            backgroundColor: '#264e94',
+            formatter: '{b}: <span style="color:'+ this.themeColors[this.theme].tooltipEmphasisColor +'">{c1}</span>',  //1eee10
+            backgroundColor: this.themeColors[this.theme].backgroundColor,//'#264e94',
             padding: [0, 5],
             textStyle:{
-              color: '#cccccc',
+              color: this.themeColors[this.theme].textColor2,
               fontSize: 12,
             }
         },
@@ -198,9 +226,8 @@ export default {
             style:{
                 text: this.options.description,
                 // textAlign:'center',
-                fill:'#fff',
-                fontSize:12,
-                // height:60
+                fill: this.themeColors[this.theme].textColor,
+                fontSize:12
             }
           }
         ],
@@ -210,9 +237,9 @@ export default {
           { // For shadow
               type: 'bar',
               itemStyle: {
-                  normal: {color: 'rgba(255,255,255,0.05)'},
+                  normal: {color: this.themeColors[this.theme].fillColor2},
                   emphasis: {
-                    color: 'rgba(255,255,255,0.1)'
+                    color: this.themeColors[this.theme].fillColor3
                   }
               },
               barGap:'-100%',
@@ -226,24 +253,10 @@ export default {
               barWidth: 10,
               itemStyle: {
                 normal: {
-                    color: new this.$echarts.graphic.LinearGradient(
-                        0, 0, 0, 1,
-                        [
-                            {offset: 0, color: '#83bff6'},
-                            {offset: 0.5, color: '#188df0'},
-                            {offset: 1, color: '#188df0'}
-                        ]
-                    ),
+                    color: this.themeColors[this.theme].fillColor1,
                 },
                 emphasis: {
-                    color: new this.$echarts.graphic.LinearGradient(
-                        0, 0, 0, 1,
-                        [
-                            {offset: 0, color: '#ffc911'},
-                            {offset: 0.7, color: '#ffb902'},
-                            {offset: 1, color: '#ff9a00'}
-                        ]
-                    )
+                    color: this.themeColors[this.theme].emphasisColor,
                 }
               },
           }
