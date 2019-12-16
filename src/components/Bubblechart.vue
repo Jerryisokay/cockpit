@@ -40,7 +40,7 @@ export default {
       default(){
         return {
           title: '访问来源',
-          scatterData:[{
+          bubbleData:[{
             name:"系列1",
             data:[
               [90, 80, 200,'名称1'],
@@ -61,14 +61,14 @@ export default {
   computed:{
     titles(){
       const titles = []
-      Array.isArray(this.options.scatterData) && this.options.scatterData.map( v =>{
+      Array.isArray(this.options.bubbleData) && this.options.bubbleData.map( v =>{
         if(titles.indexOf(v.name) < 0) titles.push( v.name )
       })
       return titles
     },
     maxValue(){
       const values = []
-      Array.isArray(this.options.scatterData) && this.options.scatterData.map( v =>{
+      Array.isArray(this.options.bubbleData) && this.options.bubbleData.map( v =>{
         Array.isArray(v.data) && v.data.map( d => {
           values.push(d[2])
         })
@@ -107,7 +107,7 @@ export default {
       let data = []
 
       let series = []
-      Array.isArray(this.options.scatterData) && this.options.scatterData.map((item, index) => {
+      Array.isArray(this.options.bubbleData) && this.options.bubbleData.map((item, index) => {
         // let innerData = []
         // Array.isArray(item.data) && item.data.map( (v, i) => {
         //   innerData[i] = v.concat([item.name])

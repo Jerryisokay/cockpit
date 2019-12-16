@@ -167,7 +167,7 @@ export default {
             name: '',
             type: 'radar',
             symbol: 'circle', // 拐点的样式，还可以取值'rect','angle'等
-            symbolSize: 8, // 拐点的大小
+            symbolSize: 6, // 拐点的大小
             areaStyle: {
               normal: {
                 // color: 'rgba(0,0,0,0)'

@@ -117,25 +117,16 @@ export default {
           data: item.data,
           type: 'scatter',
           name: item.name,
-          color: new this.$echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
-                    offset: 0,
-                    color: '#fff'
-                }, {
-                    offset: 0.3,
-                    color: this.options.colors[index]
-                },{
-                    offset: 1,
-                    color: '#000'
-                }]),
-          symbolSize: function (data) {
-              return 20* data[2] / (_self.maxValue)
-          },
+          color: this.options.colors[index],
+          // symbolSize: function (data) {
+          //     return 20* data[2] / (_self.maxValue)
+          // },
           type: 'scatter',
           label: {
               emphasis: {
                   show: true,
                   formatter: function (param) {
-                      return param.data[3];
+                      return param.data[2];
                   },
                   textStyle: {
                     color: this.themeColors[this.theme].textColor,
@@ -145,9 +136,6 @@ export default {
           },
           itemStyle: {
               normal: {
-                  shadowBlur: 5,
-                  shadowColor: this.themeColors[this.theme].shadowColor1,
-                  shadowOffsetY: 5,
               }
           }
         })

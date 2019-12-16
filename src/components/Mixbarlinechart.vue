@@ -6,7 +6,7 @@
 import store from '@/store'
 
 export default {
-  name: "lineareachart",
+  name: "mixbarlinechart",
   data() {
     return {
      themeColors:{
