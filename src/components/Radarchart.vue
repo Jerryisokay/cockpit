@@ -122,9 +122,9 @@ export default {
             top : 25,
             formatter: (value) => {
                 var texts=value;
-                if(texts.length>6){ //限定字数
-                    texts=texts.substr(0,6)+'...';
-                }
+                // if(texts.length>6){ //限定字数
+                //     texts=texts.substr(0,6)+'...';
+                // }
                 return texts;
             },
             textStyle: {
@@ -164,18 +164,21 @@ export default {
         },
 
         series: [{
-            name: '预算 vs 开销（Budget vs spending）',
+            name: '',
             type: 'radar',
             symbol: 'circle', // 拐点的样式，还可以取值'rect','angle'等
             symbolSize: 8, // 拐点的大小
             areaStyle: {
               normal: {
-                color: this.themeColors[this.theme].backgroundColor
+                // color: 'rgba(0,0,0,0)'
+                opacity : 0,
               }
             },
             emphasis: {
               areaStyle: {
-                color: this.themeColors[this.theme].backgroundEmphasisColor
+                // color
+                opacity : 0.3,
+                // color: this.themeColors[this.theme].backgroundEmphasisColor
               }
             },
             data : this.data

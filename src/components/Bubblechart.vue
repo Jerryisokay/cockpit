@@ -6,7 +6,7 @@
 import store from '@/store'
 
 export default {
-  name: "scatterchart",
+  name: "bubblechart",
   data() {
     return {
       themeColors:{
@@ -153,7 +153,7 @@ export default {
         })
       })
 
-      // console.log(series)
+      console.log(series)
 
       this.myChart.setOption({
         title : {

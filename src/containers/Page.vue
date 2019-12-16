@@ -67,16 +67,20 @@ export default {
       list: [],
       leftMenu: [],
       rightMenu: [],
-      pageHeight :  document.documentElement.clientHeight
+      // pageHeight :  document.documentElement.clientHeight
     }
   },
   computed:{
     pageIndex(){
       return store.state.base.PAGE_INDEX
     },
+    pageHeight(){
+      return store.state.base.PAGE_HEIGHT
+    },
   },
   mounted(){
     window.onresize = () =>{
+      console.log(document.documentElement.clientHeight)
       this.pageHeight =  document.documentElement.clientHeight
     }
     this.initial()

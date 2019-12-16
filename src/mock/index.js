@@ -39,30 +39,25 @@ const charts = {
       description: '单位/人',
       type: 0,
       style: 0,
-      colors: ['#19D672', '#FD517D', '#76A5D9'],
+      colors: ['#ffbc38','#19D672', '#FD517D', '#76A5D9'],
       series: [
         {
           name: '答题成功率',
           data: [
             {
-              value: 60,
-              name: '答题成功率1',
-              max: 100
+                value:460,
+                name:'网站',
+                max:''
             },
             {
-              value: 70,
-              name: '答题成功率2',
-              max: 100
+                value:230,
+                name:'问卷调查',
+                max:''
             },
             {
-              value: 50,
-              name: '答题成功率3',
-              max: 100
-            },
-            {
-              value: 90,
-              name: '答题成功率4',
-              max: 100
+                value:310,
+                name:'微信公众号',
+                max:''
             }
           ]
         }

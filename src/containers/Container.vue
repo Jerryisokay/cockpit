@@ -41,7 +41,7 @@ export default {
   data(){
     return {
       status: 1,
-      pageHeight: document.documentElement.clientHeight,
+      // pageHeight: document.documentElement.clientHeight,
       dragData: {
         lng: null,
         lat: null,
@@ -86,7 +86,8 @@ export default {
   mounted(){
     //监听屏幕大小
     window.onresize = () =>{
-      this.pageHeight =  document.documentElement.clientHeight
+      // this.pageHeight =  document.documentElement.clientHeight
+      this.$store.dispatch('setPageHeightAction')
     }
   },
   computed : {
@@ -96,6 +97,9 @@ export default {
     theme(){
       return store.state.base.THEME_TYPE
     },
+    pageHeight(){
+      return store.state.base.PAGE_HEIGHT
+    }
   },
   methods: {
     dragMap (data) {

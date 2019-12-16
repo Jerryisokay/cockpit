@@ -23,6 +23,7 @@ const base = {
     ],
     NAV_DATA: [],
     PAGE_INDEX: 0,
+    PAGE_HEIGHT: document.documentElement.clientHeight
   },
   mutations: {
     SET_PAGE_INDEX: (state, { index }) => {
@@ -32,8 +33,11 @@ const base = {
       state.THEME_TYPE = theme
     },
     SET_NAV_DATA: (state, { data }) => {
-      console.log('set data')
+      // console.log('set data')
       state.NAV_DATA = data
+    },
+    SET_PAGE_HEIGHT: (state, { height }) => {
+      state.PAGE_HEIGHT = height
     }
   },
   actions: {
@@ -60,6 +64,11 @@ const base = {
     //  切换主题
     setThemeTypeAction: function({commit}, {theme}){
       commit('SET_THEME_TYPE', { theme })
+    },
+    //  页面高度变化时自适应
+    setPageHeightAction: function({commit}){
+      let height = document.documentElement.clientHeight
+      commit('SET_PAGE_HEIGHT', { height })
     }
   }
 }
