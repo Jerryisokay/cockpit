@@ -118,19 +118,23 @@ export default {
     drawChart(){
       this.myChart = this.$echarts.init(this.$el)
       let series = []
-      Array.isArray(this.options.series) && this.options.series.map( (item, index) => {
-        let data = []
-        Array.isArray(item.data) && item.data.map( v => {
-          data.push( v.value )
-        })
-        series.push(
-          {
-              data: data,
-              type: 'line',
-              name: item.name,
-              color: this.options.colors[index]
-          }
-        )
+      let arr = []
+      Array.isArray(this.options.series) && this.options.series.length && this.options.series.map( (item, index) => {
+        if(index < 2){
+          let data = []
+          Array.isArray(item.data) && item.data.map( v => {
+            data.push( v.value )
+          })
+          series.push(
+            {
+                data: data,
+                type: index == 0 ? 'line' : 'bar',
+                name: item.name,
+                barMaxWidth: 10,
+                color: this.options.colors[index]
+            }
+          )
+        }
       })
       console.log(series)
       this.myChart.setOption({
@@ -143,8 +147,10 @@ export default {
         },
         tooltip : {
             trigger: 'item',
-            formatter: '{a}: {c}({b})',
-            // padding: [0, 5],
+            formatter: '{a}: <br />{b}: <span style="color: '+ this.themeColors[this.theme].tooltipEmphasisColor +'">{c}</span>',
+            padding: [0, 5],
+            // position: 'inside',
+            backgroundColor: this.themeColors[this.theme].backgroundColor,
             textStyle:{
               color: this.themeColors[this.theme].textColor2,
               fontSize: 12,

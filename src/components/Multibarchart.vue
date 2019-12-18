@@ -92,15 +92,15 @@ export default {
       })
       return titles
     },
-    values(){
-      var values = [];
-      Array.isArray(this.options.series) && this.options.series.map( item => {
-        Array.isArray(item.data) && item.data.map( v => {
-          values.push(v.value)
-        })
-      })
-      return values
-    }
+    // values(){
+    //   var values = [];
+    //   Array.isArray(this.options.series) && this.options.series.map( item => {
+    //     Array.isArray(item.data) && item.data.map( v => {
+    //       values.push(v.value)
+    //     })
+    //   })
+    //   return values
+    // }
   },
   watch:{
     options:{
@@ -126,18 +126,9 @@ export default {
     this.drawChart()
   },
   methods:{
-    getDataMax( num ){
-      let divider = Math.pow( 10, num.toString().length - 1)
-      return Math.ceil(num/ divider ) * divider
-    },
     drawChart(){
       this.myChart = this.$echarts.init(this.$el)
-      let color = ["#19D672", "#FD517D"]
-      let dataShadow = []
-      var max = this.getDataMax(Math.max(...this.values))
-      this.values.map( ( v ) =>{
-        dataShadow.push( max )
-      })
+      // let color = ["#19D672", "#FD517D"]
 
       let xAxisOptions = {
         type: 'category',
@@ -194,10 +185,33 @@ export default {
         left: 10,
         right: 20,
         top: 40,
-        bottom: 10,
+        bottom: 20,
         containLabel : true
       }
-      console.log(this.options.style)
+      // console.log(this.options.style)
+      let series = []
+      Array.isArray(this.options.series) && this.options.series.map( (item, index) => {
+        let values = []
+        Array.isArray(item.data) && item.data.map( v => {
+          values.push(v.value)
+        })
+
+        series.push({
+          data: values,
+          type: 'bar',
+          name: item.name,
+          barMaxWidth: 10,
+          itemStyle: {
+            normal: {
+                color: this.options.colors[index],
+            },
+            emphasis: {
+                color: this.themeColors[this.theme].emphasisColor,
+            }
+          }
+        })
+      })
+
       this.myChart.setOption({
         title : {
             text: this.options.title,
@@ -207,8 +221,8 @@ export default {
             },
         },
         tooltip : {
-            trigger: 'axis',
-            formatter: '{b}: <span style="color:'+ this.themeColors[this.theme].tooltipEmphasisColor +'">{c1}</span>',  //1eee10
+            trigger: 'item',
+            formatter: '{a}<br />{b}: <span style="color:'+ this.themeColors[this.theme].tooltipEmphasisColor +'">{c}</span>',  //1eee10
             backgroundColor: this.themeColors[this.theme].backgroundColor,//'#264e94',
             padding: [0, 5],
             textStyle:{
@@ -219,9 +233,9 @@ export default {
         grid: gridOptions,
         graphic:[
           {
-            type:'text',  //中心文字
-            right: 20,
-            top:10,
+            type:'text',  //副标题文字
+            left: 10,
+            bottom:0,
             z:3,
             style:{
                 text: this.options.description,
@@ -231,36 +245,9 @@ export default {
             }
           }
         ],
-        xAxis: this.options.style == 0 ? xAxisOptions : yAxisOptions,
-        yAxis: this.options.style == 0 ? yAxisOptions : xAxisOptions,
-        series: [
-          { // For shadow
-              type: 'bar',
-              itemStyle: {
-                  normal: {color: this.themeColors[this.theme].fillColor2},
-                  emphasis: {
-                    color: this.themeColors[this.theme].fillColor3
-                  }
-              },
-              barGap:'-100%',
-              barWidth: 10,
-              data: dataShadow,
-              animation: false,
-          },
-          {
-              data: this.values,
-              type: 'bar',
-              barWidth: 10,
-              itemStyle: {
-                normal: {
-                    color: this.themeColors[this.theme].fillColor1,
-                },
-                emphasis: {
-                    color: this.themeColors[this.theme].emphasisColor,
-                }
-              },
-          }
-        ]
+        xAxis: this.options.type == 5 ? xAxisOptions : yAxisOptions,
+        yAxis: this.options.type == 5 ? yAxisOptions : xAxisOptions,
+        series: series
       });
     }
   }

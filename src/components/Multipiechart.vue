@@ -13,12 +13,16 @@ export default {
         dark: {
           textColor: '#dce2f2',
           shadowColor1: 'rgba(0, 0, 0, 0.2)',
-          fillColor1:'#282a36'
+          fillColor1:'#282a36',
+          backgroundColor: '#264e94',
+          borderColor: '#282a36',
         },
         light: {
           textColor: '#333333',
           shadowColor1: '#77022e',
           fillColor1: '#ffffff',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          borderColor: '#ffffff',
         }
       }
     };
@@ -64,9 +68,7 @@ export default {
     titles(){
       const titles = []
       this.options.series.map( v =>{
-        v.data.map( d => {
-          if(titles.indexOf(d.name) < 0) titles.push( d.name )
-        })
+        if(titles.indexOf(v.name) < 0) titles.push( v.name )
       })
       return titles
     },
@@ -108,35 +110,31 @@ export default {
       if(Array.isArray(this.options.series) && this.options.series.length){
         let divider = parseInt(100 / (this.options.series.length + 1))
         this.options.series.map( (item, index)=> {
-          let data = item.data[0] || {}
           series.push({
             name: item.name,
             type:'pie',
-            radius: [25, 33],
+            radius: [0, 33],
             center : [divider + divider * index +'%', '50%'],
             avoidLabelOverlap: false,
             selectedMode: 'single',
             selectedOffset: 0,
-            hoverAnimation: false,
             label: {
                 normal: {
                     show: false,
-                    position: 'center',
-                    formatter: '{d}',
-                    fontSize: 16,
-                    verticalAlign: 'center',
-                    color: this.themeColors[this.theme].textColor
+                    position: 'outside',
+                    formatter: '{b}:{d}',
+                    fontSize: 8,
+                    // verticalAlign: 'center',
+                    color: this.themeColors[this.theme].textColor,
                 },
             },
             itemStyle: {
+              borderWidth : 1,
+              borderColor : this.themeColors[this.theme].borderColor,
               shadowBlur : 5,
               shadowColor: this.themeColors[this.theme].shadowColor1,
             },
-            data: [
-              {value:100 - parseFloat(data.value), name:'', itemStyle:{ color:this.themeColors[this.theme].fillColor1}},
-              {value: data.value, name: data.name, selected:true, label: {show: true}}
-            ],
-            color: this.options.colors[index],
+            data: item.data,
           })
         })
       }
@@ -158,7 +156,7 @@ export default {
               color: this.themeColors[this.theme].textColor
             }
         },
-        // color: ['#ffc03d','#01edd9','#3c95fb'],
+        color: this.options.colors,
         textStyle: {
           color: this.themeColors[this.theme].textColor
         },
@@ -171,16 +169,16 @@ export default {
             fontSize: 11
           }
         },
-        // tooltip: {
-        //     trigger: 'item',
-        //     confine: true,
-        //     formatter: "{b}: <br />{d}%",
-        //     backgroundColor: '#264e94',
-        //     padding: [0, 5],
-        //     textStyle:{
-        //       fontSize: 12
-        //     }
-        // },
+        tooltip: {
+            trigger: 'item',
+            confine: true,
+            formatter: "{b}: {c}<br />{d}%",
+            backgroundColor: this.themeColors[this.theme].backgroundColor,
+            padding: [0, 5],
+            textStyle:{
+              fontSize: 12
+            }
+        },
         series: series
       });
     }

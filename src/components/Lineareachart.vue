@@ -117,22 +117,13 @@ export default {
   methods: {
     drawChart(){
       this.myChart = this.$echarts.init(this.$el)
-      let series = []
-      Array.isArray(this.options.series) && this.options.series.map( (item, index) => {
-        let data = []
-        Array.isArray(item.data) && item.data.map( v => {
-          data.push( v.value )
-        })
-        series.push(
-          {
-              data: data,
-              type: 'line',
-              name: item.name,
-              color: this.options.colors[index]
-          }
-        )
+      let data = []
+
+      Array.isArray(this.options.series) && this.options.series.length &&
+       Array.isArray(this.options.series[0].data) && this.options.series[0].data.map( v => {
+        data.push( v.value )
       })
-      console.log(series)
+      console.log(data)
       this.myChart.setOption({
         title : {
             text: this.options.title,
@@ -142,9 +133,10 @@ export default {
             },
         },
         tooltip : {
-            trigger: 'item',
-            formatter: '{a}: {c}({b})',
-            // padding: [0, 5],
+            trigger: 'axis',
+            formatter: '{a}: <br />{b}: <span style="color: '+ this.themeColors[this.theme].tooltipEmphasisColor +'">{c}</span>',
+            padding: [0, 5],
+            backgroundColor : this.themeColors[this.theme].backgroundColor,
             textStyle:{
               color: this.themeColors[this.theme].textColor2,
               fontSize: 12,
@@ -152,16 +144,15 @@ export default {
         },
         graphic:[
           {
-            type:'text',  //中心文字
-            right: 20,
-            top:10,
+            type:'text',  //副标题文字
+            left: 10,
+            bottom: 0,
             z:3,
             style:{
                 text: this.options.description,
                 // textAlign:'center',
                 fill: this.themeColors[this.theme].textColor,
                 fontSize:12,
-                // height:60
             }
           }
         ],
@@ -169,12 +160,13 @@ export default {
           left: 10,
           right: 20,
           top: 40,
-          bottom: 10,
+          bottom: 20,
           containLabel : true
         },
         xAxis: {
             type: 'category',
             data: this.titles,
+            boundaryGap: false,
             axisLabel:{
               show:true,
               textStyle:{
@@ -185,6 +177,7 @@ export default {
         },
         yAxis: {
             type: 'value',
+            boundaryGap: [0, '100%'],
             splitLine: {
               //  改变轴线颜色
               lineStyle: {
@@ -200,16 +193,52 @@ export default {
                 fontSize: 10,
                 color: this.themeColors[this.theme].textColor,//'#76a5d9'
               },
-              formatter: (value) => {
-                  var texts=value;
-                  if(texts.length>3){ // 字数限制
-                      texts=texts.substr(0,3)+'...';
-                  }
-                  return texts;
-              },
+              // formatter: (value) => {
+              //     var texts=value;
+              //     if(texts.length>3){ // 字数限制
+              //         texts=texts.substr(0,3)+'...';
+              //     }
+              //     return texts;
+              // },
             },
         },
-        series: series
+        // dataZoom: [{
+        //     type: 'inside',
+        //     start: 0,
+        //     end: 10
+        // }, {
+        //     start: 0,
+        //     end: 10,
+        //     handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+        //     handleSize: '100%',
+        //     handleStyle: {
+        //         color: '#fff',
+        //         shadowBlur: 3,
+        //         shadowColor: 'rgba(0, 0, 0, 0.6)',
+        //         shadowOffsetX: 2,
+        //         shadowOffsetY: 2
+        //     }
+        // }],
+        series: [{
+            name:'模拟数据',
+            type:'line',
+            smooth:true,
+            symbol: 'none',
+            sampling: 'average',
+            itemStyle: {
+                color: 'rgb(255, 70, 131)'
+            },
+            areaStyle: {
+                color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    offset: 0,
+                    color: 'rgb(255, 158, 68)'
+                }, {
+                    offset: 1,
+                    color: 'rgb(255, 70, 131)'
+                }])
+            },
+            data: data
+        }]
       });
     }
   }

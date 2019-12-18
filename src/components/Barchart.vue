@@ -20,7 +20,7 @@ export default {
           tooltipEmphasisColor: '#1eee10',
           shadowColor1: 'rgba(255, 255, 255, 0.5)',
           shadowColor2: '#2584e8',
-          fillColor1:'#83bff6',
+          fillColor1:'#2584e8',
           fillColor2:'rgba(255,255,255,0.05)',
           fillColor3:'rgba(255,255,255,0.1)',
           lineColor:'rgba(255,255,255,0.2)'
@@ -43,14 +43,13 @@ export default {
   },
   props:{
     id: { type: String, default: new Date().getTime() },
-    direction: { type: String, default: '0' },
     options:{
       type:Object,
       default(){
         return {
           title: '访问来源',
           description :'单位/人',
-          type: 1,
+          type: 3,
           style: 0,
           colors:['#19D672','#FD517D','#76A5D9'],
           series: [
@@ -194,7 +193,7 @@ export default {
         left: 10,
         right: 20,
         top: 40,
-        bottom: 10,
+        bottom: 20,
         containLabel : true
       }
       console.log(this.options.style)
@@ -219,9 +218,9 @@ export default {
         grid: gridOptions,
         graphic:[
           {
-            type:'text',  //中心文字
-            right: 20,
-            top:10,
+            type:'text',  //副标题文字
+            left: 10,
+            bottom:0,
             z:3,
             style:{
                 text: this.options.description,
@@ -231,8 +230,8 @@ export default {
             }
           }
         ],
-        xAxis: this.options.style == 0 ? xAxisOptions : yAxisOptions,
-        yAxis: this.options.style == 0 ? yAxisOptions : xAxisOptions,
+        xAxis: this.options.type == 3 ? xAxisOptions : yAxisOptions,
+        yAxis: this.options.type == 3 ? yAxisOptions : xAxisOptions,
         series: [
           { // For shadow
               type: 'bar',
@@ -243,17 +242,24 @@ export default {
                   }
               },
               barGap:'-100%',
-              barWidth: 10,
+              barMaxWidth : 10,
               data: dataShadow,
               animation: false,
           },
           {
               data: this.values,
               type: 'bar',
-              barWidth: 10,
+              barMaxWidth : 10,
               itemStyle: {
                 normal: {
-                    color: this.themeColors[this.theme].fillColor1,
+                    color: this.options.colors[0]
+                    // new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    //     offset: 0,
+                    //     color: this.options.colors[0]
+                    // }, {
+                    //     offset: 1,
+                    //     color: this.themeColors[this.theme].fillColor1
+                    // }]),
                 },
                 emphasis: {
                     color: this.themeColors[this.theme].emphasisColor,

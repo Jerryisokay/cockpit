@@ -12,12 +12,14 @@ export default {
       themeColors:{
         dark: {
           textColor: '#dce2f2',
+          backgroundColor: '#264e94',
           shadowColor1: 'rgba(255, 255, 255, 0.5)',
           shadowColor2: '#2584e8',
           borderColor:'#fff'
         },
         light: {
           textColor: '#333333',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
           shadowColor1: 'rgba(255, 255, 255, 0.5)',
           shadowColor2: '#77022e',
           borderColor: '#77022e'
@@ -111,7 +113,7 @@ export default {
             trigger: 'item',
             confine: true,
             formatter: "{b}: <br />{c} ({d}%)",
-            // backgroundColor: '#264e94',
+            backgroundColor: this.themeColors[this.theme].backgroundColor,
             // padding: [0, 5],
             textStyle:{
               fontSize: 12

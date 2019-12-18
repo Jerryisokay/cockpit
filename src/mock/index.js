@@ -39,7 +39,7 @@ const menus = [
  3 单系列横向柱形图,
 4  单系列纵向柱形图,
 5 多系列横向柱形图,
-6 多系列横向柱形图,
+6 多系列纵向柱形图,
 7 折线图, 8 数据面积图,
  9 柱形折线混合图,
  10 雷达图,
@@ -170,19 +170,31 @@ const charts = {
               value: 80,
               name: '空气检测达标',
               max: 100
-            },
+            }
+          ]
+        },
+        {
+          name: '完成率',
+          id: '',
+          data: [
             {
               value: 75,
               name: '污水治理达标',
               max: 100
             },
+          ]
+        },
+        {
+          name: '完成率',
+          id: '',
+          data: [
             {
               value: 60,
               name: '固废治理达标',
               max: 100
             }
           ]
-        }
+        },
       ],
       treeData: null,
       sunburstData: null,
@@ -334,11 +346,11 @@ const charts = {
       order: 0,
       size: 0,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
-      type: 5,
+      type: 6,
       multiple: 1,
       series: [
         {
-          name: '一月份销售数据',
+          name: '一月份利润数据',
           id: '',
           data: [
             {
@@ -347,7 +359,7 @@ const charts = {
               max: ''
             },
             {
-              value: 230,
+              value: -230,
               name: '线下',
               max: ''
             },
@@ -372,7 +384,7 @@ const charts = {
               max: ''
             },
             {
-              value: 110,
+              value: -110,
               name: '京东',
               max: ''
             }
@@ -396,7 +408,7 @@ const charts = {
       multiple: 1,
       series: [
         {
-          name: '一月份销售数据',
+          name: '2019销售数据',
           id: '',
           data: [
             {
@@ -413,10 +425,25 @@ const charts = {
               value: 310,
               name: '第三周',
               max: ''
+            },
+            {
+              value: 360,
+              name: '第四周',
+              max: ''
+            },
+            {
+              value: 300,
+              name: '第五周',
+              max: ''
+            },
+            {
+              value: 110,
+              name: '第六周',
+              max: ''
             }
           ]
         }, {
-          name: '二月份销售数据',
+          name: '2020售数据',
           id: '',
           data: [
             {
@@ -432,6 +459,21 @@ const charts = {
             {
               value: 110,
               name: '第三周',
+              max: ''
+            },
+            {
+              value: 260,
+              name: '第四周',
+              max: ''
+            },
+            {
+              value: 400,
+              name: '第五周',
+              max: ''
+            },
+            {
+              value: 220,
+              name: '第六周',
               max: ''
             }
           ]
@@ -471,6 +513,56 @@ const charts = {
             },
             {
               value: 310,
+              name: '2019-01-03',
+              max: ''
+            },
+            {
+              value: 330,
+              name: '2019-01-04',
+              max: ''
+            },
+            {
+              value: 110,
+              name: '2019-01-05',
+              max: ''
+            },
+            {
+              value: 120,
+              name: '2019-01-06',
+              max: ''
+            },
+            {
+              value: 160,
+              name: '2019-01-07',
+              max: ''
+            },
+            {
+              value: 360,
+              name: '2019-01-08',
+              max: ''
+            },
+            {
+              value: 310,
+              name: '2019-01-09',
+              max: ''
+            },
+            {
+              value: 550,
+              name: '2019-01-10',
+              max: ''
+            },
+            {
+              value: 410,
+              name: '2019-01-11',
+              max: ''
+            },
+            {
+              value: 360,
+              name: '2019-01-12',
+              max: ''
+            },
+            {
+              value: 290,
               name: '2019-01-03',
               max: ''
             }
