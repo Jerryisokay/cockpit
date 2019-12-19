@@ -30,6 +30,16 @@ export default {
           fillColor1: '#77022e',
           fillColor2: '#c6044d',
           fillColor3: '#444',
+        },
+        blue: {
+          textColor: '#dce2f2',
+          emphasisColor: '#dce2f2',
+          backgroundColor: '#dce2f2',
+          shadowColor1: 'rgba(255, 255, 255, 0.5)',
+          shadowColor2: '#2584e8',
+          fillColor1:'#2584e8',
+          fillColor2:'#01162d',
+          fillColor3:'#040312',
         }
       }
     };

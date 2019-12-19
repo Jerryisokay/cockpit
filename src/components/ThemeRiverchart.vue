@@ -13,12 +13,20 @@ export default {
         dark: {
           textColor: '#dce2f2',
           shadowColor1: 'rgba(0, 0, 0, 0.2)',
+          backgroundColor: '#264e94',
           fillColor1:'#282a36'
         },
         light: {
           textColor: '#333333',
           shadowColor1: '#77022e',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
           fillColor1: '#ffffff',
+        },
+        blue: {
+          textColor: '#dce2f2',
+          shadowColor1: 'rgba(0, 0, 0, 0.2)',
+          backgroundColor: '#264e94',
+          fillColor1:'#282a36'
         }
       }
     };
@@ -137,6 +145,7 @@ export default {
                   type: 'solid'
               }
             },
+            backgroundColor: this.themeColors[this.theme].backgroundColor,
             position:  function (pos, params, dom, rect, size) {
                 // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。
                 var obj = {top: 60};

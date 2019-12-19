@@ -19,6 +19,11 @@ export default {
           textColor: '#333333',
           shadowColor1: '#77022e',
           fillColor1: '#ffffff',
+        },
+        blue: {
+          textColor: '#dce2f2',
+          shadowColor1: 'rgba(0, 0, 0, 0.2)',
+          fillColor1:'#282a36'
         }
       }
     };
@@ -104,9 +109,8 @@ export default {
     drawChart(){
       this.myChart = this.$echarts.init(this.$el)
       let series = []
-
+      let divider = parseInt(100 / (this.options.series.length + 1))
       if(Array.isArray(this.options.series) && this.options.series.length){
-        let divider = parseInt(100 / (this.options.series.length + 1))
         this.options.series.map( (item, index)=> {
           let data = item.data[0] || {}
           series.push({

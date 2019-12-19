@@ -37,6 +37,19 @@ export default {
           fillColor2: 'rgba(0,0,0,0.05)',
           fillColor3: 'rgba(0,0,0,0.1)',
           lineColor: '#dddddd'
+        },
+        blue: {
+          textColor: '#dce2f2',
+          textColor2: '#cccccc',
+          emphasisColor: '#ffc911',
+          backgroundColor: '#264e94',
+          tooltipEmphasisColor: '#1eee10',
+          shadowColor1: 'rgba(255, 255, 255, 0.5)',
+          shadowColor2: '#2584e8',
+          fillColor1:'#2584e8',
+          fillColor2:'rgba(255,255,255,0.05)',
+          fillColor3:'rgba(255,255,255,0.1)',
+          lineColor:'rgba(255,255,255,0.2)'
         }
       }
     }

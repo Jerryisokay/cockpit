@@ -3,7 +3,7 @@ import { rejects } from 'assert'
 
 const base = {
   state:{
-    THEME_TYPE: 'light',
+    THEME_TYPE: 'blue',
     THEMES: [
       {
         name: '默认皮肤',

@@ -15,11 +15,14 @@
     <div v-if="type == 2">
       <div class="aside-dialog-angle aside-dialog-angle-1"></div>
       <div class="aside-dialog-angle aside-dialog-angle-2"></div>
+      <div v-if="theme == 'blue'" class="aside-dialog-angle aside-dialog-angle-3"></div>
+      <div v-if="theme == 'blue'" class="aside-dialog-angle aside-dialog-angle-4"></div>
     </div>
   </div>
 </template>
 
 <script>
+import store from '@/store'
 export default {
   name: 'angleborder',
   data(){
@@ -35,6 +38,11 @@ export default {
     direction: {
       type: String,
       default: ''
+    }
+  },
+  computed:{
+    theme(){
+      return store.state.base.THEME_TYPE
     }
   }
 }

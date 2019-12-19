@@ -23,6 +23,13 @@ export default {
           fillColor1: '#ffffff',
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
           borderColor: '#ffffff',
+        },
+        blue: {
+          textColor: '#dce2f2',
+          shadowColor1: 'rgba(0, 0, 0, 0.2)',
+          fillColor1:'#282a36',
+          backgroundColor: '#264e94',
+          borderColor: '#282a36',
         }
       }
     };

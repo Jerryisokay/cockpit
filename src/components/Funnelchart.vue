@@ -23,6 +23,13 @@ export default {
           shadowColor1: 'rgba(255, 255, 255, 0.5)',
           shadowColor2: '#77022e',
           borderColor: '#77022e'
+        },
+        blue: {
+          textColor: '#dce2f2',
+          backgroundColor: '#264e94',
+          shadowColor1: 'rgba(255, 255, 255, 0.5)',
+          shadowColor2: '#2584e8',
+          borderColor:'#fff'
         }
       }
     };

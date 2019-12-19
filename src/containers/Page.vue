@@ -14,7 +14,7 @@
           <Mixbarlinechart v-if="v.type == 9" :options="v" :id="'line_1_' + i + '_' + pageIndex"></Mixbarlinechart>
           <Radarchart v-if="v.type == 10" :options="v" :id="'radar_1_' + i + '_' + pageIndex"></Radarchart>
           <Funnelchart v-if="v.type == 11" :options="v" :id="'funnel_1_' + i + '_' + pageIndex"></Funnelchart>
-          <Gaugechart v-if="v.type == 12" :id="'gauge_1_' + i + '_' + pageIndex"></Gaugechart>
+          <Gaugechart v-if="v.type == 12" :options="v" :id="'gauge_1_' + i + '_' + pageIndex"></Gaugechart>
           <Treechart v-if="v.type == 13" :options="v" :id="'treechart_1_' + i + '_' + pageIndex"></Treechart>
           <Treemapchart v-if="v.type == 14" :options="v" :id="'treechartmap_1_' + i + '_' + pageIndex"></Treemapchart>
           <Sunburstchart v-if="v.type == 15" :options="v" :id="'sunburst_1_' + i + '_' + pageIndex"></Sunburstchart>
@@ -40,7 +40,7 @@
           <Mixbarlinechart v-if="v.type == 9" :options="v" :id="'line_2_' + i + '_' + pageIndex"></Mixbarlinechart>
           <Radarchart v-if="v.type == 10" :options="v" :id="'radar_2_' + i + '_' + pageIndex"></Radarchart>
           <Funnelchart v-if="v.type == 11" :options="v" :id="'funnel_2_' + i + '_' + pageIndex"></Funnelchart>
-          <Gaugechart v-if="v.type == 12" :id="'gauge_2_' + i + '_' + pageIndex"></Gaugechart>
+          <Gaugechart v-if="v.type == 12" :options="v" :id="'gauge_2_' + i + '_' + pageIndex"></Gaugechart>
           <Treechart v-if="v.type == 13" :options="v" :id="'treechart_2_' + i + '_' + pageIndex"></Treechart>
           <Treemapchart v-if="v.type == 14" :options="v" :id="'treechartmap_2_' + i + '_' + pageIndex"></Treemapchart>
           <Sunburstchart v-if="v.type == 15" :options="v" :id="'sunburst_2_' + i + '_' + pageIndex"></Sunburstchart>

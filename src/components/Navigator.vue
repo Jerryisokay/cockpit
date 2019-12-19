@@ -1,7 +1,8 @@
 <template>
   <div class="nav">
     <div class="nav-title">蓝色科技管理指挥平台</div>
-    <div class="nav-menu nav-menu-left">
+    <!-- light dark 主题, 菜单分两部分 -->
+    <div class="nav-menu nav-menu-left" v-if="theme != 'blue'">
       <div class="nav-menu-inner">
         <Angleborder type="0" direction="left"></Angleborder>
         <div @click="navClickFun(v, i)" class="nav-item" v-for="(v,i) in leftMenu" :key="i" :class="{'active': pageIndex === i,'left-angle': i === 2}">
@@ -9,11 +10,20 @@
         </div>
       </div>
     </div>
-    <div class="nav-menu nav-menu-right">
+    <div class="nav-menu nav-menu-right" v-if="theme != 'blue'">
       <div class="nav-menu-inner">
         <Angleborder type="0" direction="right"></Angleborder>
         <div @click="navClickFun(v, i + 3)" class="nav-item" v-for="(v,i) in rightMenu" :key="i" :class="{'active': pageIndex === i + 3,'right-angle': i === 0}">
           <span :class="{'nav-border-rt': hasBorder(i,'right')}">{{v.name}}</span>
+        </div>
+      </div>
+    </div>
+    <!-- blue 主题, 菜单合并 -->
+    <div class="nav-menu-long" v-if="theme == 'blue'">
+      <div class="nav-menu-inner">
+        <!-- <Angleborder type="0" direction="right"></Angleborder> -->
+        <div @click="navClickFun(v, i)" class="nav-item" v-for="(v,i) in menuData" :key="i" :class="{'active': pageIndex === i}">
+          <span :class="{'nav-border-lf': i != 0}">{{v.name}}</span>
         </div>
       </div>
     </div>
@@ -55,6 +65,9 @@ export default {
     },
     themes(){
       return store.state.base.THEMES
+    },
+    theme(){
+      return store.state.base.THEME_TYPE
     },
   },
   mounted(){

@@ -713,7 +713,7 @@ const charts = {
       title: '仪表盘示例',
       description: '仪表盘数据展示',
       order: 0,
-      size: 0,
+      size: 1,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 12,
       multiple: 1,

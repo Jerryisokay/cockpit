@@ -51,6 +51,9 @@ div::-webkit-scrollbar-corner{
 .light .container{
   background: #ffffff;
 }
+.blue .container{
+  background: #06182e;
+}
 
 .nav{
   height: 90px;
@@ -82,6 +85,10 @@ div::-webkit-scrollbar-corner{
 .light .theme-select-btn{
   color: #c6044d;
 }
+.blue .theme-select-btn{
+  color: #ffffff;
+  top: 15px;
+}
 
 .theme-select-menu{
   position: absolute;
@@ -94,6 +101,10 @@ div::-webkit-scrollbar-corner{
   z-index: 999;
   color: #dce2f2;
 }
+.blue .theme-select-menu{
+  top: 45px;
+}
+
 .theme-select-item{
   line-height: 40px;
   cursor: pointer;
@@ -106,7 +117,16 @@ div::-webkit-scrollbar-corner{
   position: absolute;
   top: 43px;
 }
-.nav-menu-inner{
+
+.nav-menu-long{
+  margin-left: 300px;
+  margin-right: 110px;
+  background: url(../images/bgd-nav-2.png) bottom no-repeat;
+  background-size: auto 40px;
+  padding-bottom: 20px;
+}
+
+.dark .nav-menu-inner, .light .nav-menu-inner{
   width: 100%;
   height: 100%;
   position: relative;
@@ -115,6 +135,14 @@ div::-webkit-scrollbar-corner{
   background-repeat: no-repeat;
   padding: 1px 0;
 }
+.blue .nav-menu-inner{
+  margin-left: 10%;
+  margin-right: 10%;
+  overflow: hidden;
+  color: #ffffff;
+  text-align: center;
+}
+
 .dark .nav-menu-inner{
   color: #dce2f2;
 }
@@ -123,16 +151,27 @@ div::-webkit-scrollbar-corner{
 }
 
 .nav-title{
-  padding: 15px;
   text-align: center;
-  font-size: 32px;
   font-weight: bold;
 }
 .dark .nav-title{
+  padding: 15px;
+  font-size: 32px;
   color: #dce2f2;
 }
 .light .nav-title{
+  padding: 15px;
+  font-size: 32px;
   color: #c6044d;
+}
+.blue .nav-title{
+  position: absolute;
+  left: 0;
+  top: 20px;
+  line-height: 50px;
+  font-size: 27px;
+  width: 300px;
+  color: #1bddd3;
 }
 
 .nav-menu-left{
@@ -142,7 +181,7 @@ div::-webkit-scrollbar-corner{
   right: 1.25%;
 }
 
-.nav-item{
+.dark .nav-item, .light .nav-item{
   float: left;
   width: 30%;
   line-height: 22px;
@@ -151,12 +190,24 @@ div::-webkit-scrollbar-corner{
   /* display: inline-block; */
   padding: 10px 0;
 }
+.blue .nav-item{
+  float: left;
+  width: 16.66%;
+  /* display: inline-block; */
+  padding: 20px 0px 25px 0px;
+  line-height: 20px;
+}
+
 .dark .nav-item span.nav-border-rt{
   border-right: 1px solid #16d2c3;
   display: block;
 }
 .light .nav-item span.nav-border-rt{
   border-right: 1px solid #d75083;
+  display: block;
+}
+.blue .nav-item span.nav-border-lf{
+  border-left: 1px solid #1ff1e5;
   display: block;
 }
 
@@ -169,7 +220,10 @@ div::-webkit-scrollbar-corner{
   font-weight: bold;
   background: #77022e;
 }
-
+.blue .nav-item.active{
+  color: #1ff1e5;
+  font-weight: bold;
+}
 
 .nav-item.left-angle, .nav-item.right-angle{
   width: 40%;
@@ -247,15 +301,19 @@ div::-webkit-scrollbar-corner{
 }
 .aside-dialog-inner{
   height: 220px;
-  border-radius: 0px 16px 0 16px;
   box-shadow: inset 0px 0px 20px 5px rgba(255,255,255,.2);
   padding: 10px;
 }
 .dark .aside-dialog-inner{
+  border-radius: 0px 16px 0 16px;
   border: 1px solid #2469a2;
 }
 .light .aside-dialog-inner{
   border: 1px solid #c6044d;
+  border-radius: 0px 16px 0 16px;
+}
+.blue .aside-dialog-inner{
+  border: 1px solid #3aaafe;
 }
 
 /*********** angles ****************/
@@ -274,6 +332,9 @@ div::-webkit-scrollbar-corner{
 .light .nav-angle-common{
   border-color: #c6044d;
 }
+.blue .nav-angle-common{
+  border-color: #1cd1d4;
+}
 
 
 .nav-angle-1{
@@ -288,6 +349,10 @@ div::-webkit-scrollbar-corner{
   border-left: 2px solid #c6044d;
   border-top: 2px solid #c6044d;
 }
+.blue .nav-angle-1{
+  border-left: 2px solid #1cd1d4;
+  border-top: 2px solid #1cd1d4;
+}
 
 .nav-angle-2{
   right: 0px;
@@ -300,6 +365,10 @@ div::-webkit-scrollbar-corner{
 .light .nav-angle-2{
   border-right: 2px solid #c6044d;
   border-top: 2px solid #c6044d;
+}
+.blue .nav-angle-2{
+  border-right: 2px solid #1cd1d4;
+  border-top: 2px solid #1cd1d4;
 }
 
 .nav-angle-3{
@@ -314,6 +383,10 @@ div::-webkit-scrollbar-corner{
   border-left: 2px solid #c6044d;
   border-bottom: 2px solid #c6044d;
 }
+.blue .nav-angle-3{
+  border-left: 2px solid #1cd1d4;
+  border-bottom: 2px solid #1cd1d4;
+}
 
 .nav-angle-4{
   right: 0px;
@@ -326,6 +399,10 @@ div::-webkit-scrollbar-corner{
 .light .nav-angle-4{
   border-right: 2px solid #c6044d;
   border-bottom: 2px solid #c6044d;
+}
+.blue .nav-angle-4{
+  border-right: 2px solid #1cd1d4;
+  border-bottom: 2px solid #1cd1d4;
 }
 
 .mid-container-angle{
@@ -346,6 +423,10 @@ div::-webkit-scrollbar-corner{
   border-left: 2px solid #c6044d;
   border-top: 2px solid #c6044d;
 }
+.blue .mid-container-angle-left-top{
+  border-left: 2px solid #1cd1d4;
+  border-top: 2px solid #1cd1d4;
+}
 
 .mid-container-angle-left-bottom{
   left: 10px;
@@ -359,6 +440,10 @@ div::-webkit-scrollbar-corner{
   border-left: 2px solid #c6044d;
   border-bottom: 2px solid #c6044d;
 }
+.blue .mid-container-angle-left-bottom{
+  border-left: 2px solid #1cd1d4;
+  border-bottom: 2px solid #1cd1d4;
+}
 
 .mid-container-angle-right-top{
   right: 10px;
@@ -371,6 +456,10 @@ div::-webkit-scrollbar-corner{
 .light .mid-container-angle-right-top{
   border-right: 2px solid #c6044d;
   border-top: 2px solid #c6044d;
+}
+.blue .mid-container-angle-right-top{
+  border-right: 2px solid #1cd1d4;
+  border-top: 2px solid #1cd1d4;
 }
 
 .mid-container-angle-right-bottom{
@@ -388,6 +477,12 @@ div::-webkit-scrollbar-corner{
   bottom: -8px;
   border-right: 2px solid #c6044d;
   border-bottom: 2px solid #c6044d;
+}
+.blue .mid-container-angle-right-bottom{
+  right: 10px;
+  bottom: -8px;
+  border-right: 2px solid #1cd1d4;
+  border-bottom: 2px solid #1cd1d4;
 }
 
 .aside-dialog-angle{
@@ -409,6 +504,10 @@ div::-webkit-scrollbar-corner{
   border-left: 2px solid #c6044d;
   border-top: 2px solid #c6044d;
 }
+.blue .aside-dialog-angle-1{
+  border-left: 2px solid #1cd1d4;
+  border-top: 2px solid #1cd1d4;
+}
 
 .aside-dialog-angle-2{
   right: 0px;
@@ -422,6 +521,24 @@ div::-webkit-scrollbar-corner{
   border-right: 2px solid #c6044d;
   border-bottom: 2px solid #c6044d;
 }
+.blue .aside-dialog-angle-2{
+  border-right: 2px solid #1cd1d4;
+  border-bottom: 2px solid #1cd1d4;
+}
+
+.blue .aside-dialog-angle-3{
+  left: 0;
+  bottom: 0;
+  border-left: 2px solid #1cd1d4;
+  border-bottom: 2px solid #1cd1d4;
+}
+.blue .aside-dialog-angle-4{
+  right: 0;
+  top: 0;
+  border-right: 2px solid #1cd1d4;
+  border-top: 2px solid #1cd1d4;
+}
+
 
 
 .map-inner{

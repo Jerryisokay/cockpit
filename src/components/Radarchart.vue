@@ -20,6 +20,12 @@ export default {
           shadowColor1: 'rgba(255, 255, 255, 0.5)',
           tooltipBackgroundColor: '#c6044d',
           backgroundEmphasisColor: '#77022e',
+        },
+        blue: {
+          textColor: '#dce2f2',
+          backgroundColor:'#ccc',
+          tooltipBackgroundColor: '#264e94',
+          backgroundEmphasisColor:'#333'
         }
       }
     };

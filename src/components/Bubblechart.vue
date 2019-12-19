@@ -27,6 +27,15 @@ export default {
           shadowColor1: 'rgba(0, 0, 0, 0.5)',
           shadowColor2: '#77022e',
           lineColor: '#dddddd'
+        },
+        blue: {
+          textColor: '#dce2f2',
+          textColor2: '#cccccc',
+          emphasisColor: '#ffc911',
+          backgroundColor: '#264e94',
+          shadowColor1: 'rgba(0, 0, 0, 0.5)',
+          shadowColor2: '#2584e8',
+          lineColor:'rgba(255,255,255,0.2)'
         }
       }
     };
@@ -166,8 +175,8 @@ export default {
         graphic:[
           {
             type:'text',  //副标题文字
-            right: 20,
-            top:10,
+            left: 10,
+            bottom: 0,
             z:3,
             style:{
                 text: this.options.description,
@@ -181,7 +190,7 @@ export default {
             // orient: 'horizontal',
             data: this.titles,
             x : 'center',
-            y : 'top',
+            y : 20,
             textStyle: {
               color: this.themeColors[this.theme].textColor,
               fontSize: 11
@@ -222,9 +231,9 @@ export default {
         },
         grid: {
           left: 10,
-          right: 20,
-          top: 40,
-          bottom: 10,
+          right: 10,
+          top: 45,
+          bottom: 20,
           containLabel : true
         },
         series: series
