@@ -89,6 +89,10 @@ export default {
     theme(){
       return store.state.base.THEME_TYPE
     },
+    colors(){
+      let colors = this.options.colors || []
+      return colors.concat(store.state.base.COLOR_REPOSITORY)
+    }
   },
   watch:{
     options:{
@@ -119,14 +123,13 @@ export default {
   methods: {
     drawChart(){
       this.myChart = this.$echarts.init(this.$el)
-      // let color = ["#19D672", "#FD517D"]
+
       let data = [], name = ''
       if(Array.isArray(this.options.series) && this.options.series.length && Array.isArray(this.options.series[0].data)){
         name = this.options.series[0].name
         data = this.options.series[0].data
       }
 
-      console.log(name)
       this.myChart.setOption({
         title : {
             text: this.options.title,
@@ -162,7 +165,7 @@ export default {
               fontSize: 11
             }
         },
-        color: this.options.colors,
+        color: this.colors,
         textStyle: {
           color: this.themeColors[this.theme].textColor
         },
@@ -194,7 +197,7 @@ export default {
                     smooth: 0.2
                 }
             },
-            color: this.options.colors || ['#ffc03d','#01edd9','#3c95fb'],
+            color: this.colors,
             // animationType: 'scale',
             animationEasing: 'elasticOut',
             data: data

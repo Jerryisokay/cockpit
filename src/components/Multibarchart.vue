@@ -105,6 +105,10 @@ export default {
       })
       return titles
     },
+    colors(){
+      let colors = this.options.colors || []
+      return colors.concat(store.state.base.COLOR_REPOSITORY)
+    },
     // values(){
     //   var values = [];
     //   Array.isArray(this.options.series) && this.options.series.map( item => {
@@ -141,7 +145,6 @@ export default {
   methods:{
     drawChart(){
       this.myChart = this.$echarts.init(this.$el)
-      // let color = ["#19D672", "#FD517D"]
 
       let xAxisOptions = {
         type: 'category',
@@ -216,7 +219,7 @@ export default {
           barMaxWidth: 10,
           itemStyle: {
             normal: {
-                color: this.options.colors[index],
+                color: this.colors[index],
             },
             emphasis: {
                 color: this.themeColors[this.theme].emphasisColor,

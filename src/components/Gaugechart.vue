@@ -66,13 +66,17 @@ export default {
     theme() {
       return store.state.base.THEME_TYPE;
     },
+    colors(){
+      let colors = this.options.colors || []
+      return colors.concat(store.state.base.COLOR_REPOSITORY)
+    },
     legendData(){
       let data = []
       this.options.series.map( (item, index) => {
         data.push({
           name: item.name,
           textStyle:{
-            color: this.options.colors[index]
+            color: this.colors[index]
           }
         })
       })
@@ -106,7 +110,6 @@ export default {
       let divider = parseInt(100 / (this.options.series.length * 2))
       Array.isArray(this.options.series) && this.options.series.length
         this.options.series.map((item, index) => {
-          // console.log(this.options.colors[ index ])
           Array.isArray(item.data) && item.data.length
           series.push({
             name: item.name,
@@ -125,7 +128,7 @@ export default {
             axisLine: {
               // 坐标轴线
               lineStyle: {
-                color: this.options.colors[ index ] ? [[1, this.options.colors[ index ]]] : [[1, this.themeColors[this.theme].borderColor]],
+                color: this.colors[ index ] ? [[1, this.colors[ index ]]] : [[1, this.themeColors[this.theme].borderColor]],
                 width: 5,
               }
             },
@@ -199,7 +202,7 @@ export default {
             }
           }
         ],
-        color: this.options.colors,
+        color: this.colors,
         series: series
       });
     },

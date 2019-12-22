@@ -71,6 +71,10 @@ export default {
   computed:{
     theme(){
       return store.state.base.THEME_TYPE
+    },
+    colors(){
+      let colors = this.options.colors || []
+      return colors.concat(store.state.base.COLOR_REPOSITORY)
     }
   },
   watch:{
@@ -132,7 +136,7 @@ export default {
         //     data: this.options.titles
         // },
         calculable: true,
-        color: this.options.colors,
+        color: this.colors,
         textStyle: {
           color: this.themeColors[this.theme].textColor
         },

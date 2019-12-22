@@ -77,6 +77,10 @@ export default {
     },
     theme(){
       return store.state.base.THEME_TYPE
+    },
+    colors(){
+      let colors = this.options.colors || []
+      return colors.concat(store.state.base.COLOR_REPOSITORY)
     }
   },
   mounted(){
@@ -189,7 +193,7 @@ export default {
             },
             data : this.data
         }],
-        color: this.options.colors,
+        color: this.colors,
       });
     }
   }

@@ -12,7 +12,7 @@ export default {
       themeColors:{
         dark: {
           textColor: '#dce2f2',
-          shadowColor1: 'rgba(0, 0, 0, 0.2)',
+          shadowColor1: '#dce2f2',
           fillColor1:'#282a36'
         },
         light: {
@@ -22,8 +22,8 @@ export default {
         },
         blue: {
           textColor: '#dce2f2',
-          shadowColor1: 'rgba(0, 0, 0, 0.2)',
-          fillColor1:'#282a36'
+          shadowColor1: '#dce2f2',
+          fillColor1:'#282a36',
         }
       }
     };
@@ -78,6 +78,10 @@ export default {
     theme(){  //当前主题
       return store.state.base.THEME_TYPE
     },
+    colors(){
+      let colors = this.options.colors || []
+      return colors.concat(store.state.base.COLOR_REPOSITORY)
+    },
   },
   mounted(){
     // console.log(this.options)
@@ -109,11 +113,11 @@ export default {
     drawChart(){
       this.myChart = this.$echarts.init(this.$el)
       let series = []
-      // let divider = parseInt(100 / (this.options.series.length + 1))
       let radius = this.getRadius(this.options.series.length, this.options.size)
       if(Array.isArray(this.options.series) && this.options.series.length){
         this.options.series.map( (item, index)=> {
           let data = item.data[0] || {}
+          let max = data.max || data.value
           series.push({
             name: item.name,
             type:'pie',
@@ -127,21 +131,23 @@ export default {
                 normal: {
                     show: false,
                     position: 'center',
-                    formatter: '{d}',
-                    fontSize: 14,
+                    formatter: '{d}%',
+                    fontSize: 12,
                     verticalAlign: 'center',
                     color: this.themeColors[this.theme].textColor
                 },
             },
             itemStyle: {
-              shadowBlur : 5,
+              // borderWidth: 1,
+              // borderColor: this.themeColors[this.theme].fillColor1,
+              shadowBlur : 2,
               shadowColor: this.themeColors[this.theme].shadowColor1,
             },
             data: [
-              {value:100 - parseFloat(data.value), name:'', itemStyle:{ color:this.themeColors[this.theme].fillColor1}},
+              {value: max - parseFloat(data.value), name:'', itemStyle:{ color:this.themeColors[this.theme].fillColor1}},
               {value: data.value, name: data.name, selected:true, label: {show: true}}
             ],
-            color: this.options.colors[index],
+            color: this.colors[index],
           })
         })
       }
@@ -193,7 +199,7 @@ export default {
       // console.log(length)
       let [colmuns, rows] = this.getColumns(length, size)
       let radius = size == 1 ? Math.min( 75/colmuns , 90/rows ) : Math.min( 75/colmuns , 40/rows )
-      return [radius * 0.8, radius]
+      return [radius * 0.75, radius]
     },
     getColumns(length, size){   //获取行列数
       if(length <= 3){

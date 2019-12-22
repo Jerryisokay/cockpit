@@ -104,6 +104,10 @@ export default {
       })
       return titles
     },
+    colors(){
+      let colors = this.options.colors || []
+      return colors.concat(store.state.base.COLOR_REPOSITORY)
+    },
     values(){
       var values = [];
       Array.isArray(this.options.series) && this.options.series.map( item => {
@@ -143,8 +147,9 @@ export default {
       return Math.ceil(num/ divider ) * divider
     },
     drawChart(){
+      // console.log(this.colors)
+
       this.myChart = this.$echarts.init(this.$el)
-      let color = ["#19D672", "#FD517D"]
       let dataShadow = []
       var max = this.getDataMax(Math.max(...this.values))
       this.values.map( ( v ) =>{
@@ -265,13 +270,13 @@ export default {
               barMaxWidth : 10,
               itemStyle: {
                 normal: {
-                    color: this.options.colors[0]
-                    // new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    color: this.colors[0]
+                    // color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                     //     offset: 0,
-                    //     color: this.options.colors[0]
+                    //     color: this.colors[0]
                     // }, {
                     //     offset: 1,
-                    //     color: this.themeColors[this.theme].fillColor1
+                    //     color: '#ffffff'
                     // }]),
                 },
                 emphasis: {

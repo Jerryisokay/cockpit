@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { BASE_API } from '@/config/config'
 
 const clearRequest = {
   source: {
@@ -11,6 +12,7 @@ const source = cancelToken.source()
 
 // 创建 axios 实例
 const service = axios.create({
+  // baseURL: BASE_API,
   cancelToken: source.token,
   timeout: 6000,  // 请求超时时间
 })

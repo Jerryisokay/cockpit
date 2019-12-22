@@ -101,6 +101,10 @@ export default {
     },
     theme(){
       return store.state.base.THEME_TYPE
+    },
+    colors(){
+      let colors = this.options.colors || []
+      return colors.concat(store.state.base.COLOR_REPOSITORY)
     }
   },
   mounted(){
@@ -235,19 +239,19 @@ export default {
         series: [{
             name:'模拟数据',
             type:'line',
-            smooth:true,
+            smooth: false,
             symbol: 'none',
             sampling: 'average',
             itemStyle: {
-                color: 'rgb(255, 70, 131)'
+                color: this.colors[0]
             },
             areaStyle: {
                 color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                     offset: 0,
-                    color: 'rgb(255, 158, 68)'
+                    color: this.colors[0]
                 }, {
                     offset: 1,
-                    color: 'rgb(255, 70, 131)'
+                    color: this.colors[1]
                 }])
             },
             data: data

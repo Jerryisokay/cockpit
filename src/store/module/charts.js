@@ -18,7 +18,11 @@ const base = {
           if(!res.data){
             reject('error')
           }
-          const data = res.data
+          if(!res.data.success){
+            reject('error')
+          }
+          const data = res.data.data
+          console.log(data)
           commit('SET_PAGE_DATA', {id, data})
           resolve(data)
         })

@@ -5,32 +5,39 @@ import scoreData from './score.js'
 
 
 
-const menus = [
-  {
-    name: '主页',
-    id: 'homepage',
-  },
-  {
-    name: '菜单1',
-    id: 'menu1',
-  },
-  {
-    name: '菜单2',
-    id: 'menu2',
-  },
-  {
-    name: '菜单3',
-    id: 'menu3',
-  },
-  {
-    name: '菜单4',
-    id: 'menu4',
-  },
-  {
-    name: '菜单5',
-    id: 'menu5',
-  },
-]
+const menus = {
+  "code": "1",
+  "data": [
+    {
+      menu: [
+        {
+          name: '主页',
+          id: 'homepage',
+        },
+        {
+          name: '菜单1',
+          id: 'menu1',
+        },
+        {
+          name: '菜单2',
+          id: 'menu2',
+        },
+        {
+          name: '菜单3',
+          id: 'menu3',
+        },
+        {
+          name: '菜单4',
+          id: 'menu4',
+        },
+        {
+          name: '菜单5',
+          id: 'menu5',
+        },
+      ]
+    }
+  ]
+}
 
 /*
 0 单系列饼图,
@@ -191,7 +198,7 @@ const charts = {
             {
               value: 60,
               name: '固废治理达标',
-              max: 100
+              max: 200
             }
           ]
         },
@@ -1149,7 +1156,12 @@ const output = {
   getChartsById: (data) => {
     let { body } = data
     let { id } = JSON.parse(body)
-    return charts[id] || []
+    let chart = charts[id] || []
+    return {
+      "code": "1",
+      "data": chart,
+      "success": true
+    }
   },
 }
 

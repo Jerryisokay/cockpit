@@ -86,6 +86,10 @@ export default {
     },
     theme(){
       return store.state.base.THEME_TYPE
+    },
+    colors(){
+      let colors = this.options.colors || []
+      return colors.concat(store.state.base.COLOR_REPOSITORY)
     }
   },
   watch:{
@@ -131,7 +135,7 @@ export default {
                     color: '#fff'
                 }, {
                     offset: 0.3,
-                    color: this.options.colors[index]
+                    color: this.colors[index]
                 },{
                     offset: 1,
                     color: '#000'

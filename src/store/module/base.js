@@ -21,6 +21,8 @@ const base = {
         color:'#0b4757',
       },
     ],
+    //默认颜色库
+    COLOR_REPOSITORY: ['#ffc343','#01f0d9','#3c95fb','#07fe1d','#eaab05','#f54806','#0fd187','#c6044d','#0a9ba6','#c6044d','#f36098','#55db87','#f36098','#e7cc72'],
     NAV_DATA: [],
     PAGE_INDEX: 0,
     REFRESH_INTERVAL: 100,
@@ -49,8 +51,12 @@ const base = {
           if(!res.data){
             reject('error')
           }
-          const data = res.data
-          commit('SET_NAV_DATA', { data: res.data})
+          if(!res.data.success){
+            reject('error')
+          }
+          const data = res.data.data[0] || {menu:[]}
+          console.log(data)
+          commit('SET_NAV_DATA', { data: data.menu})
           resolve(data)
         })
         .catch(err => {

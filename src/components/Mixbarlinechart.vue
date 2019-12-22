@@ -101,6 +101,10 @@ export default {
     },
     theme(){
       return store.state.base.THEME_TYPE
+    },
+    colors(){
+      let colors = this.options.colors || []
+      return colors.concat(store.state.base.COLOR_REPOSITORY)
     }
   },
   mounted(){
@@ -144,18 +148,18 @@ export default {
                 type: index == 0 ? 'line' : 'bar',
                 name: item.name,
                 barMaxWidth: 10,
-                color: this.options.colors[index]
+                color: this.colors[index]
             }
           )
         }
       })
-      console.log(series)
+      // console.log(series)
       this.myChart.setOption({
         title : {
             text: this.options.title,
             x:'left',
             textStyle:{
-              color: this.themeColors[this.theme].textColor,//'#76a5d9'
+              color: this.themeColors[this.theme].textColor,
             },
         },
         tooltip : {

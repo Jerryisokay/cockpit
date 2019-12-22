@@ -101,6 +101,10 @@ export default {
     },
     theme(){
       return store.state.base.THEME_TYPE
+    },
+    colors(){
+      let colors = this.options.colors || []
+      return colors.concat(store.state.base.COLOR_REPOSITORY)
     }
   },
   mounted(){
@@ -141,7 +145,7 @@ export default {
               data: data,
               type: 'line',
               name: item.name,
-              color: this.options.colors[index]
+              color: this.colors[index]
           }
         )
       })
@@ -160,14 +164,15 @@ export default {
             // padding: [0, 5],
             textStyle:{
               color: this.themeColors[this.theme].textColor2,
+              backgroundColor: this.themeColors[this.theme].backgroundColor,
               fontSize: 12,
             }
         },
         graphic:[
           {
             type:'text',  //中心文字
-            right: 20,
-            top:10,
+            left: 10,
+            bottom:0,
             z:3,
             style:{
                 text: this.options.description,
@@ -182,7 +187,7 @@ export default {
           left: 10,
           right: 20,
           top: 40,
-          bottom: 10,
+          bottom: 20,
           containLabel : true
         },
         xAxis: {

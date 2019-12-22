@@ -86,6 +86,10 @@ export default {
     },
     theme(){
       return store.state.base.THEME_TYPE
+    },
+    colors(){
+      let colors = this.options.colors || []
+      return colors.concat(store.state.base.COLOR_REPOSITORY)
     }
   },
   watch:{
@@ -126,7 +130,7 @@ export default {
           data: item.data,
           type: 'scatter',
           name: item.name,
-          color: this.options.colors[index],
+          color: this.colors[index],
           // symbolSize: function (data) {
           //     return 20* data[2] / (_self.maxValue)
           // },

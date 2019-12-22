@@ -12,7 +12,7 @@ export default {
       themeColors:{
         dark: {
           textColor: '#dce2f2',
-          shadowColor1: 'rgba(0, 0, 0, 0.2)',
+          shadowColor1: '#dce2f2',
           fillColor1:'#282a36',
           backgroundColor: '#264e94',
           borderColor: '#282a36',
@@ -26,7 +26,7 @@ export default {
         },
         blue: {
           textColor: '#dce2f2',
-          shadowColor1: 'rgba(0, 0, 0, 0.2)',
+          shadowColor1: '#dce2f2',
           fillColor1:'#282a36',
           backgroundColor: '#264e94',
           borderColor: '#282a36',
@@ -82,6 +82,10 @@ export default {
     theme(){  //当前主题
       return store.state.base.THEME_TYPE
     },
+    colors(){
+      let colors = this.options.colors || []
+      return colors.concat(store.state.base.COLOR_REPOSITORY)
+    },
   },
   mounted(){
     // console.log(this.options)
@@ -127,7 +131,7 @@ export default {
             selectedOffset: 0,
             label: {
                 normal: {
-                    show: false,
+                    show: true,
                     position: 'outside',
                     formatter: '{b}:{d}',
                     fontSize: 8,
@@ -138,7 +142,7 @@ export default {
             itemStyle: {
               borderWidth : 1,
               borderColor : this.themeColors[this.theme].borderColor,
-              shadowBlur : 5,
+              shadowBlur : 2,
               shadowColor: this.themeColors[this.theme].shadowColor1,
             },
             data: item.data,
@@ -163,7 +167,7 @@ export default {
               color: this.themeColors[this.theme].textColor
             }
         },
-        color: this.options.colors,
+        color: this.colors,
         textStyle: {
           color: this.themeColors[this.theme].textColor
         },
@@ -196,7 +200,7 @@ export default {
       return [radius * 0.7, radius]
     },
     getColumns(length, size){   //获取行列数
-      if(length <= 3){
+      if(length <= 2){
         return [length, 1]
       }
       for(let i = 1; i<=length; i++){
