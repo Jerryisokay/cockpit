@@ -66,7 +66,7 @@ const charts = {
       colors: ['#ffbc38', '#19D672', '#76A5D9'],
       series: [
         {
-          name: '访问来源',
+          name: '访问\n来源',
           data: [
             {
               value: 460,
@@ -714,20 +714,20 @@ const charts = {
       description: '仪表盘数据展示',
       order: 0,
       size: 1,
-      colors: ['#19D672', '#FD517D', '#76A5D9'],
+      colors: ['#19D672', '#FD517D', '#76A5D9','#ff9600','#ee332e'],
       type: 12,
       multiple: 1,
       series: [
         {
           name: '速度表',
           data: [
-            { value: 60, name: 'Km/h', max: 100 },
+            { value: 90, name: 'Km/h', max: 100 },
           ]
         },
         {
           name: '油表',
           data: [
-            { value: 60, name: 'L', max: 100 },
+            { value: 15, name: 'L', max: 100 },
           ]
         },
         {
@@ -735,7 +735,31 @@ const charts = {
           data: [
             { value: 60, name: 'xx', max: 100 },
           ]
-        }
+        },
+        // {
+        //   name: '电量表1',
+        //   data: [
+        //     { value: 60, name: 'xx', max: 100 },
+        //   ]
+        // },
+        // {
+        //   name: '电量表2',
+        //   data: [
+        //     { value: 60, name: 'xx', max: 100 },
+        //   ]
+        // },
+        // {
+        //   name: '电量表3',
+        //   data: [
+        //     { value: 60, name: 'xx', max: 100 },
+        //   ]
+        // },
+        // {
+        //   name: '电量表4',
+        //   data: [
+        //     { value: 60, name: 'xx', max: 100 },
+        //   ]
+        // }
       ],
       treeData: null,
       sunburstData: null,

@@ -109,15 +109,16 @@ export default {
     drawChart(){
       this.myChart = this.$echarts.init(this.$el)
       let series = []
-      let divider = parseInt(100 / (this.options.series.length + 1))
+      // let divider = parseInt(100 / (this.options.series.length + 1))
+      let radius = this.getRadius(this.options.series.length, this.options.size)
       if(Array.isArray(this.options.series) && this.options.series.length){
         this.options.series.map( (item, index)=> {
           let data = item.data[0] || {}
           series.push({
             name: item.name,
             type:'pie',
-            radius: [25, 33],
-            center : [divider + divider * index +'%', '50%'],
+            radius: radius,
+            center : this.getCenterPosition(index, this.options.series.length, this.options.size),
             avoidLabelOverlap: false,
             selectedMode: 'single',
             selectedOffset: 0,
@@ -127,7 +128,7 @@ export default {
                     show: false,
                     position: 'center',
                     formatter: '{d}',
-                    fontSize: 16,
+                    fontSize: 14,
                     verticalAlign: 'center',
                     color: this.themeColors[this.theme].textColor
                 },
@@ -172,7 +173,7 @@ export default {
           data: this.titles,
           textStyle: {
             color: this.themeColors[this.theme].textColor,
-            fontSize: 11
+            fontSize: 10
           }
         },
         // tooltip: {
@@ -187,6 +188,40 @@ export default {
         // },
         series: series
       });
+    },
+    getRadius( length, size){
+      // console.log(length)
+      let [colmuns, rows] = this.getColumns(length, size)
+      let radius = size == 1 ? Math.min( 75/colmuns , 90/rows ) : Math.min( 75/colmuns , 40/rows )
+      return [radius * 0.8, radius]
+    },
+    getColumns(length, size){   //获取行列数
+      if(length <= 3){
+        return [length, 1]
+      }
+      for(let i = 1; i<= length; i++){
+        if(i*i >= length){
+          return [i,i]
+        }else if(i * i+ 1 >= length){
+          return size == 1 ? [i, i+1] : [i+1, i]
+        }
+      }
+    },
+    getCenterPosition( index, length, size){  //获取单个图表的位置
+      let [colmuns, rows] = this.getColumns(length, size)
+      //每行数量 行数
+      // console.log('====================================');
+      let yNth = Math.ceil((index + 1)/ colmuns)  //当前行数
+      // console.log('yNth '  + yNth)
+      let xNth = index + 1 - (yNth - 1) * colmuns
+      // console.log('xNth '  + xNth)
+      let singleW = (yNth == rows) ? (150 / (length + colmuns - colmuns * rows)) : (150 / colmuns)
+      let singleH = size == 1 ? 160 / rows : 80 /rows
+
+      // console.log('====================================');
+
+      return [singleW * (xNth * 2 - 1) , singleH * ( yNth * 2 - 1) + 40 ]
+
     }
   }
 

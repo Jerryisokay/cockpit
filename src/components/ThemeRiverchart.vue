@@ -124,8 +124,8 @@ export default {
         graphic:[
           {
             type:'text',  //副标题文字
-            right: 20,
-            top:10,
+            left: 10,
+            bottom:0,
             z:3,
             style:{
                 text: this.options.description,

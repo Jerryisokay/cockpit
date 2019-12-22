@@ -102,8 +102,8 @@ export default {
         graphic:[
           {
             type:'text',  //副标题文字
-            left: 20,
-            bottom:10,
+            left: 10,
+            bottom:0,
             z:3,
             style:{
                 text: this.options.description,
@@ -119,25 +119,24 @@ export default {
 
               data: [data],
 
-              top: '10%',
-              left: '3%',
-              bottom: '3%',
-              right: '15%',
-
+              top: 30,
+              left: 10,
+              bottom: 20,
+              right: 10,
+              height: '70%',
+              center: ['50%','55%'],
               symbolSize: 7,
 
               label: {
-                  normal: {
-                      position: 'left',
-                      verticalAlign: 'middle',
-                      align: 'right',
-                      fontSize: 8,
-                      textStyle:{
-                        color: this.themeColors[this.theme].textColor,//'#76a5d9'
-                      },
-                  }
+                show: true,
+                formatter: '{b}',
+                normal: {
+                    fontSize: 10,
+                    textStyle:{
+                      color: this.themeColors[this.theme].textColor,//'#76a5d9'
+                    },
+                }
               },
-
               leaves: {
                   label: {
                       normal: {
@@ -148,7 +147,6 @@ export default {
                       }
                   }
               },
-
               expandAndCollapse: true,
               animationDuration: 550,
               animationDurationUpdate: 750

@@ -12,18 +12,21 @@ export default {
       themeColors: {
         dark: {
           textColor: "#dce2f2",
+          backgroundColor: '#264e94',
           shadowColor1: "rgba(255, 255, 255, 0.5)",
           shadowColor2: "#2584e8",
           borderColor: "#fff"
         },
         light: {
           textColor: "#333333",
+          backgroundColor: 'rbga(0, 0, 0, 0.5)',
           shadowColor1: "rgba(255, 255, 255, 0.5)",
           shadowColor2: "#77022e",
           borderColor: "#77022e"
         },
         blue: {
           textColor: "#dce2f2",
+          backgroundColor: 'rbga(0, 0, 0, 0.5)',
           shadowColor1: "rgba(255, 255, 255, 0.5)",
           shadowColor2: "#2584e8",
           borderColor: "#fff"
@@ -62,6 +65,18 @@ export default {
   computed: {
     theme() {
       return store.state.base.THEME_TYPE;
+    },
+    legendData(){
+      let data = []
+      this.options.series.map( (item, index) => {
+        data.push({
+          name: item.name,
+          textStyle:{
+            color: this.options.colors[index]
+          }
+        })
+      })
+      return data
     }
   },
   watch: {
@@ -88,87 +103,62 @@ export default {
     drawChart() {
       this.myChart = this.$echarts.init(this.$el);
       let series = [];
-      let divider = parseInt(100 / (this.options.series.length + 1))
+      let divider = parseInt(100 / (this.options.series.length * 2))
       Array.isArray(this.options.series) && this.options.series.length
         this.options.series.map((item, index) => {
+          // console.log(this.options.colors[ index ])
           Array.isArray(item.data) && item.data.length
           series.push({
             name: item.name,
             type: "gauge",
             min: 0,
-            max: 220,
-            splitNumber: 4,
-            radius: divider* 1.25 +'%',
+            max:  item.data[0].max,
+            splitNumber: 2,
+            // radius: divider* 1.25 +'%',
             z: index,
-            // radius: [25, 33],
-            center : [divider + divider * index +'%', '50%'],
+            radius: this.getRadius(this.options.series.length, this.options.size),
+            center: this.getCenterPosition(index, this.options.series.length, this.options.size),
+            // center : [divider + divider * index +'%', '50%'],
             itemStyle: {
               width: 5
             },
             axisLine: {
               // 坐标轴线
               lineStyle: {
-                // 属性lineStyle控制线条样式
-                // color: [[0.09, "lime"], [0.82, "#1e90ff"], [1, "#ff4500"]],
-                width: 2,
-                // shadowColor: this.themeColors[this.theme].shadowColor, //默认透明
-                // shadowBlur: 9
+                color: this.options.colors[ index ] ? [[1, this.options.colors[ index ]]] : [[1, this.themeColors[this.theme].borderColor]],
+                width: 5,
               }
             },
-            // axisLabel: {
-            //   // 坐标轴小标记
-            //   textStyle: {
-            //     // 属性lineStyle控制线条样式
-            //     // fontWeight: 'bolder',
-            //     color: this.themeColors[this.theme].textColor,
-            //     // shadowColor: this.themeColors[this.theme].shadowColor, //默认透明
-            //     // shadowBlur: 10,
-            //     fontSize: 9
-            //   }
-            // },
-            // axisTick: {
-            //   // 坐标轴小标记
-            //   length: 5, // 属性length控制线长
-            //   lineStyle: {
-            //     // 属性lineStyle控制线条样式
-            //     color: "auto",
-            //     // shadowColor: this.themeColors[this.theme].shadowColor, //默认透明
-            //     // shadowBlur: 10
-            //   }
-            // },
+            axisLabel:{
+              show: true,
+              distance : 2,
+              fontSize: 8
+            },
+            axisTick: {
+              show: false
+            },
             splitLine: {
               // 分隔线
-              length: 10, // 属性length控制线长
+              length: 8, // 属性length控制线长
               lineStyle: {
                 // 属性lineStyle（详见lineStyle）控制线条样式
-                width: 3,
+                width: 2,
                 color: this.themeColors[this.theme].textColor,
-                // shadowColor: this.themeColors[this.theme].shadowColor, //默认透明
-                // shadowBlur: 10
               }
             },
             pointer: {
-                width:2,
-                // shadowColor : '#fff', //默认透明
-                // shadowBlur: 5
+                width: 3,
             },
             title: {
-              show: false
+              // show: false
+              offsetCenter: [0, '80%'],
+              fontSize: 12,
+              color: this.themeColors[this.theme].textColor,
             },
             detail: {
-              // backgroundColor: 'rgba(30,144,255,0.8)',
-              // borderWidth: 1,
-              // borderColor: '#fff',
-              // shadowColor : '#fff', //默认透明
-              shadowBlur: 5,
-              offsetCenter: [0, "60%"], // x, y，单位px
-              textStyle: {
-                // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                // fontWeight: 'bolder',
-                color: this.themeColors[this.theme].textColor
-              }
+              show:false
             },
-            data: item.data.slice(0,1)
+            data: item.data.slice(0,1),
           });
         });
 
@@ -181,8 +171,18 @@ export default {
             color: this.themeColors[this.theme].textColor
           }
         },
+        // tooltip: {
+        //   formatter: "{a} <br/>{c} {b}",
+        //   backgroundColor: this.themeColors[this.theme].backgroundColor,
+        // },
         tooltip: {
-          formatter: "{a} <br/>{c} {b}"
+            trigger: 'item',
+            // confine: true,
+            formatter: "{a} <br/>{c} {b}",
+            backgroundColor: this.themeColors[this.theme].backgroundColor,
+            textStyle:{
+              fontSize: 12
+            }
         },
         graphic: [
           {
@@ -199,206 +199,50 @@ export default {
             }
           }
         ],
+        color: this.options.colors,
         series: series
-        // [
-          /*
-            {
-                name:'转速',
-                type:'gauge',
-                center : ['25%', '55%'],    // 默认全局居中
-                radius : '30%',
-                min:0,
-                max:7,
-                endAngle:45,
-                splitNumber:7,
-                axisLine: {            // 坐标轴线
-                    lineStyle: {       // 属性lineStyle控制线条样式
-                        color: [[0.29, 'lime'],[0.86, '#1e90ff'],[1, '#ff4500']],
-                        width: 2,
-                        shadowColor : '#fff', //默认透明
-                        shadowBlur: 10
-                    }
-                },
-                axisLabel: {            // 坐标轴小标记
-                    textStyle: {       // 属性lineStyle控制线条样式
-                        fontWeight: 'bolder',
-                        color: '#fff',
-                        shadowColor : '#fff', //默认透明
-                        shadowBlur: 10
-                    }
-                },
-                axisTick: {            // 坐标轴小标记
-                    length :12,        // 属性length控制线长
-                    lineStyle: {       // 属性lineStyle控制线条样式
-                        color: 'auto',
-                        shadowColor : '#fff', //默认透明
-                        shadowBlur: 10
-                    }
-                },
-                splitLine: {           // 分隔线
-                    length :20,         // 属性length控制线长
-                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
-                        width:3,
-                        color: '#fff',
-                        shadowColor : '#fff', //默认透明
-                        shadowBlur: 10
-                    }
-                },
-                pointer: {
-                    width:5,
-                    shadowColor : '#fff', //默认透明
-                    shadowBlur: 5
-                },
-                title : {
-                    offsetCenter: [0, '-30%'],       // x, y，单位px
-                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                        fontWeight: 'bolder',
-                        fontStyle: 'italic',
-                        color: '#fff',
-                        shadowColor : '#fff', //默认透明
-                        shadowBlur: 10
-                    }
-                },
-                detail : {
-                    //backgroundColor: 'rgba(30,144,255,0.8)',
-                  // borderWidth: 1,
-                    borderColor: '#fff',
-                    shadowColor : '#fff', //默认透明
-                    shadowBlur: 5,
-                    width: 80,
-                    height:30,
-                    offsetCenter: [25, '20%'],       // x, y，单位px
-                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                        fontWeight: 'bolder',
-                        color: '#fff'
-                    }
-                },
-                data:[{value: 1.5, name: 'x1000 r/min'}]
-            },
-            {
-                name:'油表',
-                type:'gauge',
-                center : ['75%', '50%'],    // 默认全局居中
-                radius : '30%',
-                min:0,
-                max:2,
-                startAngle:135,
-                endAngle:45,
-                splitNumber:2,
-                axisLine: {            // 坐标轴线
-                    lineStyle: {       // 属性lineStyle控制线条样式
-                        color: [[0.2, 'lime'],[0.8, '#1e90ff'],[1, '#ff4500']],
-                        width: 2,
-                        shadowColor : '#fff', //默认透明
-                        shadowBlur: 10
-                    }
-                },
-                axisTick: {            // 坐标轴小标记
-                    length :12,        // 属性length控制线长
-                    lineStyle: {       // 属性lineStyle控制线条样式
-                        color: 'auto',
-                        shadowColor : '#fff', //默认透明
-                        shadowBlur: 10
-                    }
-                },
-                axisLabel: {
-                    textStyle: {       // 属性lineStyle控制线条样式
-                        fontWeight: 'bolder',
-                        color: '#fff',
-                        shadowColor : '#fff', //默认透明
-                        shadowBlur: 10
-                    },
-                    formatter:function(v){
-                        switch (v + '') {
-                            case '0' : return 'E';
-                            case '1' : return 'Gas';
-                            case '2' : return 'F';
-                        }
-                    }
-                },
-                splitLine: {           // 分隔线
-                    length :15,         // 属性length控制线长
-                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
-                        width:3,
-                        color: '#fff',
-                        shadowColor : '#fff', //默认透明
-                        shadowBlur: 10
-                    }
-                },
-                pointer: {
-                    width:2,
-                    shadowColor : '#fff', //默认透明
-                    shadowBlur: 5
-                },
-                title : {
-                    show: false
-                },
-                detail : {
-                    show: false
-                },
-                data:[{value: 0.5, name: 'gas'}]
-            },
-            {
-                name:'水表',
-                type:'gauge',
-                center : ['75%', '50%'],    // 默认全局居中
-                radius : '30%',
-                min:0,
-                max:2,
-                startAngle:315,
-                endAngle:225,
-                splitNumber:2,
-                axisLine: {            // 坐标轴线
-                    lineStyle: {       // 属性lineStyle控制线条样式
-                        color: [[0.2, 'lime'],[0.8, '#1e90ff'],[1, '#ff4500']],
-                        width: 2,
-                        shadowColor : '#fff', //默认透明
-                        shadowBlur: 10
-                    }
-                },
-                axisTick: {            // 坐标轴小标记
-                    show: false
-                },
-                axisLabel: {
-                    textStyle: {       // 属性lineStyle控制线条样式
-                        fontWeight: 'bolder',
-                        color: '#fff',
-                        shadowColor : '#fff', //默认透明
-                        shadowBlur: 10
-                    },
-                    formatter:function(v){
-                        switch (v + '') {
-                            case '0' : return 'H';
-                            case '1' : return 'Water';
-                            case '2' : return 'C';
-                        }
-                    }
-                },
-                splitLine: {           // 分隔线
-                    length :15,         // 属性length控制线长
-                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
-                        width:3,
-                        color: '#fff',
-                        shadowColor : '#fff', //默认透明
-                        shadowBlur: 10
-                    }
-                },
-                pointer: {
-                    width:2,
-                    shadowColor : '#fff', //默认透明
-                    shadowBlur: 5
-                },
-                title : {
-                    show: false
-                },
-                detail : {
-                    show: false
-                },
-                data:[{value: 0.5, name: 'gas'}]
-            }
-            */
-        // ]
       });
+    },
+    getRadius( length, size){
+      // console.log(length)
+      let [colmuns, rows] = this.getColumns(length, size)
+      return size == 1 ? Math.min( 100/colmuns , 120/rows ) : Math.min( 100/colmuns , 60/rows )
+
+      if(length <= 1){
+        return 75
+      }if(length == 2){
+        return 50
+      }else if(size == 1){    //尺寸大的图表 双层展示
+        return parseInt(100 / Math.ceil(length/2))
+      }else{
+        return parseInt(100 / length)
+      }
+
+    },
+    getColumns(length, size){   //获取行列数
+      for(let i = 1; i<=length; i++){
+        if(i*i >= length){
+          return [i,i]
+        }else if(i * i+ 1 >= length){
+          return size == 1 ? [i, i+1] : [i+1, i]
+        }
+      }
+    },
+    getCenterPosition( index, length, size){  //获取单个图表的位置
+      let [colmuns, rows] = this.getColumns(length, size)
+      //每行数量 行数
+      // console.log('====================================');
+      let yNth = Math.ceil((index + 1)/ colmuns)  //当前行数
+      // console.log('yNth '  + yNth)
+      let xNth = index + 1 - (yNth - 1) * colmuns
+      // console.log('xNth '  + xNth)
+      let singleW = (yNth == rows) ? (150 / (length + colmuns - colmuns * rows)) : (150 / colmuns)
+      let singleH = size == 1 ? 180 / rows : 90 /rows
+
+      // console.log('====================================');
+
+      return [singleW * (xNth * 2 - 1) , singleH * ( yNth * 2 - 1) + 40 ]
+
     }
   }
 };

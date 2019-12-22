@@ -120,13 +120,13 @@ export default {
     drawChart(){
       this.myChart = this.$echarts.init(this.$el)
       // let color = ["#19D672", "#FD517D"]
-      let data = []
+      let data = [], name = ''
       if(Array.isArray(this.options.series) && this.options.series.length && Array.isArray(this.options.series[0].data)){
-        let name = this.options.series.name
+        name = this.options.series[0].name
         data = this.options.series[0].data
       }
 
-
+      console.log(name)
       this.myChart.setOption({
         title : {
             text: this.options.title,
@@ -266,7 +266,7 @@ export default {
             top:'center',
             z:3,
             style:{
-                text:'标题\n名称',
+                text: name,
                 textAlign:'center',
                 fill:'#fff',
                 width:25,

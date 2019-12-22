@@ -104,8 +104,8 @@ export default {
         graphic:[
           {
             type:'text',  //副标题文字
-            right: 20,
-            top:10,
+            left: 10,
+            bottom:0,
             z:3,
             style:{
                 text: this.options.description,
@@ -120,7 +120,8 @@ export default {
               data: [data],
               type: 'sunburst',
               name: '',
-              radius: [0, '95%'],
+              radius: [0, '85%'],
+              center: ['50%','55%'],
               label: {
                   rotate: 'radial',
                   fontSize: 10,

@@ -23,6 +23,7 @@ const base = {
     ],
     NAV_DATA: [],
     PAGE_INDEX: 0,
+    REFRESH_INTERVAL: 100,
     PAGE_HEIGHT: document.documentElement.clientHeight
   },
   mutations: {

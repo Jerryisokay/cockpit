@@ -2,7 +2,7 @@
   <div>
     <div class="aside-lf aside-dialog-group" :style='{"height": pageHeight - 110 + "px"}'>
       <div class="aside-dialog" :key="'dialog_1_' + i " v-for="(v,i) in leftMenu">
-        <div class="aside-dialog-inner">
+        <div class="aside-dialog-inner" :class="{'large': v.size == 1}">
           <Angleborder type="2"></Angleborder>
           <Piechart v-if="v.type == 0" :options="v" :id="'pie_1_' + i + '_' + pageIndex"></Piechart>
           <Multipiechart v-if="v.type == 1" :options="v" :id="'multipie_1_' + i + '_' + pageIndex"></Multipiechart>
@@ -28,7 +28,7 @@
 
     <div class="aside-rt aside-dialog-group" :style='{"height": pageHeight - 110 + "px"}'>
       <div class="aside-dialog" :key="'dialog_2_' + i " v-for="(v,i) in rightMenu">
-        <div class="aside-dialog-inner">
+        <div class="aside-dialog-inner" :class="{'large': v.size == 1}">
           <Angleborder type="2"></Angleborder>
           <Piechart v-if="v.type == 0" :options="v" :id="'pie_2_' + i + '_' + pageIndex" ></Piechart>
           <Multipiechart v-if="v.type == 1" :options="v" :id="'multipie_2_' + i + '_' + pageIndex"></Multipiechart>

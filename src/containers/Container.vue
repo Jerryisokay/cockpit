@@ -17,7 +17,7 @@
         <div class="mid-container-outer">
           <div class="mid-container-inner">
             <Angleborder type="1"></Angleborder>
-            <Mapchart @drag="dragData" :theme="theme"></Mapchart>
+            <!-- <Mapchart @drag="dragData" :theme="theme"></Mapchart> -->
           </div>
         </div>
         <router-view></router-view>
@@ -84,24 +84,58 @@ export default {
     Angleborder,
   },
   mounted(){
+
+    this.initial()
+
     //监听屏幕大小
     window.onresize = () =>{
-      // this.pageHeight =  document.documentElement.clientHeight
       this.$store.dispatch('setPageHeightAction')
     }
+
+    // 定时刷新
+    let timer = setInterval(() => {
+      this.initial()
+    }, parseInt(this.refreshInterval) * 1000)
+
   },
   computed : {
     pageIndex(){
-      return store.state.PAGE_INDEX
+      return store.state.base.PAGE_INDEX
     },
     theme(){
       return store.state.base.THEME_TYPE
     },
     pageHeight(){
       return store.state.base.PAGE_HEIGHT
+    },
+    refreshInterval(){
+      return store.state.base.REFRESH_INTERVAL
     }
   },
   methods: {
+    initial(){
+      // 初始化
+      let routes = this.$route.path.split('/')
+      let id = routes[ routes.length - 1 ] || 'homepage'
+
+      this.$store.dispatch('loadNavDataAction')
+      .then( data => {
+        let isCurrent = false
+        data.map( (item, index ) => {
+          if(item.id == id){
+            isCurrent = true
+            this.$store.dispatch('setPageIndexAction', {index})
+          }
+        })
+        if(!isCurrent){
+          throw new Errow()
+        }
+      })
+      .catch(() =>{
+        this.$store.dispatch('setPageIndexAction', {index: 0})
+        this.$router.push({ path: '/' })
+      })
+    },
     dragMap (data) {
       this.dragData = {
         lng: data.position.lng,
