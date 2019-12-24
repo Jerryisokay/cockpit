@@ -91,7 +91,7 @@ export default {
   },
   watch:{
     options:{
-      immediate:true,
+      immediate:false,
       handler:function(){
         setTimeout( () => {
           this.myChart && this.myChart.clear()
@@ -100,7 +100,7 @@ export default {
      }
     },
     theme:{
-      immediate:true,
+      immediate:false,
       handler:function(){
         setTimeout( () => {
           this.myChart && this.myChart.clear()

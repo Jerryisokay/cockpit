@@ -113,7 +113,7 @@ export default {
   },
   watch:{
     options:{
-      immediate:true,
+      immediate:false,
       handler:function(){
         setTimeout( () => {
           this.myChart && this.myChart.clear()
@@ -122,7 +122,7 @@ export default {
      }
     },
     theme:{
-      immediate:true,
+      immediate:false,
       handler:function(){
         setTimeout( () => {
           this.myChart && this.myChart.clear()
@@ -149,7 +149,7 @@ export default {
           }
         )
       })
-      console.log(series)
+      // console.log(series)
       this.myChart.setOption({
         title : {
             text: this.options.title,
@@ -178,8 +178,7 @@ export default {
                 text: this.options.description,
                 // textAlign:'center',
                 fill: this.themeColors[this.theme].textColor,
-                fontSize:12,
-                // height:60
+                fontSize: 12,
             }
           }
         ],

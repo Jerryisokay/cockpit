@@ -50,30 +50,7 @@ export default {
         nearestRoad: null,
         nearestPOI: null
       },
-      charts:[
-        {
-          id: 'pie1',
-          options:{
-            type:'line',
-            name: '陈昌辉体重变化(单位：kg)',
-            titles: ['一月','二月','三月','四月','五月'],
-            data: [190, 190, 192, 191, 200],
-          }
-        },
-        {
-          id: 'line1',
-          options:{
-            type:'pie',
-            name: '陈昌辉早餐种类及次数',
-            titles: ['包子','汉堡','煎饼'],
-            data: [
-                {value:335, name:'包子'},
-                {value:310, name:'汉堡'},
-                {value:234, name:'煎饼'},
-            ]
-          }
-        }
-      ]
+      charts:[]
     }
   },
   components:{
@@ -115,22 +92,13 @@ export default {
   methods: {
     initial(){
       // 初始化
+      console.log('====================================');
+      console.log('initial');
+      console.log('====================================');
       let routes = this.$route.path.split('/')
-      let id = routes[ routes.length - 1 ] || 'homepage'
+      let id = routes[ routes.length - 1 ] || ''
 
       this.$store.dispatch('loadNavDataAction')
-      .then( data => {
-        let isCurrent = false
-        data.map( (item, index ) => {
-          if(item.id == id){
-            isCurrent = true
-            this.$store.dispatch('setPageIndexAction', {index})
-          }
-        })
-        if(!isCurrent){
-          throw new Errow()
-        }
-      })
       .catch(() =>{
         this.$store.dispatch('setPageIndexAction', {index: 0})
         this.$router.push({ path: '/' })

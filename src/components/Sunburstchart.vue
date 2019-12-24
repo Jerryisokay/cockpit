@@ -72,7 +72,7 @@ export default {
   },
   watch:{
     options:{
-      immediate:true,
+      immediate:false,
       handler:function(){
         setTimeout( () => {
           this.myChart && this.myChart.clear()
@@ -81,7 +81,7 @@ export default {
      }
     },
     theme:{
-      immediate:true,
+      immediate:false,
       handler:function(){
         setTimeout( () => {
           this.myChart && this.myChart.clear()
@@ -95,7 +95,7 @@ export default {
       this.myChart = this.$echarts.init(this.$el)
       let data = this.options.sunburstData
 
-      console.log(data)
+      // console.log(data)
       this.myChart.setOption({
         title : {
             text: this.options.title,

@@ -120,8 +120,9 @@ export default {
   },
   watch:{
     options:{
-      immediate:true,
+      immediate:false,
       handler:function(){
+        console.log('options change')
         setTimeout( () => {
           this.myChart && this.myChart.clear()
           this.drawChart()
@@ -129,8 +130,9 @@ export default {
      }
     },
     theme:{
-      immediate:true,
+      immediate:false,
       handler:function(){
+        console.log('theme change')
         setTimeout( () => {
           this.myChart && this.myChart.clear()
           this.drawChart()
@@ -214,7 +216,6 @@ export default {
         bottom: 20,
         containLabel : true
       }
-      console.log(this.options.style)
       this.myChart.setOption({
         title : {
             text: this.options.title,

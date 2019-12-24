@@ -2,6 +2,10 @@
 
 > A Vue.js project
 
+## Prepare
+
+安装近期的 nodejs ，选择系统对应的安装包  <http://nodejs.cn/download/>
+
 ## Build Setup
 
 ``` bash

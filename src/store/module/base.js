@@ -25,6 +25,7 @@ const base = {
     COLOR_REPOSITORY: ['#ffc343','#01f0d9','#3c95fb','#07fe1d','#eaab05','#f54806','#0fd187','#c6044d','#0a9ba6','#c6044d','#f36098','#55db87','#f36098','#e7cc72'],
     NAV_DATA: [],
     PAGE_INDEX: 0,
+    CURRENT_PAGE_ID: '',
     REFRESH_INTERVAL: 100,
     PAGE_HEIGHT: document.documentElement.clientHeight
   },
@@ -36,11 +37,14 @@ const base = {
       state.THEME_TYPE = theme
     },
     SET_NAV_DATA: (state, { data }) => {
-      // console.log('set data')
       state.NAV_DATA = data
     },
     SET_PAGE_HEIGHT: (state, { height }) => {
       state.PAGE_HEIGHT = height
+    },
+    SET_CURRENT_PAGE_ID: (state, {id}) => {
+      console.log('id ---- '+ id)
+      state.CURRENT_PAGE_ID = id
     }
   },
   actions: {
@@ -55,9 +59,8 @@ const base = {
             reject('error')
           }
           const data = res.data.data[0] || {menu:[]}
-          console.log(data)
           commit('SET_NAV_DATA', { data: data.menu})
-          resolve(data)
+          // resolve(data.menu)
         })
         .catch(err => {
           reject(err)
@@ -76,6 +79,10 @@ const base = {
     setPageHeightAction: function({commit}){
       let height = document.documentElement.clientHeight
       commit('SET_PAGE_HEIGHT', { height })
+    },
+    // 设置当前页面ID
+    setCurrentPageIdAction: function({commit},{id}){
+      commit('SET_CURRENT_PAGE_ID', {id})
     }
   }
 }
