@@ -75,14 +75,23 @@ export default {
       })
       return titles
     },
-    maxValue(){
-      const values = []
+    data(){
+      let data = []
       Array.isArray(this.options.scatterData) && this.options.scatterData.map( v =>{
+        let values = []
         Array.isArray(v.data) && v.data.map( d => {
-          values.push(d[2])
+          values.push([
+            d.x,
+            d.y,
+            d.name
+          ])
+        })
+        data.push({
+          name: v.name,
+          data: values
         })
       })
-      return Math.max(...values)
+      return data
     },
     theme(){
       return store.state.base.THEME_TYPE
@@ -115,25 +124,12 @@ export default {
   methods: {
     drawChart(){
       this.myChart = this.$echarts.init(this.$el)
-      let _self = this
-
-      let data = []
-
       let series = []
-      Array.isArray(this.options.scatterData) && this.options.scatterData.map((item, index) => {
-        // let innerData = []
-        // Array.isArray(item.data) && item.data.map( (v, i) => {
-        //   innerData[i] = v.concat([item.name])
-        // })
-        // data.push(innerData)
+      Array.isArray(this.data) && this.data.map((item, index) => {
         series.push({
           data: item.data,
           type: 'scatter',
           name: item.name,
-          color: this.colors[index],
-          // symbolSize: function (data) {
-          //     return 20* data[2] / (_self.maxValue)
-          // },
           type: 'scatter',
           label: {
               emphasis: {
@@ -208,7 +204,7 @@ export default {
         yAxis: {
             splitLine: {
                 lineStyle: {
-                    type: 'dashed',
+                    type: 'solid',
                     color: this.themeColors[this.theme].lineColor,
                 }
             },
@@ -228,6 +224,7 @@ export default {
           bottom: 20,
           containLabel : true
         },
+        color: this.colors,
         series: series
       });
     }

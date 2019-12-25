@@ -3,7 +3,8 @@ import request from '@/utils/request'
 
 export function getNavDataApi(){
   return request({
-    url:'/api/getpages',// /ksh/fg
+    url:'/api/getpages',
+    // url:'/ksh/fg',
     method: 'get',
   })
 }
@@ -13,7 +14,8 @@ export function getChartsByIdApi(id){
     url:'/api/getcharts',
     // url:'ksh/zsmkbj?zsmkbjZsmkId=' + id,
     data:{ id },
-    method: 'post',  //get
+    // method: 'get',
+    method: 'post',
   })
 }
 

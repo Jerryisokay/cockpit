@@ -16,7 +16,7 @@ export default {
           shadowColor1: "rgba(255, 255, 255, 0.5)",
           shadowColor2: "#2584e8",
           borderColor: "#2584e8",
-          lineColor: '#1cd1d4',
+          lineColor: 'rgba(255, 255, 255, 0.2)',//'#1cd1d4',
           fillColor:'#2584e8',
           emphasisColor: '#2584e8',
         },
@@ -25,8 +25,8 @@ export default {
           backgroundColor: "rgba(0, 0, 0, 0.5)",
           shadowColor1: "rgba(255, 255, 255, 0.5)",
           shadowColor2: "#77022e",
-          borderColor: "#77022e",
-          lineColor: '#c6044d',
+          borderColor: "#c6044d",
+          lineColor: 'rgba(0, 0, 0, 0.2)',//'#c6044d',
           fillColor:'#77022e',
           emphasisColor: '#2584e8',
         },
@@ -34,10 +34,10 @@ export default {
           textColor: "#dce2f2",
           backgroundColor: "#264e94",
           shadowColor1: "rgba(255, 255, 255, 0.5)",
-          shadowColor2: "#2584e8",
-          borderColor: "#2584e8",
-          lineColor: '#1cd1d4',
-          fillColor:'#2584e8',
+          shadowColor2: "#3aaafe",
+          borderColor: "#3aaafe",
+          lineColor: 'rgba(255, 255, 255, 0.2)',//'#1cd1d4',
+          fillColor:'#3aaafe',
           emphasisColor: '#2584e8',
         }
       }
@@ -82,11 +82,40 @@ export default {
     colors() {
       let colors = this.options.colors || [];
       return colors.concat(store.state.base.COLOR_REPOSITORY);
+    },
+    data(){
+      let data = []
+      Array.isArray(this.options.calendarData) && this.options.calendarData.length &&
+      this.options.calendarData.map(v => {
+        data.push(
+          [
+            v.date,
+            v.value
+          ]
+        )
+      })
+      return data
+    },
+    maxValue(){
+      const values = []
+      Array.isArray(this.data) && this.data.map( v =>{
+        values.push(v[1])
+      })
+      return Math.max(...values)
+    },
+    Top3(){
+      let top = []
+      if(Array.isArray(this.data) && this.data.length){
+        top = this.data.sort(function (a, b) {
+            return b[1] - a[1];
+        }).slice(0, 3)
+      }
+      return top
     }
   },
   watch: {
     options: {
-      immediate: true,
+      immediate: false,
       handler: function() {
         setTimeout(() => {
           this.myChart && this.myChart.clear();
@@ -95,7 +124,7 @@ export default {
       }
     },
     theme: {
-      immediate: true,
+      immediate: false,
       handler: function() {
         setTimeout(() => {
           this.myChart && this.myChart.clear();
@@ -106,17 +135,27 @@ export default {
   },
   methods: {
     drawChart() {
-      this.myChart = this.$echarts.init(this.$el);
-      let data = this.options.calendarData;
+      let _self = this
+      _self.myChart = _self.$echarts.init(_self.$el)
+
+      // console.log(data)
+      let now = new Date()
+      let start = new Date(now.getFullYear(), now.getMonth() - 2, 1)
+      let end = new Date(now.getFullYear(), now.getMonth() + 1, -1)
+      let range = [
+        _self.$echarts.format.formatTime('yyyy-MM-dd', start),
+        _self.$echarts.format.formatTime('yyyy-MM-dd', end)
+      ]
+      // console.log(range)
 
       this.myChart.setOption({
         title: {
-          text: this.options.title,
+          text: _self.options.title,
           // subtext: this.options.description,
           x: "left",
           fontSize: 16,
           textStyle: {
-            color: this.themeColors[this.theme].textColor
+            color: _self.themeColors[_self.theme].textColor
           }
           // subtextStyle:{
           //   color: this.themeColors[this.theme].textColor
@@ -125,9 +164,8 @@ export default {
         tooltip: {
           trigger: "item",
           confine: true,
-          formatter: "{b}: <br />{c} ({d}%)",
-          backgroundColor: this.themeColors[this.theme].backgroundColor,
-          // padding: [0, 5],
+          backgroundColor: _self.themeColors[_self.theme].backgroundColor,
+          padding: [0, 5],
           textStyle: {
             fontSize: 12
           }
@@ -138,19 +176,33 @@ export default {
         //     data: this.options.titles
         // },
         calculable: true,
-        color: this.colors,
+        // color: this.colors,
         textStyle: {
-          color: this.themeColors[this.theme].textColor
+          color: _self.themeColors[_self.theme].textColor
         },
+        graphic:[
+          {
+            type:'text',  //副标题文字
+            left: 10,
+            bottom: 0,
+            z:3,
+            style:{
+                text: _self.options.description,
+                // textAlign:'center',
+                fill: _self.themeColors[_self.theme].textColor,
+                fontSize:12,
+            }
+          }
+        ],
         calendar: [
           {
-            top: 70,
+            top: 60,
             right: "center",
-            range: ["2019-10-01", "2019-12-31"],
+            range: range,
             splitLine: {
               show: true,
               lineStyle: {
-                color:  this.themeColors[this.theme].borderColor,
+                color:  _self.themeColors[_self.theme].borderColor,
                 width: 2,
                 type: "solid"
               }
@@ -161,25 +213,54 @@ export default {
             cellSize: 18,
             monthLabel: {
               textStyle: {
-                color: this.themeColors[this.theme].textColor
+                color: _self.themeColors[_self.theme].textColor
               }
             },
             dayLabel: {
-              // formatter: '{start}  1st',
               textStyle: {
-                color: this.themeColors[this.theme].textColor
+                color: _self.themeColors[_self.theme].textColor
               }
             },
             itemStyle: {
               normal: {
                 color: 'rgba(0,0,0,0)',
-                borderWidth: 1,
-                borderColor: this.themeColors[this.theme].lineColor
+                borderWidth: 0.5,
+                borderType : 'dashed',
+                borderColor: _self.themeColors[_self.theme].lineColor
               }
             }
           }
         ],
-        series: []
+        series: [
+          {
+            type: 'scatter',
+            coordinateSystem: 'calendar',
+            calendarIndex: 0,
+            symbolSize: function (val) {
+                return 3 + 12* val[1] / (_self.maxValue)
+            },
+            itemStyle: {
+              color: _self.colors[0],
+            },
+            data: _self.data,
+          },{
+            type: 'effectScatter',
+            coordinateSystem: 'calendar',
+            calendarIndex: 0,
+            symbolSize: function (val) {
+                return 3 + 12* val[1] / (_self.maxValue)
+            },
+            showEffectOn: 'render',
+            rippleEffect: {
+                brushType: 'stroke'
+            },
+            itemStyle: {
+              color: _self.colors[0],
+            },
+            hoverAnimation: true,
+            data: _self.Top3,
+          }
+        ]
       });
     }
   }

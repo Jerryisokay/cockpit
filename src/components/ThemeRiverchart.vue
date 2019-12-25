@@ -58,17 +58,27 @@ export default {
     titles(){
       const titles = []
       Array.isArray(this.options.riverData) && this.options.riverData.map( v =>{
-        Array.isArray(v) && v.length >= 2 && v.map( d => {
-          if(titles.indexOf(d[2]) < 0){
-            titles.push( d[2] )
-          }
-        })
+        titles.push(v.name)
       })
       return titles
     },
+    data(){
+      //把数据转成echart需要的二维数组
+      let data = []
+      Array.isArray(this.options.riverData) && this.options.riverData.map( v =>{
+        Array.isArray(v.data) && v.data.length && v.data.map( d => {
+          data.push([
+            d.date,
+            d.value,
+            v.name
+          ])
+        })
+      })
+      return data
+    },
     categories(){
       const categories = []
-      Array.isArray(this.options.riverData) && this.options.riverData.map( v =>{
+      Array.isArray(this.data) && this.data.map( v =>{
         Array.isArray(v) && v.length >= 2 && v.map( d => {
           if(categories.indexOf(d[0]) < 0){
             categories.push( d[0] )
@@ -115,7 +125,6 @@ export default {
     drawChart(){
       this.myChart = this.$echarts.init(this.$el)
 
-      let data = this.options.riverData
       this.myChart.setOption({
         title : {
             text: this.options.title,
@@ -194,7 +203,7 @@ export default {
               fontSize: 10
             },
             avoidLabelOverlap: false,
-            data: data
+            data: this.data
         }],
         color: this.colors,
       });

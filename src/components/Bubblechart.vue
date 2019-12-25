@@ -79,10 +79,29 @@ export default {
       const values = []
       Array.isArray(this.options.bubbleData) && this.options.bubbleData.map( v =>{
         Array.isArray(v.data) && v.data.map( d => {
-          values.push(d[2])
+          values.push(d.value)
         })
       })
       return Math.max(...values)
+    },
+    data(){
+      let data = []
+      Array.isArray(this.options.bubbleData) && this.options.bubbleData.map( v =>{
+        let values = []
+        Array.isArray(v.data) && v.data.map( d => {
+          values.push([
+            d.x,
+            d.y,
+            d.value,
+            d.name
+          ])
+        })
+        data.push({
+          name: v.name,
+          data: values
+        })
+      })
+      return data
     },
     theme(){
       return store.state.base.THEME_TYPE
@@ -116,30 +135,22 @@ export default {
     drawChart(){
       this.myChart = this.$echarts.init(this.$el)
       let _self = this
-
-      let data = []
-
       let series = []
-      Array.isArray(this.options.bubbleData) && this.options.bubbleData.map((item, index) => {
-        // let innerData = []
-        // Array.isArray(item.data) && item.data.map( (v, i) => {
-        //   innerData[i] = v.concat([item.name])
-        // })
-        // data.push(innerData)
+      Array.isArray(this.data) && this.data.map((item, index) => {
         series.push({
           data: item.data,
           type: 'scatter',
           name: item.name,
           color: new this.$echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
-                    offset: 0,
-                    color: '#fff'
-                }, {
-                    offset: 0.3,
-                    color: this.colors[index]
-                },{
-                    offset: 1,
-                    color: '#000'
-                }]),
+              offset: 0,
+              color: '#fff'
+          }, {
+              offset: 0.5,
+              color: this.colors[index]
+          },{
+              offset: 1,
+              color: '#000'
+          }]),
           symbolSize: function (data) {
               return 20* data[2] / (_self.maxValue)
           },
@@ -160,7 +171,7 @@ export default {
               normal: {
                   shadowBlur: 5,
                   shadowColor: this.themeColors[this.theme].shadowColor1,
-                  shadowOffsetY: 5,
+                  shadowOffsetY: 2,
               }
           }
         })
@@ -240,6 +251,7 @@ export default {
           bottom: 20,
           containLabel : true
         },
+        color: this.colors,
         series: series
       });
     }

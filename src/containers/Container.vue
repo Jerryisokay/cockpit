@@ -3,21 +3,12 @@
     <div class="container" :style='{"min-height": pageHeight + "px"}'>
       <!-- 导航 -->
       <Navigator></Navigator>
-
-      <!-- <div v-if="theme == 'light'" class="nav">
-        <div class="nav-title">蓝色科技管理指挥平台</div>
-        <div class="nav-menu">
-          <div @click="navClickFun(v, i)" class="nav-item" v-for="(v,i) in navData" :key="i" :class="{'active': pageIndex === i}">
-            <span :class="{'nav-border-rt': i != navData.length -1}">{{v.name}}</span>
-          </div>
-        </div>
-      </div> -->
-
+      <!-- 地图部分 -->
       <div class="main-container" :style='{"height": pageHeight - 160 + "px"}'>
         <div class="mid-container-outer">
           <div class="mid-container-inner">
             <Angleborder type="1"></Angleborder>
-            <!-- <Mapchart @drag="dragData" :theme="theme"></Mapchart> -->
+            <Mapchart @drag="dragData" :theme="theme"></Mapchart>
           </div>
         </div>
         <router-view></router-view>
@@ -70,9 +61,9 @@ export default {
     }
 
     // 定时刷新
-    let timer = setInterval(() => {
-      this.initial()
-    }, parseInt(this.refreshInterval) * 1000)
+    // let timer = setInterval(() => {
+    //   this.initial()
+    // }, parseInt(this.refreshInterval) * 1000)
 
   },
   computed : {
