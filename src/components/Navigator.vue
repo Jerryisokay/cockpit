@@ -1,6 +1,6 @@
 <template>
   <div class="nav">
-    <div class="nav-title">蓝色科技管理指挥平台</div>
+    <div class="nav-title">{{ this.title }}</div>
     <!-- light dark 主题, 菜单分两部分 -->
     <div class="nav-menu nav-menu-left" v-if="theme != 'blue'">
       <div class="nav-menu-inner">
@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <div class="theme-select-btn" @click="showThemeMenu(!themeOnSelect)">主题</div>
+    <div class="theme-select-btn" @click="showThemeMenu(!themeOnSelect)"><i class="iconfont iconfont-setting"></i> 主题</div>
     <div class="theme-select-menu" :style="{ 'display': themeOnSelect ? 'block' : 'none' }">
       <div @click="changeTheme(item.value)" v-for="(item, $index) in themes" :key="$index" class="theme-select-item" :style="{'background': item.color}">{{ item.name }}</div>
     </div>
@@ -44,14 +44,7 @@ export default {
   name: 'navigator',
   data(){
     return{
-      navData: [
-        {name: '首页', path: '/' },
-        {name: '菜单1', path: '/page/1' },
-        {name: '菜单2', path: '/page/2' },
-        {name: '菜单3', path: '/page/3' },
-        {name: '菜单4', path: '/page/4' },
-        {name: '菜单5', path: '/page/5' },
-      ],
+      navData: [],
       themeOnSelect: false,
     }
   },
@@ -69,6 +62,9 @@ export default {
     theme(){
       return store.state.base.THEME_TYPE
     },
+    title(){
+      return store.state.base.PAGE_TITLE
+    }
   },
   mounted(){
     // console.log( this.menuData )

@@ -129,6 +129,7 @@ export default {
               label: {
                   rotate: 'radial',
                   fontSize: 10,
+                  silent: false,
                   color: this.themeColors[this.theme].textColor
                   // textBorderColor: 'auto'
               },

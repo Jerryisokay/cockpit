@@ -102,7 +102,7 @@ export default {
   },
   mounted(){
     window.onresize = () =>{
-      console.log(document.documentElement.clientHeight)
+      // console.log(document.documentElement.clientHeight)
       this.pageHeight =  document.documentElement.clientHeight
     }
     this.initial()

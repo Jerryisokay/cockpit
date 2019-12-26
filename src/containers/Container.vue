@@ -83,9 +83,6 @@ export default {
   methods: {
     initial(){
       // 初始化
-      console.log('====================================');
-      console.log('initial');
-      console.log('====================================');
       let routes = this.$route.path.split('/')
       let id = routes[ routes.length - 1 ] || ''
 
@@ -105,7 +102,6 @@ export default {
         nearestPOI: data.nearestPOI
       }
     },
-
   }
 
 }

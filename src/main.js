@@ -10,7 +10,7 @@ import '@/styles/index.css'
 import echarts from 'echarts'
 
 import 'babel-polyfill'
-import '@/mock'
+// import '@/mock'
 
 Vue.use(Vuex)
 
