@@ -1,7 +1,5 @@
 import Mock from 'mockjs'
 import treeData from './tree.json'
-import riverData from './river.js'
-import scoreData from './score.js'
 
 
 
@@ -1210,108 +1208,6 @@ const charts = {
         },
       ]
     }
-  ],
-  "menu6": [
-    {
-      title: '访问来源',
-      description: '单位/人',
-      type: 5,
-      style: 0,
-      colors: ['#19D672', '#FD517D', '#76A5D9'],
-      series: [
-        {
-          name: '一般量级统计',
-          data: [
-            { value: 60, name: 'Mon', max: 100 },
-          ]
-        }
-      ],
-      treeData: null,
-      sunburstData: null,
-      scatterData: null,
-      riverData: null
-    },
-    {
-      title: '访问来源',
-      description: '单位/人',
-      type: 7,
-      style: 0,
-      colors: ['#19D672', '#FD517D', '#76A5D9'],
-      series: [],
-      treeData: null,
-      sunburstData: {
-        name: 'root',
-        children: [{
-          name: 'Grandpa',
-          children: [{
-            name: 'Uncle Leo',
-            value: 15,
-            children: [{
-              name: 'Cousin Jack',
-              value: 2
-            }, {
-              name: 'Cousin Mary',
-              value: 5,
-              children: [{
-                name: 'Jackson',
-                value: 2
-              }]
-            }, {
-              name: 'Cousin Ben',
-              value: 4
-            }]
-          }, {
-            name: 'Father',
-            value: 10,
-            children: [{
-              name: 'Me',
-              value: 5
-            }, {
-              name: 'Brother Peter',
-              value: 1
-            }]
-          }]
-        }, {
-          name: 'Nancy',
-          children: [{
-            name: 'Uncle Nike',
-            children: [{
-              name: 'Cousin Betty',
-              value: 1
-            }, {
-              name: 'Cousin Jenny',
-              value: 2
-            }]
-          }]
-        }]
-      },
-      scatterData: null,
-      riverData: null
-    },
-    {
-      title: '访问来源',
-      description: '单位/人',
-      type: 6,
-      style: 0,
-      colors: ['#19D672', '#FD517D', '#76A5D9'],
-      series: [],
-      sunburstData: null,
-      treeData: treeData,
-      scatterData: null,
-      riverData: null
-    },
-    {
-      title: '访问来源',
-      description: '单位/人',
-      type: 9,
-      style: 0,
-      colors: ['#19D672', '#FD517D', '#76A5D9'],
-      series: [],
-      sunburstData: null,
-      treeData: null,
-      scatterData: null,
-      riverData: riverData.data
-    },
   ]
 }
 
