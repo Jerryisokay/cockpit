@@ -122,7 +122,7 @@ export default {
     options:{
       immediate:false,
       handler:function(){
-        console.log('options change')
+        // console.log('options change')
         setTimeout( () => {
           this.myChart && this.myChart.clear()
           this.drawChart()
@@ -132,7 +132,7 @@ export default {
     theme:{
       immediate:false,
       handler:function(){
-        console.log('theme change')
+        // console.log('theme change')
         setTimeout( () => {
           this.myChart && this.myChart.clear()
           this.drawChart()

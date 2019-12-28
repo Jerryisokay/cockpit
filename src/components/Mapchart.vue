@@ -132,7 +132,7 @@ export default {
       })
     },
     setMapStyle() {
-      this.map.setMapStyle(this.mapStyle)
+      this.map && this.map.setMapStyle(this.mapStyle)
     },
     // 搜索
     handleSearch(){

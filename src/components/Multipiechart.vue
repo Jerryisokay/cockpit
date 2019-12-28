@@ -152,7 +152,7 @@ export default {
 
 
 
-      console.log(series)
+      // console.log(series)
 
       this.myChart.setOption({
         title : {

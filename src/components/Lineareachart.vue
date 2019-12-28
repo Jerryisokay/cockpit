@@ -140,7 +140,7 @@ export default {
        Array.isArray(this.options.series[0].data) && this.options.series[0].data.map( v => {
         data.push( v.value )
       })
-      console.log(data)
+      // console.log(data)
       this.myChart.setOption({
         title : {
             text: this.options.title,

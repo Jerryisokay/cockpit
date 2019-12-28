@@ -70,7 +70,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.options);
+    // console.log(this.options);
     setTimeout(() => {
       this.drawChart();
     });
@@ -225,7 +225,7 @@ export default {
               normal: {
                 color: 'rgba(0,0,0,0)',
                 borderWidth: 0.5,
-                borderType : 'dashed',
+                borderType : 'solid',
                 borderColor: _self.themeColors[_self.theme].lineColor
               }
             }

@@ -14,7 +14,7 @@ export default {
         dark: {
           textColor: '#dce2f2',
           emphasisColor: '#dce2f2',
-          backgroundColor: '#dce2f2',
+          backgroundColor: '#264e94',
           shadowColor1: 'rgba(255, 255, 255, 0.5)',
           shadowColor2: '#2584e8',
           fillColor1:'#2584e8',
@@ -24,7 +24,7 @@ export default {
         light: {
           textColor: '#333333',
           emphasisColor: '#c6044d',
-          backgroundColor: '#c6044d',
+          backgroundColor: 'rgba(0,0,0,0.5)',
           shadowColor1: 'rgba(255, 255, 255, 0.5)',
           shadowColor2: '#77022e',
           fillColor1: '#77022e',
@@ -34,7 +34,7 @@ export default {
         blue: {
           textColor: '#dce2f2',
           emphasisColor: '#dce2f2',
-          backgroundColor: '#dce2f2',
+          backgroundColor: '#264e94',
           shadowColor1: 'rgba(255, 255, 255, 0.5)',
           shadowColor2: '#2584e8',
           fillColor1:'#2584e8',
@@ -153,7 +153,7 @@ export default {
         tooltip: {
             trigger: 'item',
             formatter: "{b}: {c} ({d}%)",
-            backgroundColor : 'rgba(0,0,0,0.6)'
+            backgroundColor : this.themeColors[this.theme].backgroundColor,
         },
         legend: {
             // orient: 'horizontal',

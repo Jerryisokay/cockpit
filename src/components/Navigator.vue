@@ -85,8 +85,8 @@ export default {
       }
     },
     navClickFun(v, index){
-      console.log('this.pageIndex ' + this.pageIndex)
-      console.log('PAGE_INDEX ' + store.state.base.PAGE_INDEX)
+      // console.log('this.pageIndex ' + this.pageIndex)
+      // console.log('PAGE_INDEX ' + store.state.base.PAGE_INDEX)
       // this.pageIndex = index
       try {
         this.$store.dispatch('setPageIndexAction', {index})

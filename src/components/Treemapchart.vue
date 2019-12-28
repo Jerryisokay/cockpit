@@ -12,17 +12,20 @@ export default {
         dark: {
           textColor: '#dce2f2',
           shadowColor1: 'rgba(0, 0, 0, 0.2)',
-          fillColor1:'#282a36'
+          fillColor1:'#282a36',
+          backgroundColor: '#264e94',
         },
         light: {
           textColor: '#333333',
           shadowColor1: '#77022e',
           fillColor1: '#ffffff',
+          backgroundColor: 'rgba(0,0,0,0.5)',
         },
         blue: {
           textColor: '#dce2f2',
           shadowColor1: 'rgba(0, 0, 0, 0.2)',
-          fillColor1:'#282a36'
+          fillColor1:'#282a36',
+          backgroundColor: '#264e94',
         }
       }
     };
@@ -89,10 +92,12 @@ export default {
   methods: {
     drawChart(){
       this.myChart = this.$echarts.init(this.$el)
-      let data = this.options.treeData
-      Array.isArray(data.children) && data.children.map(function (datum, index) {
-          index % 2 === 0 && (datum.collapsed = true);
-      });
+      let formatUtil = this.$echarts.format
+      let data = []
+      let name = this.options.treeData.name
+      if(Array.isArray(this.options.treeData.children)){
+        data = this.options.treeData.children
+      }
       // console.log(data)
       this.myChart.setOption({
         title : {
@@ -106,8 +111,8 @@ export default {
         graphic:[
           {
             type:'text',  //副标题文字
-            left: 10,
-            bottom:0,
+            right: 10,
+            top:10,
             z:3,
             style:{
                 text: this.options.description,
@@ -117,11 +122,30 @@ export default {
             }
           }
         ],
+        tooltip: {
+          trigger: 'item',
+          confine: true,
+          backgroundColor: this.themeColors[this.theme].backgroundColor,
+          formatter: function (info) {
+            var value = info.value;
+            var treePathInfo = info.treePathInfo;
+            var treePath = [];
+            let pathHtml = name
+            // console.log(info.treePathInfo)
+            for (var i = 1; i < treePathInfo.length; i++) {
+                treePath.push(treePathInfo[i].name);
+                pathHtml +=  '<br />' + '<span>'+ treePathInfo[i].name + '</span>'
+            }
+            pathHtml += ' : ' + formatUtil.addCommas(value)
+
+            return '<div style="white-space: pre-wrap;">' + pathHtml + '</div>'
+          }
+        },
         series: [
           {
               type: 'treemap',
-
-              data: [data],
+              name: name,
+              data: data,
 
               top: 30,
               left: 10,
@@ -141,6 +165,7 @@ export default {
                     },
                 }
               },
+              levels: this.getLevelOption(),
               leaves: {
                   label: {
                       normal: {
@@ -157,6 +182,34 @@ export default {
           }
         ]
       });
+    },
+    getLevelOption() {
+        return [
+            {
+                itemStyle: {
+                    normal: {
+                        borderWidth: 0,
+                        gapWidth: 2
+                    }
+                }
+            },
+            {
+                itemStyle: {
+                    normal: {
+                        gapWidth: 1
+                    }
+                }
+            },
+            {
+                colorSaturation: [0.35, 0.5],
+                itemStyle: {
+                    normal: {
+                        gapWidth: 1,
+                        borderColorSaturation: 0.6
+                    }
+                }
+            }
+        ];
     }
   }
 

@@ -151,6 +151,10 @@ export default {
             }
           }
         })
+        .catch( err => {
+          this.$store.dispatch('setPageIndexAction', {index: 0})
+          this.$router.push({ path: '/' })
+        } )
       }else{
         let routes = this.$route.path.split('/')
         let id = routes[ routes.length - 1 ] || nav[this.pageIndex].id

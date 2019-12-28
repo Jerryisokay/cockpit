@@ -778,7 +778,7 @@ const charts = {
       title: '树图示例',
       description: '树图数据展示',
       order: 0,
-      size: 0,
+      size: 1,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 13,
       multiple: 1,
@@ -812,7 +812,7 @@ const charts = {
       title: '旭日图数据示例',
       description: '旭日图数据展示',
       order: 0,
-      size: 0,
+      size: 1,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 15,
       multiple: 1,
@@ -822,29 +822,162 @@ const charts = {
         "name": "flare",
         "children": [
           {
-            "name": "analytics",
+            "name": "Berry",
+            "itemStyle": {
+              "color": "#dd4c51"
+            },
             "children": [
               {
-                "name": "cluster",
-                "children": [
-                  {
-                    "name": "AgglomerativeCluster",
-                    "value": 3938
-                  },
-                  {
-                    "name": "CommunityStructure",
-                    "value": 3812
-                  },
-                  {
-                    "name": "HierarchicalCluster",
-                    "value": 6714
-                  },
-                  {
-                    "name": "MergeEdge",
-                    "value": 743
-                  }
-                ]
-              }]
+                "name": "Blackberry",
+                "value": 1,
+                "itemStyle": {
+                  "color": "#3e0317"
+                }
+              },
+              {
+                "name": "Raspberry",
+                "value": 1,
+                "itemStyle": {
+                  "color": "#e62969"
+                }
+              },
+              {
+                "name": "Blueberry",
+                "value": 1,
+                "itemStyle": {
+                  "color": "#6569b0"
+                }
+              },
+              {
+                "name": "Strawberry",
+                "value": 1,
+                "itemStyle": {
+                  "color": "#ef2d36"
+                }
+              }
+            ]
+          },
+          {
+            "name": "Dried Fruit",
+            "itemStyle": {
+              "color": "#c94a44"
+            },
+            "children": [
+              {
+                "name": "Raisin",
+                "value": 1,
+                "itemStyle": {
+                  "color": "#b53b54"
+                }
+              },
+              {
+                "name": "Prune",
+                "value": 1,
+                "itemStyle": {
+                  "color": "#a5446f"
+                }
+              }
+            ]
+          },
+          {
+            "name": "Other Fruit",
+            "itemStyle": {
+              "color": "#dd4c51"
+            },
+            "children": [
+              {
+                "name": "Coconut",
+                "value": 1,
+                "itemStyle": {
+                  "color": "#f2684b"
+                }
+              },
+              {
+                "name": "Cherry",
+                "value": 1,
+                "itemStyle": {
+                  "color": "#e73451"
+                }
+              },
+              {
+                "name": "Pomegranate",
+                "value": 1,
+                "itemStyle": {
+                  "color": "#e65656"
+                }
+              },
+              {
+                "name": "Pineapple",
+                "value": 1,
+                "itemStyle": {
+                  "color": "#f89a1c"
+                }
+              },
+              {
+                "name": "Grape",
+                "value": 1,
+                "itemStyle": {
+                  "color": "#aeb92c"
+                }
+              },
+              {
+                "name": "Apple",
+                "value": 1,
+                "itemStyle": {
+                  "color": "#4eb849"
+                }
+              },
+              {
+                "name": "Peach",
+                "value": 1,
+                "itemStyle": {
+                  "color": "#f68a5c"
+                }
+              },
+              {
+                "name": "Pear",
+                "value": 1,
+                "itemStyle": {
+                  "color": "#baa635"
+                }
+              }
+            ]
+          },
+          {
+            "name": "Citrus Fruit",
+            "itemStyle": {
+              "color": "#f7a128"
+            },
+            "children": [
+              {
+                "name": "Grapefruit",
+                "value": 1,
+                "itemStyle": {
+                  "color": "#f26355"
+                }
+              },
+              {
+                "name": "Orange",
+                "value": 1,
+                "itemStyle": {
+                  "color": "#e2631e"
+                }
+              },
+              {
+                "name": "Lemon",
+                "value": 1,
+                "itemStyle": {
+                  "color": "#fde404"
+                }
+              },
+              {
+                "name": "Lime",
+                "value": 1,
+                "itemStyle": {
+                  "color": "#7eb138"
+                }
+              }
+            ]
           }
         ]
       },
