@@ -99,32 +99,79 @@ export default {
     pageHeight(){
       return store.state.base.PAGE_HEIGHT
     },
+    refreshInterval(){
+      return store.state.base.REFRESH_INTERVAL
+    }
   },
   mounted(){
     window.onresize = () =>{
-      // console.log(document.documentElement.clientHeight)
       this.pageHeight =  document.documentElement.clientHeight
     }
+
+    // 定时刷新
+    let timer = setInterval(() => {
+      this.initial()
+    }, parseInt(this.refreshInterval) * 1000)
     this.initial()
   },
   watch:{ //监听路由变化
     $route(to,from){
       setTimeout(() => {
+        // console.log('路由变化')
         this.initial()
       },50)
     }
   },
   methods:{
     initial(){
-      let routes = this.$route.path.split('/')
-      let id = routes[ routes.length - 1 ] || 'homepage'
-      this.$store.dispatch('getNavDataAction', { id })
-      .then( () => {
-        let list = this.list = store.state.charts.CHARTS_DATA[id] || []
-        const length = Math.ceil(list.length /2)
-        this.leftMenu = list.slice(0, length)
-        this.rightMenu = list.slice(length)
-      })
+      let nav = store.state.base.NAV_DATA
+      //是否获取导航
+      if(!nav.length){
+        //获取导航
+        this.$store.dispatch('loadNavDataAction')
+        .then( (data) => {
+          // console.log('首次获取导航');
+          // 获取页面ID
+          if(Array.isArray(data) && data.length){
+            if(data.length > this.pageIndex){
+              let id = data[this.pageIndex].id
+              //获取图表
+              // console.log('获取第'+ parseInt(this.pageIndex + 1) +'页图表');
+              this.$store.dispatch('getNavDataAction', { id })
+              .then( () => {
+                let list = this.list = store.state.charts.CHARTS_DATA[id] || []
+                const length = Math.ceil(list.length /2)
+                this.leftMenu = list.slice(0, length)
+                this.rightMenu = list.slice(length)
+              })
+            }else{
+              // 超出菜单长度，跳转回首页
+              this.$store.dispatch('setPageIndexAction', {index: 0})
+              this.$router.push({ path: '/' })
+            }
+          }
+        })
+      }else{
+        let routes = this.$route.path.split('/')
+        let id = routes[ routes.length - 1 ] || nav[this.pageIndex].id
+
+        if(id == nav[this.pageIndex].id ||( id == '' && this.pageIndex == 0)){
+          this.$store.dispatch('getNavDataAction', { id })
+          .then( () => {
+            // console.log('获取第'+ parseInt(this.pageIndex + 1) +'页图表');
+            let list = this.list = store.state.charts.CHARTS_DATA[id] || []
+            const length = Math.ceil(list.length /2)
+            this.leftMenu = list.slice(0, length)
+            this.rightMenu = list.slice(length)
+          })
+        }else{
+          // 当前路由不对,跳转回首页
+          this.$store.dispatch('setPageIndexAction', {index: 0})
+          this.$router.push({ path: '/' })
+        }
+
+      }
+
     }
   },
   components:{

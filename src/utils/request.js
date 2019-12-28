@@ -12,6 +12,7 @@ const source = cancelToken.source()
 
 // 创建 axios 实例
 const service = axios.create({
+  // 接口域名和端口地址
   baseURL: BASE_API,
   cancelToken: source.token,
   timeout: 6000,  // 请求超时时间

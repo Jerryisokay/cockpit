@@ -11,6 +11,7 @@
             <Mapchart @drag="dragData" :theme="theme"></Mapchart>
           </div>
         </div>
+        <!-- 动态路由表 -->
         <router-view></router-view>
       </div>
     </div>
@@ -31,8 +32,6 @@ export default {
   name: 'container',
   data(){
     return {
-      status: 1,
-      // pageHeight: document.documentElement.clientHeight,
       dragData: {
         lng: null,
         lat: null,
@@ -53,17 +52,10 @@ export default {
   },
   mounted(){
 
-    this.initial()
-
     //监听屏幕大小
     window.onresize = () =>{
       this.$store.dispatch('setPageHeightAction')
     }
-
-    // 定时刷新
-    // let timer = setInterval(() => {
-    //   this.initial()
-    // }, parseInt(this.refreshInterval) * 1000)
 
   },
   computed : {
@@ -75,23 +67,10 @@ export default {
     },
     pageHeight(){
       return store.state.base.PAGE_HEIGHT
-    },
-    refreshInterval(){
-      return store.state.base.REFRESH_INTERVAL
     }
   },
   methods: {
-    initial(){
-      // 初始化
-      let routes = this.$route.path.split('/')
-      let id = routes[ routes.length - 1 ] || ''
-
-      this.$store.dispatch('loadNavDataAction')
-      .catch(() =>{
-        this.$store.dispatch('setPageIndexAction', {index: 0})
-        this.$router.push({ path: '/' })
-      })
-    },
+    //地图拖拽数据
     dragMap (data) {
       this.dragData = {
         lng: data.position.lng,

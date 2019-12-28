@@ -50,9 +50,12 @@ export default {
         this.placeSearch.clear()
       }
     },
-    mapStyle (){
-      console.log('theme changes');
-      this.setMapStyle()
+    mapStyle:{
+      immediate:false,
+      handler:function(){
+        console.log('theme changes');
+        this.setMapStyle()
+     }
     }
   },
   async created() {
