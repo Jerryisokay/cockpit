@@ -143,6 +143,20 @@ export default {
             },
             icon: 'circle'
         },
+        graphic:[
+          {
+            type:'text',  //副标题文字
+            left: 10,
+            bottom:0,
+            z:3,
+            style:{
+                text: this.options.description,
+                // textAlign:'center',
+                fill: this.themeColors[this.theme].textColor,
+                fontSize:12,
+            }
+          }
+        ],
         radar: {
             name: {
               textStyle: {
