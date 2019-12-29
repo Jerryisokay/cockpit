@@ -125,6 +125,9 @@ export default {
         tooltip: {
           trigger: 'item',
           confine: true,
+          textStyle:{
+            fontSize: 12
+          },
           backgroundColor: this.themeColors[this.theme].backgroundColor,
           formatter: function (info) {
             var value = info.value;

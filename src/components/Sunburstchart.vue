@@ -133,6 +133,9 @@ export default {
           trigger: 'item',
           confine: true,
           backgroundColor: this.themeColors[this.theme].backgroundColor,
+          textStyle:{
+            fontSize: 12
+          },
           formatter: function (info) {
             var value = info.value;
             var treePathInfo = info.treePathInfo;
