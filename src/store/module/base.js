@@ -69,7 +69,6 @@ const base = {
           const data = res.data.data[0] || {menu:[]}
           const title = data.title
           const themeType = data.themeType == 2 ? 'blue' : ( data.themeType == 1 ? 'light' : 'dark')
-          const homeId = data.menu.length ? data.menu[0].id : ''
           //设置初始参数
           //主题
           commit('SET_THEME_TYPE', { theme: themeType })

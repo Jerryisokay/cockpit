@@ -8,6 +8,7 @@
 // import AMap from "@/utils/AMap"
 import remoteLoad from '@/utils/remoteLoad'
 import { MapKey, MapName } from '@/config/config'
+import store from '@/store'
 
 export default {
   name: "mapchart",
@@ -18,22 +19,17 @@ export default {
       dragStatus: false,
       AMapUI: null,
       AMap: null,
+      markers:[],
       styles:{
         dark: 'amap://styles/grey',
         light: 'amap://styles/normal',
         blue: 'amap://styles/blue',
-      }
-    };
+      },
+      lng: '',
+      lat: ''
+    }
   },
   props:{
-    lng: {
-      type: String,
-      default: '22.574405'
-    },
-    lat: {
-      type: String,
-      default: '114.095388'
-    },
     theme: {
       type: String,
       default: 'light'
@@ -57,6 +53,22 @@ export default {
         this.setMapStyle()
      }
     }
+  },
+  mounted(){
+    this.$store.dispatch('loadMarkersAction')
+    .then( (data) => {
+      this.markers = data
+      let lngs = [], lats = []
+      Array.isArray(data) && data.length && data.map( (item) => {
+        lngs.push( parseFloat(item.gdmapjd))
+        lats.push( parseFloat(item.gdmapwd))
+      })
+
+      const num1 = lngs => lngs.reduce((acc, val) => acc + val, 0) / lngs.length
+      this.lng = parseFloat(num1(lngs))
+      const num2 = lats => lats.reduce((acc, val) => acc + val, 0) / lats.length
+      this.lat = parseFloat(num2(lats))
+    })
   },
   async created() {
     // 已载入高德地图API，则直接初始化地图
@@ -87,18 +99,20 @@ export default {
       let AMap = this.AMap = window.AMap
       AMapUI.loadUI(['misc/PositionPicker'], PositionPicker => {
         let mapconfig = {
-          // zoom: 17,
           mapStyle: this.mapStyle,
-          zooms: [3, 18], //设置地图级别范围
-          zoom: 14, //初始化地图层级
+          // zooms: [3, 18], //设置地图级别范围
+          zoom: 12, //初始化地图层级
           resizeEnable: true,
-        }
-        if( this.lat && this.lng ){
-          mapconfig.center = [this.lng, this.lat]
         }
         let map = this.map = new AMap.Map('mapbox', mapconfig)
         // 设置城市
-        map.setCity(MapName)
+        if( this.lat && this.lng ){
+          console.log(this.lng, this.lat)
+          map.setCenter([this.lng, this.lat])
+        }else{
+          map.setCity(MapName)
+        }
+        // map.setCity(MapName)
         // 加载地图搜索插件
         // AMap.service('AMap.PlaceSearch', () => {
         //   this.placeSearch = new AMap.PlaceSearch({
@@ -111,24 +125,26 @@ export default {
           }) )
         })
         // 创建地图拖拽
-        let positionPicker = new PositionPicker({
-          mode: 'dragMarker',
-          map: map
-        })
-        // 拖拽完成
-        positionPicker.on('success', result => {
-          if(!this.dragStatus){
-            this.dragStatus = true
-          } else{
-            this.$emit('drag', result)
-          }
-        })
+        // let positionPicker = new PositionPicker({
+        //   mode: 'dragMarker',
+        //   map: map
+        // })
+        // // 拖拽完成
+        // positionPicker.on('success', result => {
+        //   if(!this.dragStatus){
+        //     this.dragStatus = true
+        //   } else{
+        //     this.$emit('drag', result)
+        //   }
+        // })
 
-        positionPicker.start();
-
-        // this.addMarker()
+        // positionPicker.start();
+        this.markers.map( (item, index) => {
+          let lng = item.gdmapjd , lat = item.gdmapwd, id = item.gdmapxmid
+          this.addMarker(lng, lat, id, map)
+        })
         //绑定事件
-        this.map.on('click', this.showInfoClick)
+        map.on('click', this.showInfoClick)
       })
     },
     setMapStyle() {
@@ -141,32 +157,52 @@ export default {
       }
     },
     // 创建点标记
-    // addMarker() {
-    //   this.marker = new this.resMap.Marker({
-    //     icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
-    //     position:  [this.lng, this.lat],
-    //     offset: new this.resMap.Pixel(-13, -30)
-    //   });
-
-    //   this.map.add(this.marker);
-    //   this.map.setFitView();
-    // },
-    // 创建点标记
-    addMarker() {
-      console.log( 'marker at ' + this.lng+ ','+ this.lat )
-      this.marker = new AMap.Marker({
-        position: this.map.getCenter(),//[this.lng, this.lat],
-        icon: "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
+    addMarker(lng, lat, id, map) {
+      console.log( 'marker at ' + lng+ ','+ lat )
+      let marker = new AMap.Marker({
+        position: [lng, lat],
+        icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
         // offset: new AMap.Pixel(-20, -20)
         offset: new AMap.Pixel(-13, -30)
       });
-      this.marker.setMap(this.map);
+      //请求获取窗体内容
+      this.$store.dispatch('setPositionInfoAction',{ id })
+      .then( (data) => {
+        let item = {}
+        if(data.length){
+          item = data[0]
+        }
+        this.initInfoContent(item, map, marker)
+      })
 
       // this.map.setFitView();
     },
     showInfoClick(e){
         var text = '您在 [ '+e.lnglat.getLng()+','+e.lnglat.getLat()+' ] 的位置单击了地图！'
         console.log(text)
+    },
+    initInfoContent(item, map, marker){
+      let html = ''
+      html += "<div class='input-card content-window-card mark-info-content'>" +
+      "<div class='mark-info-item'>项目名称 : "+ item.gdxmmc +"</div>" +
+      "<div class='mark-info-item'>项目类型 : "+ item.gdxmlx +"</div>" +
+      "<div class='mark-info-item'>项目经理 : "+ item.gdxmjlr +"</div>" +
+      "<div class='mark-info-item'>项目状态 : "+ item.gdxmstate +"</div>" +
+      "<div class='mark-info-item'>项目单位 : "+ item.gdxmdw +"</div>" +
+      "<div class='mark-info-item'>项目介绍 : "+ item.gdxmjs +"</div></div>"
+
+      let infoWindow = new AMap.InfoWindow({
+          content: html  //使用默认信息窗体框样式，显示信息内容
+      });
+
+      marker.setMap(map);
+      marker.on('mouseover', () => {
+        // 打开窗体
+        infoWindow.open(map, marker.getPosition());
+      }).on('mouseout',() => {
+        // 关闭窗体
+        infoWindow.close()
+      })
     }
   }
 };

@@ -553,7 +553,10 @@ div::-webkit-scrollbar-corner{
   height: inherit;
 }
 
-
+.mark-info-item{
+  font-size: 12px;
+  line-height: 20px;
+}
 
 /* icon */
 

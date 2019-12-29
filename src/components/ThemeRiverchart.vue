@@ -158,6 +158,9 @@ export default {
                   type: 'solid'
               }
             },
+            textStyle:{
+              fontSize: 12
+            },
             backgroundColor: this.themeColors[this.theme].backgroundColor,
             position:  function (pos, params, dom, rect, size) {
                 // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。
