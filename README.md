@@ -32,3 +32,18 @@ npm run build --report
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
+
+
+## 项目维护
+
+线上环境更改请求的域名地址：
+
+进入`src/config/config.js` 修改 `BASE_API` 为当前域名
+
+
+
+更改高德地图key：
+
+当前的key为开发者自己的高德开发者账号的key，请替换成自己申请的web jsapi的key，请注意服务平台是web端 （JS API）
+
+进入`src/config/config.js` 修改 `MapKey`为当前的key(请注意是)
