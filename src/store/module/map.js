@@ -4,7 +4,8 @@
 import { getMapApi, getPositionInfoApi } from '@/api/index'
 
 const map = {
-  state:{
+  state: {
+    SHOW_MAP: false,
     MAP_LEVEL: 1,
     MAP_AREA: '',
     // 标记点

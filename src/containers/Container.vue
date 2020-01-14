@@ -8,7 +8,7 @@
         <div class="mid-container-outer">
           <div class="mid-container-inner">
             <Angleborder type="1"></Angleborder>
-            <Mapchart @drag="dragData" :theme="theme"></Mapchart>
+            <Mapchart v-if="showMap" @drag="dragData" :theme="theme"></Mapchart>
           </div>
         </div>
         <!-- 动态路由表 -->
@@ -67,6 +67,9 @@ export default {
     },
     pageHeight(){
       return store.state.base.PAGE_HEIGHT
+    },
+    showMap(){
+      return store.state.map.SHOW_MAP
     }
   },
   methods: {
