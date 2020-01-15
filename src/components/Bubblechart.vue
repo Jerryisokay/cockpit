@@ -185,6 +185,7 @@ export default {
             x:'left',
             textStyle:{
               color: this.themeColors[this.theme].textColor,//'#76a5d9'
+              fontSize: 14
             },
         },
         graphic:[
@@ -197,7 +198,7 @@ export default {
                 text: this.options.description,
                 // textAlign:'center',
                 fill: this.themeColors[this.theme].textColor,
-                fontSize:12,
+                fontSize:11,
             }
           }
         ],
@@ -247,8 +248,8 @@ export default {
         grid: {
           left: 10,
           right: 10,
-          top: 45,
-          bottom: 20,
+          top: 35,
+          bottom: 15,
           containLabel : true
         },
         color: this.colors,

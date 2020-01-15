@@ -104,7 +104,8 @@ export default {
             text: this.options.title,
             x:'left',
             textStyle:{
-              color: this.themeColors[this.theme].textColor
+              color: this.themeColors[this.theme].textColor,
+              fontSize: 14
             },
         },
         color: this.colors,
@@ -118,7 +119,7 @@ export default {
                 text: this.options.description,
                 // textAlign:'center',
                 fill: this.themeColors[this.theme].textColor,
-                fontSize:12,
+                fontSize:11,
             }
           }
         ],

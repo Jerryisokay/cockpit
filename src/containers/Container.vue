@@ -5,10 +5,10 @@
       <Navigator></Navigator>
       <!-- 地图部分 -->
       <div class="main-container" :style='{"height": pageHeight - 160 + "px"}'>
-        <div class="mid-container-outer">
+        <div v-if="showMap" class="mid-container-outer">
           <div class="mid-container-inner">
             <Angleborder type="1"></Angleborder>
-            <Mapchart v-if="showMap" @drag="dragData" :theme="theme"></Mapchart>
+            <Mapchart @drag="dragData" :theme="theme"></Mapchart>
           </div>
         </div>
         <!-- 动态路由表 -->

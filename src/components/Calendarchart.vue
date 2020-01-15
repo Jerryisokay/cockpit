@@ -111,7 +111,17 @@ export default {
         }).slice(0, 3)
       }
       return top
-    }
+    },
+    layout(){
+      return store.state.base.LAYOUT_TYPE
+    },
+    //单元宽度
+    gridWidth(){
+      return parseInt((document.documentElement.clientWidth - 40)/12)
+    },
+    gridHeight(){
+      return parseInt((store.state.base.PAGE_HEIGHT - 110)/12)
+    },
   },
   watch: {
     options: {
@@ -153,8 +163,8 @@ export default {
           text: _self.options.title,
           // subtext: this.options.description,
           x: "left",
-          fontSize: 16,
           textStyle: {
+            fontSize: 14,
             color: _self.themeColors[_self.theme].textColor
           }
           // subtextStyle:{
@@ -190,13 +200,13 @@ export default {
                 text: _self.options.description,
                 // textAlign:'center',
                 fill: _self.themeColors[_self.theme].textColor,
-                fontSize:12,
+                fontSize:11,
             }
           }
         ],
         calendar: [
           {
-            top: 60,
+            top: 40,
             right: "center",
             range: range,
             splitLine: {

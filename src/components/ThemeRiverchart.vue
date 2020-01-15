@@ -132,6 +132,7 @@ export default {
             x:'left',
             textStyle:{
               color: this.themeColors[this.theme].textColor,
+              fontSize: 14
             },
         },
         graphic:[
@@ -144,7 +145,7 @@ export default {
                 text: this.options.description,
                 // textAlign:'center',
                 fill: this.themeColors[this.theme].textColor,
-                fontSize:12,
+                fontSize:11,
             }
           }
         ],
@@ -170,7 +171,7 @@ export default {
             }
         },
         singleAxis: {
-            top: 50,
+            top: 30,
             bottom: 50,
             axisTick: {},
             axisLabel: {

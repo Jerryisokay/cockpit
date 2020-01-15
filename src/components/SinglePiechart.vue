@@ -82,6 +82,16 @@ export default {
       let colors = this.options.colors || []
       return colors.concat(store.state.base.COLOR_REPOSITORY)
     },
+    layout(){
+      return store.state.base.LAYOUT_TYPE
+    },
+    //单元宽度
+    gridWidth(){
+      return parseInt((document.documentElement.clientWidth - 40)/12)
+    },
+    gridHeight(){
+      return parseInt((store.state.base.PAGE_HEIGHT - 110)/12)
+    },
   },
   mounted(){
     // console.log(this.options)
@@ -111,6 +121,15 @@ export default {
   },
   methods: {
     drawChart(){
+      this.innerWidth = this.gridWidth * this.options.width - 24
+      this.innerHeight = this.gridHeight * this.options.height - 62
+      if(this.innerWidth < 0){
+        this.innerWidth = 300
+      }
+      if(this.innerHeight < 0){
+        this.innerWidth = 150
+      }
+
       this.myChart = this.$echarts.init(this.$el)
       let series = []
       let radius = this.getRadius(this.options.series.length, this.options.size)
@@ -157,16 +176,29 @@ export default {
       this.myChart.setOption({
         title : {
             text: this.options.title,
-            subtext: this.options.description,
+            // subtext: this.options.description,
             x:'left',
-            fontSize: 16,
             textStyle: {
+              fontSize: 14,
               color: this.themeColors[this.theme].textColor
             },
-            subtextStyle:{
-              color: this.themeColors[this.theme].textColor
-            }
+            // subtextStyle:{
+            //   color: this.themeColors[this.theme].textColor
+            // }
         },
+        graphic:[
+          {
+            type:'text',  //说明文字
+            right: 10,
+            top:8,
+            z:3,
+            style:{
+                text: this.options.description,
+                fill: this.themeColors[this.theme].textColor,
+                fontSize:11
+            }
+          }
+        ],
         // color: ['#ffc03d','#01edd9','#3c95fb'],
         textStyle: {
           color: this.themeColors[this.theme].textColor
@@ -195,8 +227,10 @@ export default {
     },
     getRadius( length, size){
       // console.log(length)
-      let [colmuns, rows] = this.getColumns(length, size)
-      let radius = size == 1 ? Math.min( 75/colmuns , 90/rows ) : Math.min( 75/colmuns , 40/rows )
+      let [colmuns, rows] = this.getColumns(length)
+      let radius = Math.min( this.innerWidth/ 4 /colmuns , this.innerHeight/ 4 /rows )
+      // let radius = size == 1 ? Math.min( this.innerWidth/(colmuns * 4) , this.innerHeight/(rows * 4) ) : Math.min( 75/colmuns , 40/rows )
+      console.log(this.innerWidth/ 3 /colmuns , this.innerHeight/ 3 /rows)
       return [radius * 0.75, radius]
     },
     getColumns(length, size){   //获取行列数
@@ -207,24 +241,23 @@ export default {
         if(i*i >= length){
           return [i,i]
         }else if(i * i+ 1 >= length){
-          return size == 1 ? [i, i+1] : [i+1, i]
+          return this.innerWidth <= this.innerHeight ? [i, i+1] : [i+1, i]
         }
       }
     },
     getCenterPosition( index, length, size){  //获取单个图表的位置
-      let [colmuns, rows] = this.getColumns(length, size)
+      let [colmuns, rows] = this.getColumns(length)
       //每行数量 行数
       // console.log('====================================');
       let yNth = Math.ceil((index + 1)/ colmuns)  //当前行数
       // console.log('yNth '  + yNth)
       let xNth = index + 1 - (yNth - 1) * colmuns
       // console.log('xNth '  + xNth)
-      let singleW = (yNth == rows) ? (150 / (length + colmuns - colmuns * rows)) : (150 / colmuns)
-      let singleH = size == 1 ? 160 / rows : 80 /rows
-
+      let singleW = (yNth == rows) ? (this.innerWidth/ 2 / (length + colmuns - colmuns * rows)) : (this.innerWidth/ 2 / colmuns)
+      let singleH = this.innerHeight/ 2 / rows
       // console.log('====================================');
 
-      return [singleW * (xNth * 2 - 1) , singleH * ( yNth * 2 - 1) + 40 ]
+      return [singleW * (xNth * 2 - 1) , singleH * ( yNth * 2 - 1) + 20 ]
 
     }
   }

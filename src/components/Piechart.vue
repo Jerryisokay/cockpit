@@ -133,21 +133,18 @@ export default {
       this.myChart.setOption({
         title : {
             text: this.options.title,
-            subtext: this.options.description,
+            // subtext: this.options.description,
             x:'left',
-            fontSize: 16,
             textStyle: {
-              color: this.themeColors[this.theme].textColor
-            },
-            subtextStyle:{
-              color: this.themeColors[this.theme].textColor
+              color: this.themeColors[this.theme].textColor,
+              fontSize: 14
             }
         },
         grid:{
           left: 10,
           right: 20,
-          top: 40,
-          bottom: 10,
+          top: 30,
+          bottom: 15,
           containLabel : true
         },
         tooltip: {
@@ -275,6 +272,18 @@ export default {
                 width:25,
                 fontSize:14,
                 // height:60
+            }
+          },
+          {
+            type:'text',  //副标题文字
+            right: 10,
+            top:8,
+            z:3,
+            style:{
+                text: this.options.description,
+                // textAlign:'center',
+                fill: this.themeColors[this.theme].textColor,
+                fontSize:11,
             }
           }
         ]

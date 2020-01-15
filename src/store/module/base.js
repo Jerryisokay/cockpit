@@ -33,6 +33,7 @@ const base = {
     PAGE_INDEX: 0,
     // 页面标题
     PAGE_TITLE: '',
+    LAYOUT_TYPE: 1,   //1 栅格布局, 2 传统布局
     // 刷新间隔
     REFRESH_INTERVAL: 100,
     // 页面高度，用于自适应

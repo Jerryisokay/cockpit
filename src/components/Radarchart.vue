@@ -126,6 +126,7 @@ export default {
             x:'left',
             textStyle:{
               color: this.themeColors[this.theme].textColor,
+              fontSize: 14
             },
         },
         legend:{
@@ -153,7 +154,7 @@ export default {
                 text: this.options.description,
                 // textAlign:'center',
                 fill: this.themeColors[this.theme].textColor,
-                fontSize:12,
+                fontSize:11,
             }
           }
         ],

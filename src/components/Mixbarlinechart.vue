@@ -160,6 +160,7 @@ export default {
             x:'left',
             textStyle:{
               color: this.themeColors[this.theme].textColor,
+              fontSize: 14
             },
         },
         tooltip : {
@@ -176,14 +177,14 @@ export default {
         graphic:[
           {
             type:'text',  //中心文字
-            right: 20,
-            top:10,
+            left: 10,
+            bottom:0,
             z:3,
             style:{
                 text: this.options.description,
                 // textAlign:'center',
                 fill: this.themeColors[this.theme].textColor,
-                fontSize:12,
+                fontSize:11,
                 // height:60
             }
           }
@@ -191,8 +192,8 @@ export default {
         grid:{
           left: 10,
           right: 20,
-          top: 40,
-          bottom: 10,
+          top: 30,
+          bottom: 15,
           containLabel : true
         },
         xAxis: {

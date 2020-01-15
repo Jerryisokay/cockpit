@@ -280,6 +280,25 @@ div::-webkit-scrollbar-corner{
 .light .mid-container-inner{
   background: url(../images/bgd-line-light.png) right center no-repeat;
 }
+.grid-dialog-group{
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+.grid-dialog-group .grid-dialog-outer{
+  position: absolute;
+  margin: 0px -5px;
+  padding: 1px;
+}
+.grid-dialog-middle{
+  margin: 5px;
+  position: relative;
+  padding: 1px;
+}
+.grid-dialog-group .grid-dialog-inner{
+  padding: 5px;
+  box-shadow: inset 0px 0px 20px 5px rgba(255,255,255,.2);
+}
 
 .aside-dialog-group{
   position: absolute;
@@ -294,7 +313,7 @@ div::-webkit-scrollbar-corner{
   right: 20px;
 }
 
-.aside-dialog{
+.aside-dialog-group .aside-dialog{
   position: relative;
   margin-bottom: 20px;
   padding: 1px;
@@ -307,15 +326,15 @@ div::-webkit-scrollbar-corner{
 .aside-dialog-inner.large{
   height: 400px;
 }
-.dark .aside-dialog-inner{
+.dark .aside-dialog-inner,.dark .grid-dialog-inner{
   border-radius: 0px 16px 0 16px;
   border: 1px solid #2469a2;
 }
-.light .aside-dialog-inner{
+.light .aside-dialog-inner,.light .grid-dialog-inner{
   border: 1px solid #c6044d;
   border-radius: 0px 16px 0 16px;
 }
-.blue .aside-dialog-inner{
+.blue .aside-dialog-inner,.blue .grid-dialog-inner{
   border: 1px solid #3aaafe;
 }
 

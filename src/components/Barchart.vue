@@ -212,8 +212,8 @@ export default {
       let gridOptions = {
         left: 10,
         right: 20,
-        top: 40,
-        bottom: 20,
+        top: 30,
+        bottom: 15,
         containLabel : true
       }
       this.myChart.setOption({
@@ -221,7 +221,8 @@ export default {
             text: this.options.title,
             x:'left',
             textStyle:{
-              color: this.themeColors[this.theme].textColor
+              color: this.themeColors[this.theme].textColor,
+              fontSize: 14
             },
         },
         tooltip : {
@@ -245,7 +246,7 @@ export default {
                 text: this.options.description,
                 // textAlign:'center',
                 fill: this.themeColors[this.theme].textColor,
-                fontSize:12
+                fontSize:11
             }
           }
         ],

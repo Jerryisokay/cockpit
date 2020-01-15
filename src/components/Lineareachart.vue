@@ -147,6 +147,7 @@ export default {
             x:'left',
             textStyle:{
               color: this.themeColors[this.theme].textColor,//'#76a5d9'
+              fontSize: 14
             },
         },
         tooltip : {
@@ -169,15 +170,15 @@ export default {
                 text: this.options.description,
                 // textAlign:'center',
                 fill: this.themeColors[this.theme].textColor,
-                fontSize:12,
+                fontSize:11,
             }
           }
         ],
         grid:{
           left: 10,
           right: 20,
-          top: 40,
-          bottom: 20,
+          top: 30,
+          bottom: 15,
           containLabel : true
         },
         xAxis: {

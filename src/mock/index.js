@@ -68,6 +68,8 @@ const charts = {
       type: 0,
       order: 0,
       size: 0,
+      width: 3,
+      height: 4,
       colors: ['#ffbc38', '#19D672', '#76A5D9'],
       series: [
         {
@@ -104,6 +106,8 @@ const charts = {
       description: '多系列饼图展示',
       order: 0,
       size: 0,
+      width: 3,
+      height: 5,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 1,
       multiple: 1,
@@ -128,26 +132,26 @@ const charts = {
               max: ''
             }
           ]
-        }, {
-          name: '营销方式',
-          id: '',
-          data: [
-            {
-              value: 310,
-              name: '淘宝',
-              max: ''
-            },
-            {
-              value: 250,
-              name: '线下',
-              max: ''
-            },
-            {
-              value: 110,
-              name: '京东',
-              max: ''
-            }
-          ]
+        // }, {
+        //   name: '营销方式',
+        //   id: '',
+        //   data: [
+        //     {
+        //       value: 310,
+        //       name: '淘宝',
+        //       max: ''
+        //     },
+        //     {
+        //       value: 250,
+        //       name: '线下',
+        //       max: ''
+        //     },
+        //     {
+        //       value: 110,
+        //       name: '京东',
+        //       max: ''
+        //     }
+        //   ]
         }
       ],
       treeData: null,
@@ -163,6 +167,8 @@ const charts = {
       description: '多系列百分比饼图展示',
       order: 0,
       size: 0,
+      width: 3,
+      height: 6,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 2,
       multiple: 1,
@@ -189,17 +195,28 @@ const charts = {
             },
           ]
         },
-        {
-          name: '完成率',
-          id: '',
-          data: [
-            {
-              value: 60,
-              name: '固废治理达标',
-              max: 200
-            }
-          ]
-        },
+        // {
+        //   name: '完成率',
+        //   id: '',
+        //   data: [
+        //     {
+        //       value: 60,
+        //       name: '固废治理达标',
+        //       max: 200
+        //     }
+        //   ]
+        // },
+        // {
+        //   name: '完成率',
+        //   id: '',
+        //   data: [
+        //     {
+        //       value: 60,
+        //       name: '污水处理达标',
+        //       max: 200
+        //     }
+        //   ]
+        // },
       ],
       treeData: null,
       sunburstData: null,
@@ -214,6 +231,8 @@ const charts = {
       description: '单位/人',
       order: 0,
       size: 0,
+      width: 3,
+      height: 4,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 3,
       multiple: 0,
@@ -254,6 +273,8 @@ const charts = {
       description: '单系列纵向显示柱形图展示',
       order: 0,
       size: 0,
+      width: 3,
+      height: 4,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 4,
       multiple: 0,
@@ -292,6 +313,8 @@ const charts = {
       description: '单位/人',
       order: 0,
       size: 0,
+      width: 3,
+      height: 4,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 5,
       multiple: 1,
@@ -350,6 +373,8 @@ const charts = {
       description: '单位/人',
       order: 0,
       size: 0,
+      width: 3,
+      height: 4,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 6,
       multiple: 1,
@@ -408,6 +433,8 @@ const charts = {
       description: '折线图展示',
       order: 0,
       size: 0,
+      width: 3,
+      height: 4,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 7,
       multiple: 1,
@@ -498,6 +525,8 @@ const charts = {
       description: '单位/人',
       order: 0,
       size: 0,
+      width: 3,
+      height: 4,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 8,
       multiple: 0,
@@ -586,6 +615,8 @@ const charts = {
       description: '单位/人',
       order: 0,
       size: 0,
+      width: 3,
+      height: 4,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 9,
       multiple: 1,
@@ -645,6 +676,8 @@ const charts = {
       description: '单位/人',
       order: 0,
       size: 0,
+      width: 3,
+      height: 4,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 10,
       multiple: 1,
@@ -687,6 +720,8 @@ const charts = {
       description: '单位/人',
       order: 0,
       size: 0,
+      width: 3,
+      height: 4,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 11,
       multiple: 0,
@@ -719,6 +754,8 @@ const charts = {
       description: '仪表盘数据展示',
       order: 0,
       size: 1,
+      width: 3,
+      height: 4,
       colors: ['#19D672', '#FD517D', '#76A5D9', '#ff9600', '#ee332e'],
       type: 12,
       multiple: 1,
@@ -779,6 +816,8 @@ const charts = {
       description: '树图数据展示',
       order: 0,
       size: 1,
+      width: 3,
+      height: 4,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 13,
       multiple: 1,
@@ -796,6 +835,8 @@ const charts = {
       description: '矩形树图数据展示',
       order: 0,
       size: 0,
+      width: 3,
+      height: 4,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 14,
       multiple: 1,
@@ -813,6 +854,8 @@ const charts = {
       description: '旭日图数据展示',
       order: 0,
       size: 1,
+      width: 3,
+      height: 4,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 15,
       multiple: 1,
@@ -994,6 +1037,8 @@ const charts = {
       description: '散点图数据展示',
       order: 0,
       size: 0,
+      width: 3,
+      height: 4,
       colors: ['#ff9600', '#FD517D', '#76A5D9'],
       type: 16,
       multiple: 1,
@@ -1082,6 +1127,8 @@ const charts = {
       description: '气泡图数据展示',
       order: 0,
       size: 0,
+      width: 3,
+      height: 4,
       colors: ['#ff9600', '#FD517D', '#76A5D9'],
       type: 17,
       multiple: 1,
@@ -1182,6 +1229,8 @@ const charts = {
       description: '主题河流图数据展示',
       order: 0,
       size: 0,
+      width: 3,
+      height: 4,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 18,
       multiple: 1,
@@ -1281,6 +1330,8 @@ const charts = {
       description: '日历热图数据展示',
       order: 0,
       size: 0,
+      width: 3,
+      height: 4,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 19,
       multiple: 1,

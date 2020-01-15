@@ -110,16 +110,30 @@ export default {
       this.myChart.setOption({
         title : {
             text: this.options.title,
-            subtext: this.options.description,
+            // subtext: this.options.description,
             x:'left',
-            fontSize: 16,
             textStyle: {
+              fontSize: 14,
               color: this.themeColors[this.theme].textColor
             },
-            subtextStyle:{
-              color: this.themeColors[this.theme].textColor
-            }
+            // subtextStyle:{
+            //   color: this.themeColors[this.theme].textColor
+            // }
         },
+        graphic:[
+          {
+            type:'text',  //副标题文字
+            left: 10,
+            bottom: 0,
+            z:3,
+            style:{
+                text: this.options.description,
+                // textAlign:'center',
+                fill: this.themeColors[this.theme].textColor,
+                fontSize:11,
+            }
+          }
+        ],
         tooltip: {
             trigger: 'item',
             confine: true,
@@ -145,8 +159,8 @@ export default {
               name: name,
               type:'funnel',
               left: '10%',
-              top: 60,
-              bottom: 20,
+              top: 30,
+              bottom: 10,
               width: '70%',
               min: 0,
               minSize: '0%',

@@ -81,7 +81,14 @@ export default {
         })
       })
       return data
-    }
+    },
+    //单元宽度
+    gridWidth(){
+      return parseInt((document.documentElement.clientWidth - 40)/12)
+    },
+    gridHeight(){
+      return parseInt((store.state.base.PAGE_HEIGHT - 110)/12)
+    },
   },
   watch: {
     options: {
@@ -105,6 +112,14 @@ export default {
   },
   methods: {
     drawChart() {
+      this.innerWidth = this.gridWidth * this.options.width - 24
+      this.innerHeight = this.gridHeight * this.options.height - 62
+      if(this.innerWidth < 0){
+        this.innerWidth = 300
+      }
+      if(this.innerHeight < 0){
+        this.innerWidth = 150
+      }
       this.myChart = this.$echarts.init(this.$el);
       let series = [];
       let divider = parseInt(100 / (this.options.series.length * 2))
@@ -171,7 +186,8 @@ export default {
           // subtext: '纯属虚构',
           x: "left",
           textStyle: {
-            color: this.themeColors[this.theme].textColor
+            color: this.themeColors[this.theme].textColor,
+            fontSize: 14
           }
         },
         // tooltip: {
@@ -191,14 +207,14 @@ export default {
         graphic: [
           {
             type: "text", //副标题
-            right: 20,
-            top: 10,
+            right: 10,
+            top: 8,
             z: 3,
             style: {
               text: this.options.description,
               // textAlign:'center',
               fill: this.themeColors[this.theme].textColor,
-              fontSize: 12
+              fontSize: 11
               // height:60
             }
           }
@@ -208,44 +224,33 @@ export default {
       });
     },
     getRadius( length, size){
-      // console.log(length)
-      let [colmuns, rows] = this.getColumns(length, size)
-      return size == 1 ? Math.min( 100/colmuns , 120/rows ) : Math.min( 100/colmuns , 60/rows )
-
-      if(length <= 1){
-        return 75
-      }if(length == 2){
-        return 50
-      }else if(size == 1){    //尺寸大的图表 双层展示
-        return parseInt(100 / Math.ceil(length/2))
-      }else{
-        return parseInt(100 / length)
-      }
+      let [colmuns, rows] = this.getColumns(length)
+      return Math.min( this.innerWidth/ 3 /colmuns , this.innerHeight/ 3 /rows )
 
     },
-    getColumns(length, size){   //获取行列数
+    getColumns(length){   //获取行列数
       for(let i = 1; i<=length; i++){
         if(i*i >= length){
           return [i,i]
         }else if(i * i+ 1 >= length){
-          return size == 1 ? [i, i+1] : [i+1, i]
+          return this.innerWidth <= this.innerHeight ? [i, i+1] : [i+1, i]
         }
       }
     },
     getCenterPosition( index, length, size){  //获取单个图表的位置
-      let [colmuns, rows] = this.getColumns(length, size)
+      let [colmuns, rows] = this.getColumns(length)
       //每行数量 行数
       // console.log('====================================');
       let yNth = Math.ceil((index + 1)/ colmuns)  //当前行数
       // console.log('yNth '  + yNth)
       let xNth = index + 1 - (yNth - 1) * colmuns
       // console.log('xNth '  + xNth)
-      let singleW = (yNth == rows) ? (150 / (length + colmuns - colmuns * rows)) : (150 / colmuns)
-      let singleH = size == 1 ? 180 / rows : 90 /rows
+      let singleW = (yNth == rows) ? (this.innerWidth/ 2 / (length + colmuns - colmuns * rows)) : (this.innerWidth/ 2 / colmuns)
+      let singleH = this.innerHeight/ 2 / rows
 
       // console.log('====================================');
 
-      return [singleW * (xNth * 2 - 1) , singleH * ( yNth * 2 - 1) + 40 ]
+      return [singleW * (xNth * 2 - 1) , singleH * ( yNth * 2 - 1) + 30 ]
 
     }
   }
