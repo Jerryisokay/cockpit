@@ -7,10 +7,13 @@ const menus = {
   "code": "1",
   "data": [
     {
+      updateInterval: 100,
+      themeType: 2,
+      title: "合肥城建名大数据平台",
       menu: [
         {
           name: '主页',
-          id: 'homepage',
+          id: 'homepage1',
         },
         {
           name: '菜单1',
@@ -31,6 +34,10 @@ const menus = {
         {
           name: '菜单5',
           id: 'menu5',
+        },
+        {
+          name: '菜单6',
+          id: 'menu6',
         },
       ]
     }
@@ -60,7 +67,7 @@ const menus = {
 */
 
 const charts = {
-  'homepage': [
+  'homepage1': [
     //单系列饼图
     {
       title: '单系列饼图',
@@ -70,6 +77,8 @@ const charts = {
       size: 0,
       width: 3,
       height: 4,
+      positionX: 0,
+      positionY: 0,
       colors: ['#ffbc38', '#19D672', '#76A5D9'],
       series: [
         {
@@ -108,6 +117,8 @@ const charts = {
       size: 0,
       width: 3,
       height: 5,
+      positionX: 3,
+      positionY: 0,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 1,
       multiple: 1,
@@ -132,26 +143,26 @@ const charts = {
               max: ''
             }
           ]
-        // }, {
-        //   name: '营销方式',
-        //   id: '',
-        //   data: [
-        //     {
-        //       value: 310,
-        //       name: '淘宝',
-        //       max: ''
-        //     },
-        //     {
-        //       value: 250,
-        //       name: '线下',
-        //       max: ''
-        //     },
-        //     {
-        //       value: 110,
-        //       name: '京东',
-        //       max: ''
-        //     }
-        //   ]
+        }, {
+          name: '营销方式',
+          id: '',
+          data: [
+            {
+              value: 310,
+              name: '淘宝',
+              max: ''
+            },
+            {
+              value: 250,
+              name: '线下',
+              max: ''
+            },
+            {
+              value: 110,
+              name: '京东',
+              max: ''
+            }
+          ]
         }
       ],
       treeData: null,
@@ -169,6 +180,8 @@ const charts = {
       size: 0,
       width: 3,
       height: 6,
+      positionX: 6,
+      positionY: 0,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 2,
       multiple: 1,
@@ -233,6 +246,8 @@ const charts = {
       size: 0,
       width: 3,
       height: 4,
+      positionX: 9,
+      positionY: 0,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 3,
       multiple: 0,
@@ -264,6 +279,150 @@ const charts = {
       scatterData: null,
       riverData: null,
       calendarData: null
+    },
+    // 表格数据示例
+    {
+      title: '表格数据示例',
+      description: '单位/人',
+      order: 0,
+      size: 0,
+      width: 3,
+      height: 5,
+      positionX: 0,
+      positionY: 4,
+      colors: ['#19D672', '#FD517D', '#76A5D9'],
+      type: 20,
+      multiple: 0,
+      series: [
+        {
+          name: '2017销售数据',
+          id: '',
+          data: [
+            {
+              value: 160,
+              name: '第一周',
+              max: ''
+            },
+            {
+              value: 200,
+              name: '第二周',
+              max: ''
+            },
+            {
+              value: 210,
+              name: '第三周',
+              max: ''
+            }
+          ]
+        },
+        {
+          name: '2018销售数据',
+          id: '',
+          data: [
+            {
+              value: 260,
+              name: '第一周',
+              max: ''
+            },
+            {
+              value: 210,
+              name: '第二周',
+              max: ''
+            },
+            {
+              value: 240,
+              name: '第三周',
+              max: ''
+            }
+          ]
+        },
+        {
+          name: '2019销售数据',
+          id: '',
+          data: [
+            {
+              value: 460,
+              name: '第一周',
+              max: ''
+            },
+            {
+              value: 230,
+              name: '第二周',
+              max: ''
+            },
+            {
+              value: 310,
+              name: '第三周',
+              max: ''
+            }
+          ]
+        }, {
+          name: '2020销售数据',
+          id: '',
+          data: [
+            {
+              value: 310,
+              name: '第一周',
+              max: ''
+            },
+            {
+              value: 250,
+              name: '第二周',
+              max: ''
+            },
+            {
+              value: 110,
+              name: '第三周',
+              max: ''
+            }
+          ]
+        }
+      ],
+      treeData: null,
+      sunburstData: null,
+      scatterData: null,
+      riverData: null,
+      calendarData: null
+    },
+    // 统计表示例
+    {
+      title: '统计表示例',
+      description: '统计表数据展示',
+      order: 0,
+      size: 1,
+      width: 3,
+      height: 4,
+      positionX: 3,
+      positionY: 5,
+      colors: ['#19D672', '#FD517D', '#76A5D9', '#ff9600', '#ee332e'],
+      type: 21,
+      multiple: 1,
+      series: [
+        {
+          name: '全区违法量',
+          data: [
+            { value: 80, name: '件', max: '' },
+          ]
+        },
+        {
+          name: '核心区域违法量',
+          data: [
+            { value: 42, name: '件', max: '' },
+          ]
+        },
+        {
+          name: '重点区域违法量',
+          data: [
+            { value: 16, name: '件', max: '' },
+          ]
+        }
+      ],
+      treeData: null,
+      sunburstData: null,
+      scatterData: null,
+      bubbleData: null,
+      riverData: null,
+      calendarData: null
     }
   ],
   "menu1": [
@@ -275,6 +434,8 @@ const charts = {
       size: 0,
       width: 3,
       height: 4,
+      positionX: 0,
+      positionY: 0,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 4,
       multiple: 0,
@@ -315,6 +476,8 @@ const charts = {
       size: 0,
       width: 3,
       height: 4,
+      positionX: 3,
+      positionY: 0,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 5,
       multiple: 1,
@@ -375,6 +538,8 @@ const charts = {
       size: 0,
       width: 3,
       height: 4,
+      positionX: 6,
+      positionY: 0,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 6,
       multiple: 1,
@@ -435,6 +600,8 @@ const charts = {
       size: 0,
       width: 3,
       height: 4,
+      positionX: 9,
+      positionY: 0,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 7,
       multiple: 1,
@@ -527,6 +694,8 @@ const charts = {
       size: 0,
       width: 3,
       height: 4,
+      positionX: 0,
+      positionY: 0,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 8,
       multiple: 0,
@@ -617,6 +786,8 @@ const charts = {
       size: 0,
       width: 3,
       height: 4,
+      positionX: 3,
+      positionY: 0,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 9,
       multiple: 1,
@@ -678,6 +849,8 @@ const charts = {
       size: 0,
       width: 3,
       height: 4,
+      positionX: 6,
+      positionY: 0,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 10,
       multiple: 1,
@@ -690,20 +863,20 @@ const charts = {
             { value: 10, name: 'Wed', max: 100 },
             { value: 75, name: 'Thu', max: 100 },
             { value: 30, name: 'Fri', max: 100 },
-            { value: 10, name: 'Sat', max: 100 },
-            { value: 75, name: 'Sun', max: 100 }
+            { value: 55, name: 'Sat', max: 60 },
+            { value: 75, name: 'Sun', max: 80 }
           ]
         },
         {
-          name: '一般量级统计1',
+          name: '严重量级统计',
           data: [
             { value: 30, name: 'Mon', max: 100 },
             { value: 10, name: 'Tue', max: 100 },
             { value: 10, name: 'Wed', max: 100 },
             { value: 65, name: 'Thu', max: 100 },
             { value: 20, name: 'Fri', max: 100 },
-            { value: 10, name: 'Sat', max: 100 },
-            { value: 55, name: 'Sun', max: 100 },
+            { value: 10, name: 'Sat', max: 60 },
+            { value: 55, name: 'Sun', max: 80 },
           ]
         }
       ],
@@ -722,6 +895,8 @@ const charts = {
       size: 0,
       width: 3,
       height: 4,
+      positionX: 9,
+      positionY: 0,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 11,
       multiple: 0,
@@ -756,6 +931,8 @@ const charts = {
       size: 1,
       width: 3,
       height: 4,
+      positionX: 0,
+      positionY: 0,
       colors: ['#19D672', '#FD517D', '#76A5D9', '#ff9600', '#ee332e'],
       type: 12,
       multiple: 1,
@@ -818,6 +995,8 @@ const charts = {
       size: 1,
       width: 3,
       height: 4,
+      positionX: 3,
+      positionY: 0,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 13,
       multiple: 1,
@@ -837,6 +1016,8 @@ const charts = {
       size: 0,
       width: 3,
       height: 4,
+      positionX: 6,
+      positionY: 0,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 14,
       multiple: 1,
@@ -856,6 +1037,8 @@ const charts = {
       size: 1,
       width: 3,
       height: 4,
+      positionX: 9,
+      positionY: 0,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 15,
       multiple: 1,
@@ -866,159 +1049,65 @@ const charts = {
         "children": [
           {
             "name": "Berry",
-            "itemStyle": {
-              "color": "#dd4c51"
-            },
             "children": [
               {
                 "name": "Blackberry",
                 "value": 1,
-                "itemStyle": {
-                  "color": "#3e0317"
-                }
               },
               {
                 "name": "Raspberry",
                 "value": 1,
-                "itemStyle": {
-                  "color": "#e62969"
-                }
               },
-              {
-                "name": "Blueberry",
-                "value": 1,
-                "itemStyle": {
-                  "color": "#6569b0"
-                }
-              },
-              {
-                "name": "Strawberry",
-                "value": 1,
-                "itemStyle": {
-                  "color": "#ef2d36"
-                }
-              }
             ]
           },
           {
-            "name": "Dried Fruit",
-            "itemStyle": {
-              "color": "#c94a44"
-            },
+            "name": "Dried",
             "children": [
               {
                 "name": "Raisin",
                 "value": 1,
-                "itemStyle": {
-                  "color": "#b53b54"
-                }
               },
               {
                 "name": "Prune",
                 "value": 1,
-                "itemStyle": {
-                  "color": "#a5446f"
-                }
               }
             ]
           },
           {
-            "name": "Other Fruit",
-            "itemStyle": {
-              "color": "#dd4c51"
-            },
+            "name": "Other",
             "children": [
               {
                 "name": "Coconut",
                 "value": 1,
-                "itemStyle": {
-                  "color": "#f2684b"
-                }
               },
               {
                 "name": "Cherry",
                 "value": 1,
-                "itemStyle": {
-                  "color": "#e73451"
-                }
-              },
-              {
-                "name": "Pomegranate",
-                "value": 1,
-                "itemStyle": {
-                  "color": "#e65656"
-                }
               },
               {
                 "name": "Pineapple",
                 "value": 1,
-                "itemStyle": {
-                  "color": "#f89a1c"
-                }
               },
               {
                 "name": "Grape",
                 "value": 1,
-                "itemStyle": {
-                  "color": "#aeb92c"
-                }
               },
-              {
-                "name": "Apple",
-                "value": 1,
-                "itemStyle": {
-                  "color": "#4eb849"
-                }
-              },
-              {
-                "name": "Peach",
-                "value": 1,
-                "itemStyle": {
-                  "color": "#f68a5c"
-                }
-              },
-              {
-                "name": "Pear",
-                "value": 1,
-                "itemStyle": {
-                  "color": "#baa635"
-                }
-              }
             ]
           },
           {
-            "name": "Citrus Fruit",
-            "itemStyle": {
-              "color": "#f7a128"
-            },
+            "name": "Citrus",
             "children": [
               {
-                "name": "Grapefruit",
-                "value": 1,
-                "itemStyle": {
-                  "color": "#f26355"
-                }
-              },
-              {
                 "name": "Orange",
-                "value": 1,
-                "itemStyle": {
-                  "color": "#e2631e"
-                }
+                "value": 1
               },
               {
                 "name": "Lemon",
-                "value": 1,
-                "itemStyle": {
-                  "color": "#fde404"
-                }
+                "value": 1
               },
               {
                 "name": "Lime",
-                "value": 1,
-                "itemStyle": {
-                  "color": "#7eb138"
-                }
+                "value": 1
               }
             ]
           }
@@ -1039,6 +1128,8 @@ const charts = {
       size: 0,
       width: 3,
       height: 4,
+      positionX: 0,
+      positionY: 0,
       colors: ['#ff9600', '#FD517D', '#76A5D9'],
       type: 16,
       multiple: 1,
@@ -1129,6 +1220,8 @@ const charts = {
       size: 0,
       width: 3,
       height: 4,
+      positionX: 3,
+      positionY: 0,
       colors: ['#ff9600', '#FD517D', '#76A5D9'],
       type: 17,
       multiple: 1,
@@ -1231,6 +1324,8 @@ const charts = {
       size: 0,
       width: 3,
       height: 4,
+      positionX: 6,
+      positionY: 0,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 18,
       multiple: 1,
@@ -1320,8 +1415,83 @@ const charts = {
         },
         {
           "name": "QG",
-          "data": [{ "date": "2015/11/08", "value": 10 }, { "date": "2015/11/09", "value": 15 }, { "date": "2015/11/10", "value": 35 }, { "date": "2015/11/11", "value": 38 }, { "date": "2015/11/12", "value": 22 }, { "date": "2015/11/13", "value": 16 }, { "date": "2015/11/14", "value": 7 }, { "date": "2015/11/15", "value": 2 }, { "date": "2015/11/16", "value": 17 }, { "date": "2015/11/17", "value": 33 }, { "date": "2015/11/18", "value": 40 }, { "date": "2015/11/19", "value": 32 }, { "date": "2015/11/20", "value": 26 }, { "date": "2015/11/21", "value": 35 }, { "date": "2015/11/22", "value": 40 }, { "date": "2015/11/23", "value": 32 }, { "date": "2015/11/24", "value": 26 }, { "date": "2015/11/25", "value": 22 }, { "date": "2015/11/26", "value": 16 }, { "date": "2015/11/27", "value": 22 }, { "date": "2015/11/28", "value": 10 }]
-        }, { "name": "SY", "data": [{ "date": "2015/11/08", "value": 10 }, { "date": "2015/11/09", "value": 15 }, { "date": "2015/11/10", "value": 35 }, { "date": "2015/11/11", "value": 38 }, { "date": "2015/11/12", "value": 22 }, { "date": "2015/11/13", "value": 16 }, { "date": "2015/11/14", "value": 7 }, { "date": "2015/11/15", "value": 2 }, { "date": "2015/11/16", "value": 17 }, { "date": "2015/11/17", "value": 33 }, { "date": "2015/11/18", "value": 40 }, { "date": "2015/11/19", "value": 32 }, { "date": "2015/11/20", "value": 26 }, { "date": "2015/11/21", "value": 35 }, { "date": "2015/11/22", "value": 4 }, { "date": "2015/11/23", "value": 32 }, { "date": "2015/11/24", "value": 26 }, { "date": "2015/11/25", "value": 22 }, { "date": "2015/11/26", "value": 16 }, { "date": "2015/11/27", "value": 22 }, { "date": "2015/11/28", "value": 10 }] }, { "name": "DD", "data": [{ "date": "2015/11/08", "value": 10 }, { "date": "2015/11/09", "value": 15 }, { "date": "2015/11/10", "value": 35 }, { "date": "2015/11/11", "value": 38 }, { "date": "2015/11/12", "value": 22 }, { "date": "2015/11/13", "value": 16 }, { "date": "2015/11/14", "value": 7 }, { "date": "2015/11/15", "value": 2 }, { "date": "2015/11/16", "value": 17 }, { "date": "2015/11/17", "value": 33 }, { "date": "2015/11/18", "value": 4 }, { "date": "2015/11/19", "value": 32 }, { "date": "2015/11/20", "value": 26 }, { "date": "2015/11/21", "value": 35 }, { "date": "2015/11/22", "value": 40 }, { "date": "2015/11/23", "value": 32 }, { "date": "2015/11/24", "value": 26 }, { "date": "2015/11/25", "value": 22 }, { "date": "2015/11/26", "value": 16 }, { "date": "2015/11/27", "value": 22 }, { "date": "2015/11/28", "value": 10 }] }],
+          "data": [
+            { "date": "2015/11/08", "value": 10 },
+            { "date": "2015/11/09", "value": 15 },
+            { "date": "2015/11/10", "value": 35 },
+            { "date": "2015/11/11", "value": 38 },
+            { "date": "2015/11/12", "value": 22 },
+            { "date": "2015/11/13", "value": 16 },
+            { "date": "2015/11/14", "value": 7 },
+            { "date": "2015/11/15", "value": 2 },
+            { "date": "2015/11/16", "value": 17 },
+            { "date": "2015/11/17", "value": 33 },
+            { "date": "2015/11/18", "value": 40 },
+            { "date": "2015/11/19", "value": 32 },
+            { "date": "2015/11/20", "value": 26 },
+            { "date": "2015/11/21", "value": 35 },
+            { "date": "2015/11/22", "value": 40 },
+            { "date": "2015/11/23", "value": 32 },
+            { "date": "2015/11/24", "value": 26 },
+            { "date": "2015/11/25", "value": 22 },
+            { "date": "2015/11/26", "value": 16 },
+            { "date": "2015/11/27", "value": 22 },
+            { "date": "2015/11/28", "value": 10 }
+          ]
+        },
+        {
+          "name": "SY",
+          "data": [
+            { "date": "2015/11/08", "value": 10 },
+            { "date": "2015/11/09", "value": 15 },
+            { "date": "2015/11/10", "value": 35 },
+            { "date": "2015/11/11", "value": 38 },
+            { "date": "2015/11/12", "value": 22 },
+            { "date": "2015/11/13", "value": 16 },
+            { "date": "2015/11/14", "value": 7 },
+            { "date": "2015/11/15", "value": 2 },
+            { "date": "2015/11/16", "value": 17 },
+            { "date": "2015/11/17", "value": 33 },
+            { "date": "2015/11/18", "value": 40 },
+            { "date": "2015/11/19", "value": 32 },
+            { "date": "2015/11/20", "value": 26 },
+            { "date": "2015/11/21", "value": 35 },
+            { "date": "2015/11/22", "value": 4 },
+            { "date": "2015/11/23", "value": 32 },
+            { "date": "2015/11/24", "value": 26 },
+            { "date": "2015/11/25", "value": 22 },
+            { "date": "2015/11/26", "value": 16 },
+            { "date": "2015/11/27", "value": 22 },
+            { "date": "2015/11/28", "value": 10 }
+          ]
+        },
+        {
+          "name": "DD",
+          "data": [
+            { "date": "2015/11/08", "value": 10 },
+            { "date": "2015/11/09", "value": 15 },
+            { "date": "2015/11/10", "value": 35 },
+            { "date": "2015/11/11", "value": 38 },
+            { "date": "2015/11/12", "value": 22 },
+            { "date": "2015/11/13", "value": 16 },
+            { "date": "2015/11/14", "value": 7 },
+            { "date": "2015/11/15", "value": 2 },
+            { "date": "2015/11/16", "value": 17 },
+            { "date": "2015/11/17", "value": 33 },
+            { "date": "2015/11/18", "value": 4 },
+            { "date": "2015/11/19", "value": 32 },
+            { "date": "2015/11/20", "value": 26 },
+            { "date": "2015/11/21", "value": 35 },
+            { "date": "2015/11/22", "value": 40 },
+            { "date": "2015/11/23", "value": 32 },
+            { "date": "2015/11/24", "value": 26 },
+            { "date": "2015/11/25", "value": 22 },
+            { "date": "2015/11/26", "value": 16 },
+            { "date": "2015/11/27", "value": 22 },
+            { "date": "2015/11/28", "value": 10 }
+          ]
+        }
+      ],
       calendarData: null
     },
     //日历热图数据示例
@@ -1332,6 +1502,8 @@ const charts = {
       size: 0,
       width: 3,
       height: 4,
+      positionX: 9,
+      positionY: 0,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 19,
       multiple: 1,
@@ -1343,39 +1515,39 @@ const charts = {
       riverData: null,
       calendarData: [
         {
-          date: '2019-10-01',
+          date: '2020-01-01',
           value: 260
         },
         {
-          date: '2019-10-02',
+          date: '2020-01-02',
           value: 200
         },
         {
-          date: '2019-10-03',
+          date: '2020-01-03',
           value: 279
         },
         {
-          date: '2019-10-04',
+          date: '2020-01-04',
           value: 847
         },
         {
-          date: '2019-10-05',
+          date: '2020-01-05',
           value: 241
         },
         {
-          date: '2019-10-06',
+          date: '2020-01-06',
           value: 411
         },
         {
-          date: '2019-10-07',
+          date: '2020-01-07',
           value: 98
         },
         {
-          date: '2019-10-08',
+          date: '2020-01-08',
           value: 122
         },
         {
-          date: '2019-10-09',
+          date: '2020-01-09',
           value: 333
         },
         {
@@ -1389,7 +1561,7 @@ const charts = {
         {
           date: '2019-10-12',
           value: 160
-        },
+        }
       ]
     }
   ]

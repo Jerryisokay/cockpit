@@ -158,13 +158,13 @@ export default {
               type: 'sunburst',
               highlightPolicy: 'ancestor',
               sort: null,
-              radius: [0, '85%'],
+              radius: [0, '88%'],
               center: ['50%','55%'],
               label: {
-                  fontSize: 10,
+                  fontSize: 9,
                   silent: false,
                   color: this.themeColors[this.theme].textColor,
-                  padding: 2,
+                  padding: 1,
                   textBorderColor: this.themeColors[this.theme].borderColor
               },
               itemStyle:{
@@ -173,24 +173,27 @@ export default {
               },
               levels: [{}, {
                   r0: '15%',
-                  r: '35%',
+                  r: '38%',
+                  label:{
+                    rotate: 'tangential',
+                  },
                   itemStyle: {
-                      borderWidth: 1,
+                      borderWidth: 2,
                       borderColor: this.themeColors[this.theme].borderColor
                   },
               }, {
-                  r0: '35%',
-                  r: '70%',
+                  r0: '38%',
+                  r: '73%',
                   label: {
-                      align: 'right'
+                      // align: 'right'
                   },
                   itemStyle:{
                     borderWidth: 1,
                     borderColor: this.themeColors[this.theme].borderColor
                   }
               }, {
-                  r0: '70%',
-                  r: '85%',
+                  r0: '73%',
+                  r: '88%',
                   label: {
                       position: 'outside',
                       padding: 1,

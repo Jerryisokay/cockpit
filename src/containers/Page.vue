@@ -26,6 +26,8 @@
               <Bubblechart v-if="v.type == 17" :options="v" :id="'bubblechart_1_' + i + '_' + pageIndex"></Bubblechart>
               <ThemeRiverchart v-if="v.type == 18" :options="v" :id="'themeriverchart_1_' + i + '_' + pageIndex"></ThemeRiverchart>
               <Calendarchart v-if="v.type == 19" :options="v" :id="'calendarchart_1_' + i + '_' + pageIndex"></Calendarchart>
+              <Tablechart v-if="v.type == 20" :options="v" :id="'tablechart_1_' + i + '_' + pageIndex"></Tablechart>
+              <Statisticchart v-if="v.type == 21" :options="v" :id="'statisticchart_1_' + i + '_' + pageIndex"></Statisticchart>
             </div>
           </div>
         </div>
@@ -63,6 +65,8 @@
           <Bubblechart v-if="v.type == 17" :options="v" :id="'bubblechart_1_' + i + '_' + pageIndex"></Bubblechart>
           <ThemeRiverchart v-if="v.type == 18" :options="v" :id="'themeriverchart_1_' + i + '_' + pageIndex"></ThemeRiverchart>
           <Calendarchart v-if="v.type == 19" :options="v" :id="'calendarchart_1_' + i + '_' + pageIndex"></Calendarchart>
+          <Tablechart v-if="v.type == 20" :options="v" :id="'tablechart_1_' + i + '_' + pageIndex"></Tablechart>
+          <Statisticchart v-if="v.type == 21" :options="v" :id="'statisticchart_1_' + i + '_' + pageIndex"></Statisticchart>
         </div>
       </div>
     </div>
@@ -89,6 +93,8 @@
           <Bubblechart v-if="v.type == 17" :options="v" :id="'bubblechart_2_' + i + '_' + pageIndex"></Bubblechart>
           <ThemeRiverchart v-if="v.type == 18" :options="v" :id="'themeriverchart_2_' + i + '_' + pageIndex"></ThemeRiverchart>
           <Calendarchart v-if="v.type == 19" :options="v" :id="'calendarchart_2_' + i + '_' + pageIndex"></Calendarchart>
+          <Tablechart v-if="v.type == 20" :options="v" :id="'tablechart_2_' + i + '_' + pageIndex"></Tablechart>
+          <Statisticchart v-if="v.type == 21" :options="v" :id="'statisticchart_2_' + i + '_' + pageIndex"></Statisticchart>
         </div>
       </div>
 
@@ -119,6 +125,8 @@ import Scatterchart from '@/components/Scatterchart'
 import Bubblechart from '@/components/Bubblechart'
 import ThemeRiverchart from '@/components/ThemeRiverchart'
 import Calendarchart from '@/components/Calendarchart'
+import Tablechart from '@/components/Tablechart'
+import Statisticchart from '@/components/Statisticchart'
 
 
 
@@ -144,6 +152,7 @@ export default {
       return parseInt((this.pageHeight - 110)/12)
     },
     gridWidth(){
+      // console.log('clientWidth ' + document.documentElement.clientWidth);
       return parseInt((document.documentElement.clientWidth - 40)/12)
     },
     refreshInterval(){
@@ -159,9 +168,9 @@ export default {
     }
 
     // 定时刷新
-    let timer = setInterval(() => {
-      this.initial()
-    }, parseInt(this.refreshInterval) * 1000)
+    // let timer = setInterval(() => {
+    //   this.initial()
+    // }, parseInt(this.refreshInterval) * 1000)
     this.initial()
   },
   watch:{ //监听路由变化
@@ -248,6 +257,8 @@ export default {
     Bubblechart,
     ThemeRiverchart,
     Calendarchart,
+    Tablechart,
+    Statisticchart,
   }
 }
 </script>

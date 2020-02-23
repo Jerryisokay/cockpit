@@ -230,7 +230,7 @@ export default {
       let [colmuns, rows] = this.getColumns(length)
       let radius = Math.min( this.innerWidth/ 4 /colmuns , this.innerHeight/ 4 /rows )
       // let radius = size == 1 ? Math.min( this.innerWidth/(colmuns * 4) , this.innerHeight/(rows * 4) ) : Math.min( 75/colmuns , 40/rows )
-      console.log(this.innerWidth/ 3 /colmuns , this.innerHeight/ 3 /rows)
+      // console.log(this.innerWidth/ 3 /colmuns , this.innerHeight/ 3 /rows)
       return [radius * 0.75, radius]
     },
     getColumns(length, size){   //获取行列数
