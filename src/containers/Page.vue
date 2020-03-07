@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- 栅格布局 -->
     <div v-if="layout == 1" :style='{"height": pageHeight - 110 + "px"}'>
       <div class="grid-dialog-group">
         <div class="grid-dialog-outer" :style='{"width": v.width * gridWidth +"px", "height": v.height * gridHeight +"px",
@@ -41,8 +42,21 @@
             </div>
           </div>
         </div> -->
+        <!-- 地图 -->
+        <div v-if="mapData.gmapmenuid == 1" class="grid-dialog-outer" :style='{"width": mapData.gmapwidth * gridWidth +"px", "height": mapData.gmapheight * gridHeight +"px",
+            "left": mapData.gmappositionX * gridWidth +"px", "top": mapData.gmappositionY * gridHeight +"px" }'>
+          <div class="grid-dialog-middle">
+            <Angleborder type="2"></Angleborder>
+            <div class="grid-dialog-inner" :style='{"height": mapData.gmapheight * gridHeight -22 +"px"}'>
+              <Mapchart @drag="dragData" :mapData="mapData" :theme="theme"></Mapchart>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
+    <!-- 传统布局 -->
+    <!-- 左边图表列表 -->
     <div v-if="layout == 2" class="aside-lf aside-dialog-group" :style='{"height": pageHeight - 110 + "px"}'>
       <div class="aside-dialog" :key="'dialog_1_' + i " v-for="(v,i) in leftMenu">
         <div class="aside-dialog-inner" :class="{'large': v.size == 1}">
@@ -71,6 +85,7 @@
       </div>
     </div>
 
+    <!-- 右边图表列表 -->
     <div v-if="layout == 2" class="aside-rt aside-dialog-group" :style='{"height": pageHeight - 110 + "px"}'>
       <div class="aside-dialog" :key="'dialog_2_' + i " v-for="(v,i) in rightMenu">
         <div class="aside-dialog-inner" :class="{'large': v.size == 1}">
@@ -128,6 +143,7 @@ import Calendarchart from '@/components/Calendarchart'
 import Tablechart from '@/components/Tablechart'
 import Statisticchart from '@/components/Statisticchart'
 
+import Mapchart from '@/components/Mapchart'
 
 
 
@@ -138,6 +154,21 @@ export default {
       list: [],
       leftMenu: [],
       rightMenu: [],
+      dragData: {
+        lng: null,
+        lat: null,
+        address: null,
+        nearestJunction: null,
+        nearestRoad: null,
+        nearestPOI: null
+      },
+      mapData: {
+        gmapmenuid: 0,
+        gmapwidth: 6,
+        gmapheight: 6,
+        gmappositionX: 6,
+        gmappositionY: 6,
+      }
       // pageHeight :  document.documentElement.clientHeight
     }
   },
@@ -158,6 +189,9 @@ export default {
     refreshInterval(){
       return store.state.base.REFRESH_INTERVAL
     },
+    theme(){
+      return store.state.base.THEME_TYPE
+    },
     layout(){
       return store.state.base.LAYOUT_TYPE
     }
@@ -168,9 +202,9 @@ export default {
     }
 
     // 定时刷新
-    // let timer = setInterval(() => {
-    //   this.initial()
-    // }, parseInt(this.refreshInterval) * 1000)
+    let timer = setInterval(() => {
+      this.initial()
+    }, parseInt(this.refreshInterval) * 1000)
     this.initial()
   },
   watch:{ //监听路由变化
@@ -184,25 +218,39 @@ export default {
   methods:{
     initial(){
       let nav = store.state.base.NAV_DATA
-      //是否获取导航
+      //是否已获取导航
       if(!nav.length){
+        if(this.pageIndex == 0){
+          // 超出菜单长度，跳转回首页
+          this.$router.push({ path: '/' })
+        }
         //获取导航
         this.$store.dispatch('loadNavDataAction')
         .then( (data) => {
-          console.log('首次获取导航');
+          // console.log('首次获取导航');
           // 获取页面ID
           if(Array.isArray(data) && data.length){
             if(data.length > this.pageIndex){
               let id = data[this.pageIndex].id
+              console.log('id ' + id)
+              console.log('pageIndex ' + this.pageIndex)
               //获取图表
-              console.log('获取第'+ parseInt(this.pageIndex + 1) +'页图表');
+              // console.log('获取第'+ parseInt(this.pageIndex + 1) +'页图表');
               this.$store.dispatch('getNavDataAction', { id })
               .then( () => {
                 let list = this.list = store.state.charts.CHARTS_DATA[id] || []
-                const length = Math.ceil(list.length /2)
-                this.leftMenu = list.slice(0, length)
-                this.rightMenu = list.slice(length)
+                // const length = Math.ceil(list.length /2)
+                // this.leftMenu = list.slice(0, length)
+                // this.rightMenu = list.slice(length)
               })
+
+              // 获取地图信息
+              this.$store.dispatch('loadMarkersAction', { id })
+              .then( (data) => {
+                console.log(data.gmapmenuid)
+                this.mapData = data
+              })
+
             }else{
               // 超出菜单长度，跳转回首页
               this.$store.dispatch('setPageIndexAction', {index: 0})
@@ -223,9 +271,15 @@ export default {
           .then( () => {
             // console.log('获取第'+ parseInt(this.pageIndex + 1) +'页图表');
             let list = this.list = store.state.charts.CHARTS_DATA[id] || []
-            const length = Math.ceil(list.length /2)
-            this.leftMenu = list.slice(0, length)
-            this.rightMenu = list.slice(length)
+            // const length = Math.ceil(list.length /2)
+            // this.leftMenu = list.slice(0, length)
+            // this.rightMenu = list.slice(length)
+            // 获取地图信息
+              this.$store.dispatch('loadMarkersAction', { id })
+              .then( (data) => {
+                console.log(data.gmapmenuid)
+                this.mapData = data
+              })
           })
         }else{
           // 当前路由不对,跳转回首页
@@ -235,6 +289,17 @@ export default {
 
       }
 
+    },
+    //地图拖拽数据
+    dragMap (data) {
+      this.dragData = {
+        lng: data.position.lng,
+        lat: data.position.lat,
+        address: data.address,
+        nearestJunction: data.nearestJunction,
+        nearestRoad: data.nearestRoad,
+        nearestPOI: data.nearestPOI
+      }
     }
   },
   components:{
@@ -259,6 +324,7 @@ export default {
     Calendarchart,
     Tablechart,
     Statisticchart,
+    Mapchart,
   }
 }
 </script>

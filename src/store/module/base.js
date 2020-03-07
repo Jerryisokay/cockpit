@@ -7,7 +7,7 @@ import { rejects } from 'assert'
 const base = {
   state:{
     // 主题样式
-    THEME_TYPE: 'blue',
+    THEME_TYPE: 'dark',
     THEMES: [
       {
         name: '默认皮肤',
@@ -33,7 +33,7 @@ const base = {
     PAGE_INDEX: 0,
     // 页面标题
     PAGE_TITLE: '',
-    LAYOUT_TYPE: 1,   //1 栅格布局, 2 传统布局
+    LAYOUT_TYPE: 1,   //1 栅格布局, 2 传统布局 当前接口逻辑下,只能使用栅格布局
     // 刷新间隔
     REFRESH_INTERVAL: 100,
     // 页面高度，用于自适应
@@ -60,7 +60,8 @@ const base = {
     loadNavDataAction({commit}){
       return new Promise((resolve, reject) => {
         getNavDataApi()
-        .then( res => {
+          .then(res => {
+          console.log(res.data)
           if(!res.data){
             reject('error')
           }

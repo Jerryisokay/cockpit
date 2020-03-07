@@ -12,7 +12,7 @@ import store from '@/store'
 import defaultIcon from '@/images/position-default.png'
 import lightIcon from '@/images/position-light.png'
 import blueIcon from '@/images/position-blue.png'
-
+import points from '@/mock/markers.json'
 
 export default {
   name: "mapchart",
@@ -23,7 +23,7 @@ export default {
       dragStatus: false,
       AMapUI: null,
       AMap: null,
-      markersData: [],
+      cluster:null,
       markers:[],
       styles:{
         dark: 'amap://styles/grey',
@@ -35,14 +35,26 @@ export default {
         light: lightIcon,
         blue: blueIcon,
       },
-      lng: '',
-      lat: '',
       status:{
         1:'未建',
         2:'在建',
         3:'施工',
         4:'验收',
         5:'完成',
+      },
+      themeColors:{
+        dark: {
+          textColor: '#dce2f2',
+          backgroundColor: '#264e94',
+        },
+        light: {
+          textColor: '#333333',
+          backgroundColor: 'c6044d',
+        },
+        blue: {
+          textColor: '#ffffff',
+          backgroundColor: '#264e94'
+        }
       }
     }
   },
@@ -51,6 +63,16 @@ export default {
     //   type: String,
     //   default: 'light'
     // }
+    mapData:{
+      dataList: {
+        type: Array,
+        default: []
+      },
+      gmapmc: {
+        type: String,
+        default: ''
+      }
+    }
   },
   computed: {
     theme(){
@@ -66,34 +88,47 @@ export default {
         this.placeSearch.clear()
       }
     },
-    theme:{
-      mapStyle:false,
+    mapData:{
+      immediate:false,
       handler:function(){
-        console.log('theme changes');
+        console.log('mapData changes');
         // 切换主题
-        this.setMapStyle()
+        // this.setMapStyle()
         //删除标记
         this.removeMakers()
         //添加标记
         this.addMarkersGroup()
      }
-    }
+    },
+    // theme:{
+    //   immediate:false,
+    //   handler:function(){
+    //     console.log('theme changes');
+    //     // 切换主题
+    //     this.setMapStyle()
+    //     //删除标记
+    //     this.removeMakers()
+    //     //添加标记
+    //     this.addMarkersGroup()
+    //  }
+    // }
   },
   mounted(){
-    this.$store.dispatch('loadMarkersAction')
-    .then( (data) => {
-      this.markersData = data
-      let lngs = [], lats = []
-      Array.isArray(data) && data.length && data.map( (item) => {
-        lngs.push( parseFloat(item.gdmapjd))
-        lats.push( parseFloat(item.gdmapwd))
-      })
+    // this.$store.dispatch('loadMarkersAction', {id: 2})
+    // .then( (data) => {
+    //   this.markersData = data
+    //   // 计算标记点中心，考虑到数量级较大，已作废
+    //   // let lngs = [], lats = []
+    //   // Array.isArray(data) && data.length && data.map( (item) => {
+    //   //   lngs.push( parseFloat(item.gdmapjd))
+    //   //   lats.push( parseFloat(item.gdmapwd))
+    //   // })
 
-      const num1 = lngs => lngs.reduce((acc, val) => acc + val, 0) / lngs.length
-      this.lng = parseFloat(num1(lngs))
-      const num2 = lats => lats.reduce((acc, val) => acc + val, 0) / lats.length
-      this.lat = parseFloat(num2(lats))
-    })
+    //   // const num1 = lngs => lngs.reduce((acc, val) => acc + val, 0) / lngs.length
+    //   // this.lng = parseFloat(num1(lngs))
+    //   // const num2 = lats => lats.reduce((acc, val) => acc + val, 0) / lats.length
+    //   // this.lat = parseFloat(num2(lats))
+    // })
   },
   async created() {
     // 已载入高德地图API，则直接初始化地图
@@ -101,84 +136,59 @@ export default {
       this.initAMap()
     // 未载入高德地图API，则先载入API再初始化
     } else {
-      await remoteLoad(`http://webapi.amap.com/maps?v=1.3&key=${MapKey}`)
+      await remoteLoad(`http://webapi.amap.com/maps?v=1.4.15&key=${MapKey}&plugin=AMap.MarkerClusterer`)
       await remoteLoad('http://webapi.amap.com/ui/1.0/main.js')
       this.initAMap()
     }
   },
   methods: {
     initAMap() {
-      // try {
-      //   const res = await AMap();
-      //   this.map = new res.Map("map", {
-      //     resizeEnable: true, //是否监控地图容器尺寸变化
-      //     zoom: 11, //初始化地图层级
-      //     center: [116.397428, 39.90923] //初始化地图中心点
-      //   });
-      //   this.addMarker()
-      // } catch (err) {
-      //   console.error(err);
-      // }
-
       let AMapUI = this.AMapUI = window.AMapUI
       let AMap = this.AMap = window.AMap
       AMapUI.loadUI(['misc/PositionPicker'], PositionPicker => {
         let mapconfig = {
           mapStyle: this.mapStyle,
           // zooms: [3, 18], //设置地图级别范围
-          zoom: 12, //初始化地图层级
+          zoom: 8, //初始化地图层级
           resizeEnable: true,
         }
         let map = this.map = new AMap.Map('mapbox', mapconfig)
         // 设置城市
-        if( this.lat && this.lng ){
-          // console.log(this.lng, this.lat)
-          map.setCenter([this.lng, this.lat])
-        }else{
+        if( this.mapData.gmapmc ){
           map.setCity(MapName)
         }
-        // map.setCity(MapName)
-        // 加载地图搜索插件
-        // AMap.service('AMap.PlaceSearch', () => {
-        //   this.placeSearch = new AMap.PlaceSearch({
-        //     //
-        //   })
-        // })
-        AMap.plugin(['AMap.ToolBar'], () => {
+        AMap.plugin(['AMap.ToolBar','AMap.Scale'], () => {
           map.addControl( new AMap.ToolBar({
             position: 'LB'
           }) )
+          map.addControl( new AMap.Scale({
+            position: 'RB'
+          }) )
+
         })
-        // 创建地图拖拽
-        // let positionPicker = new PositionPicker({
-        //   mode: 'dragMarker',
-        //   map: map
-        // })
-        // // 拖拽完成
-        // positionPicker.on('success', result => {
-        //   if(!this.dragStatus){
-        //     this.dragStatus = true
-        //   } else{
-        //     this.$emit('drag', result)
-        //   }
-        // })
-
-        // positionPicker.start();
-
 
         this.addMarkersGroup()
         //绑定事件
-        map.on('click', this.showInfoClick)
+        // map.on('click', this.showInfoClick)
       })
     },
     setMapStyle() {
       this.map && this.map.setMapStyle(this.mapStyle)
     },
     addMarkersGroup(){
-      this.markersData.map( (item, index) => {
+      this.mapData.dataList.map( (item, index) => {
         let lng = item.gdmapjd , lat = item.gdmapwd, id = item.gdmapxmid
         this.addMarker(lng, lat, id, this.map)
       })
+      // points.points.map((item, index) => {
+      //   let lng = item.lnglat[0] , lat = item.lnglat[1], id = ''
+      //   this.addMarker(lng, lat, id, this.map )
+      // })
+
+      this.cluster = new this.AMap.MarkerClusterer(this.map, this.markers, {
+          gridSize: 80,
+          // renderClusterMarker: this._renderClusterMarker
+      });
     },
     removeMakers(){
       if(this.map){
@@ -201,23 +211,30 @@ export default {
         // offset: new AMap.Pixel(-20, -20)
         offset: new AMap.Pixel(-13, -30)
       });
-      //请求获取窗体内容
-      this.$store.dispatch('setPositionInfoAction',{ id })
-      .then( (data) => {
-        let item = {}
-        if(data.length){
-          item = data[0]
-        }
-        this.initInfoContent(item, map, marker)
+       marker.on('mouseover', () => {
+        //请求获取窗体内容
+        this.$store.dispatch('setPositionInfoAction',{ id })
+        .then( (data) => {
+          let item = {}
+          if(data.length){
+            item = data[0]
+          }
+          this.initInfoContent(item, map, marker)
+        })
       })
+      marker.off('mouseover', () => {
+        console.log('解绑')
+      })
+
       this.markers.push(marker)
 
       // this.map.setFitView();
     },
-    showInfoClick(e){
-        var text = '您在 [ '+e.lnglat.getLng()+','+e.lnglat.getLat()+' ] 的位置单击了地图！'
-        console.log(text)
-    },
+    // showInfoClick(e){
+    //     var text = '您在 [ '+e.lnglat.getLng()+','+e.lnglat.getLat()+' ] 的位置单击了地图！'
+    //     console.log(text)
+    // },
+    // 初始化弹窗
     initInfoContent(item, map, marker){
 
 
@@ -251,8 +268,8 @@ export default {
           offset: new AMap.Pixel(16, -45)
       });
 
-      marker.setMap(map);
-      marker.on('mouseover', () => {
+      // marker.setMap(map);
+      marker.on('click', () => {
         // 打开窗体
         infoWindow.open(map, marker.getPosition());
       }).on('mouseout',() => {
@@ -287,6 +304,30 @@ export default {
       for(item in obj){
         html += '<span class="mark-status-item '+ (item <= state ? 'on' : '') +'">'+ item +'</span>'
       }
+    },
+    // 创建聚合自定义样式
+    _renderClusterMarker(context){
+      let count = this.markers.length
+      var factor = Math.pow(context.count / count, 1 / 18);
+        var div = document.createElement('div');
+        var Hue = 180 - factor * 180;
+        // var bgColor = 'hsla(' + Hue + ',100%,50%,0.7)';
+        var fontColor = this.themeColors[this.theme].textColor;//'hsla(' + Hue + ',100%,20%,1)';
+        // var borderColor = 'hsla(' + Hue + ',100%,40%,1)';
+        // var shadowColor = 'hsla(' + Hue + ',100%,50%,1)';
+        div.style.backgroundColor = this.themeColors[this.theme].backgroundColor;
+        var size = Math.round(30 + Math.pow(context.count / count, 1 / 5) * 20);
+        div.style.width = div.style.height = size + 'px';
+        // div.style.border = 'solid 1px ' + borderColor;
+        div.style.borderRadius = size / 2 + 'px';
+        // div.style.boxShadow = '0 0 1px ' + shadowColor;
+        div.innerHTML = context.count;
+        div.style.lineHeight = size + 'px';
+        div.style.color = fontColor;
+        div.style.fontSize = '14px';
+        div.style.textAlign = 'center';
+        context.marker.setOffset(new this.AMap.Pixel(-size / 2, -size / 2));
+        context.marker.setContent(div)
     }
   }
 };

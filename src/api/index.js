@@ -12,19 +12,22 @@ export function getNavDataApi(){
 //获取页面图表数据
 export function getChartsByIdApi(id){
   return request({
-    // url:'/api/getcharts',
     url:'ksh/zsmkbj?zsmkbjZsmkId=' + id,
-    // data:{ id },
     method: 'get',
+    // url:'/api/getcharts',
+    // data:{ id },
     // method: 'post',
   })
 }
 
 //获取地图标记信息
-export function getMapApi(){
+export function getMapApi(id){
   return request({
-    url:'ksh/map',
+    url:'ksh/map?zsmkId=' + id,
     method: 'get',
+    // url:'/api/getmap',
+    // data:{ id },
+    // method: 'post',
   })
 }
 

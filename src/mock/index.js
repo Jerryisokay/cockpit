@@ -8,7 +8,7 @@ const menus = {
   "data": [
     {
       updateInterval: 100,
-      themeType: 2,
+      themeType: 0,
       title: "合肥城建名大数据平台",
       menu: [
         {
@@ -41,7 +41,8 @@ const menus = {
         },
       ]
     }
-  ]
+  ],
+  "success": true
 }
 
 /*
@@ -179,7 +180,7 @@ const charts = {
       order: 0,
       size: 0,
       width: 3,
-      height: 6,
+      height: 4,
       positionX: 6,
       positionY: 0,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
@@ -1567,6 +1568,56 @@ const charts = {
   ]
 }
 
+const maps = {
+  "homepage1": [
+      {
+          "gmapmenuid": 1,
+          "gmapwidth": 6,
+          "dataList": [
+              {
+                  "id": "44",
+                  "gdmapmc": "恒大中心",
+                  "gdmapjb": "1",
+                  "gdmapjd": "117.296144",
+                  "gdmapwd": "31.709503",
+                  "gdmapxmid": "GDXM4",
+                  "gdmapstate": "1"
+              },
+              {
+                  "id": "33",
+                  "gdmapmc": "金中环中心",
+                  "gdmapjb": "1",
+                  "gdmapjd": "117.305586",
+                  "gdmapwd": "31.82728",
+                  "gdmapxmid": "GDXM3",
+                  "gdmapstate": "1"
+              },
+              {
+                  "id": "22",
+                  "gdmapmc": "TCL工业",
+                  "gdmapjb": "1",
+                  "gdmapjd": "117.134782",
+                  "gdmapwd": "31.745567",
+                  "gdmapxmid": "GDXM2",
+                  "gdmapstate": "1"
+              },
+              {
+                  "id": "111",
+                  "gdmapmc": "合肥经济技术开发区",
+                  "gdmapjb": "1",
+                  "gdmapjd": "117.247049",
+                  "gdmapwd": "31.783806",
+                  "gdmapxmid": "GDXM1",
+                  "gdmapstate": "1"
+              }
+          ],
+          "gmapheight": 8,
+          "gmapmc": "合肥",
+          "gmappositionX": 6,
+          "gmappositionY": 4
+      }
+  ]
+}
 
 const output = {
   getMenu: () => {
@@ -1582,11 +1633,22 @@ const output = {
       "success": true
     }
   },
+  getMapById: (data) => {
+    let { body } = data
+    let { id } = JSON.parse(body)
+    let map = maps[id] || []
+    return {
+      "code": "1",
+      "data": map,
+      "success": true
+    }
+  }
 }
 
 
 Mock.mock(/\/api\/getpages/, 'get', output.getMenu)
 Mock.mock(/\/api\/getcharts/, 'post', output.getChartsById)
+Mock.mock(/\/api\/getmap/, 'post', output.getMapById)
 
 
 export default Mock

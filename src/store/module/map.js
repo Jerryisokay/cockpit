@@ -5,7 +5,7 @@ import { getMapApi, getPositionInfoApi } from '@/api/index'
 
 const map = {
   state: {
-    SHOW_MAP: false,
+    SHOW_MAP: true,
     MAP_LEVEL: 1,
     MAP_AREA: '',
     // 标记点
@@ -24,10 +24,10 @@ const map = {
     },
   },
   actions: {
-    // 获取全部标记点
-    loadMarkersAction({commit}){
+    // 通过pageID 获取地图信息和全部标记点
+    loadMarkersAction({commit}, { id }){
       return new Promise((resolve, reject) => {
-        getMapApi()
+        getMapApi(id)
         .then( res => {
           if(!res.data){
             reject('error')
@@ -35,7 +35,8 @@ const map = {
           if(!res.data.success){
             reject('error')
           }
-          const data = res.data.data || []
+
+          const data = res.data.data.length ? res.data.data[0] : { gmapmenuid: 0 }
           commit('SET_MARKERS', { data })
           resolve( data )
         })

@@ -10,6 +10,7 @@ import '@/styles/index.css'
 import echarts from 'echarts'
 
 import 'babel-polyfill'
+// mock模拟接口数据，仅用于开发
 // import '@/mock'
 
 Vue.use(Vuex)

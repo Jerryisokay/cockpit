@@ -5,12 +5,12 @@
       <Navigator></Navigator>
       <!-- 地图部分 -->
       <div class="main-container" :style='{"height": pageHeight - 160 + "px"}'>
-        <div v-if="showMap" class="mid-container-outer">
+        <!-- <div v-if="showMap" class="mid-container-outer">
           <div class="mid-container-inner">
             <Angleborder type="1"></Angleborder>
             <Mapchart @drag="dragData" :theme="theme"></Mapchart>
           </div>
-        </div>
+        </div> -->
         <!-- 动态路由表 -->
         <router-view></router-view>
       </div>
@@ -73,17 +73,17 @@ export default {
     }
   },
   methods: {
-    //地图拖拽数据
-    dragMap (data) {
-      this.dragData = {
-        lng: data.position.lng,
-        lat: data.position.lat,
-        address: data.address,
-        nearestJunction: data.nearestJunction,
-        nearestRoad: data.nearestRoad,
-        nearestPOI: data.nearestPOI
-      }
-    },
+    // //地图拖拽数据
+    // dragMap (data) {
+    //   this.dragData = {
+    //     lng: data.position.lng,
+    //     lat: data.position.lat,
+    //     address: data.address,
+    //     nearestJunction: data.nearestJunction,
+    //     nearestRoad: data.nearestRoad,
+    //     nearestPOI: data.nearestPOI
+    //   }
+    // },
   }
 
 }
