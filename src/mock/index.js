@@ -294,90 +294,79 @@ const charts = {
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 20,
       multiple: 0,
-      series: [
-        {
-          name: '2017销售数据',
-          id: '',
-          data: [
-            {
-              value: 160,
-              name: '第一周',
-              max: ''
-            },
-            {
-              value: 200,
-              name: '第二周',
-              max: ''
-            },
-            {
-              value: 210,
-              name: '第三周',
-              max: ''
-            }
-          ]
-        },
-        {
-          name: '2018销售数据',
-          id: '',
-          data: [
-            {
-              value: 260,
-              name: '第一周',
-              max: ''
-            },
-            {
-              value: 210,
-              name: '第二周',
-              max: ''
-            },
-            {
-              value: 240,
-              name: '第三周',
-              max: ''
-            }
-          ]
-        },
-        {
-          name: '2019销售数据',
-          id: '',
-          data: [
-            {
-              value: 460,
-              name: '第一周',
-              max: ''
-            },
-            {
-              value: 230,
-              name: '第二周',
-              max: ''
-            },
-            {
-              value: 310,
-              name: '第三周',
-              max: ''
-            }
-          ]
+      series: [{
+        name: '2017销售数据',
+        id: '',
+        data: [{
+          value: 160,
+          name: '第一周',
+          max: ''
         }, {
-          name: '2020销售数据',
-          id: '',
-          data: [
-            {
-              value: 310,
-              name: '第一周',
-              max: ''
-            },
-            {
-              value: 250,
-              name: '第二周',
-              max: ''
-            },
-            {
-              value: 110,
-              name: '第三周',
-              max: ''
-            }
-          ]
-        }
+          value: 200,
+          name: '第二周',
+          max: ''
+        }, {
+          value: 210,
+          name: '第三周',
+          max: ''
+        }]
+      }, {
+        name: '2018销售数据',
+        id: '',
+        data: [{
+          value: 260,
+          name: '第一周',
+          max: ''
+        }, {
+          value: 210,
+          name: '第二周',
+          max: ''
+        }, {
+          value: 240,
+          name: '第三周',
+          max: ''
+        }]
+      }, {
+        name: '2019销售数据',
+        id: '',
+        data: [
+          {
+            value: 460,
+            name: '第一周',
+            max: ''
+          },
+          {
+            value: 230,
+            name: '第二周',
+            max: ''
+          },
+          {
+            value: 310,
+            name: '第三周',
+            max: ''
+          }
+        ]
+      }, {
+        name: '2020销售数据',
+        id: '',
+        data: [
+          {
+            value: 310,
+            name: '第一周',
+            max: ''
+          },
+          {
+            value: 250,
+            name: '第二周',
+            max: ''
+          },
+          {
+            value: 110,
+            name: '第三周',
+            max: ''
+          }
+        ]
+      }
       ],
       treeData: null,
       sunburstData: null,
@@ -410,12 +399,18 @@ const charts = {
           data: [
             { value: 42, name: '件', max: '' },
           ]
-        },
-        {
-          name: '重点区域违法量',
-          data: [
-            { value: 16, name: '件', max: '' },
-          ]
+        // },
+        // {
+        //   name: '重点区域违法量',
+        //   data: [
+        //     { value: 16, name: '件', max: '' },
+        //   ]
+        // },
+        // {
+        //   name: '重点区域违法量1',
+        //   data: [
+        //     { value: 26, name: '件', max: '' },
+        //   ]
         }
       ],
       treeData: null,
@@ -956,12 +951,12 @@ const charts = {
             { value: 60, name: 'xx', max: 100 },
           ]
         },
-        // {
-        //   name: '电量表1',
-        //   data: [
-        //     { value: 60, name: 'xx', max: 100 },
-        //   ]
-        // },
+        {
+          name: '电量表1',
+          data: [
+            { value: 60, name: 'xx', max: 100 },
+          ]
+        },
         // {
         //   name: '电量表2',
         //   data: [
@@ -1570,52 +1565,52 @@ const charts = {
 
 const maps = {
   "homepage1": [
-      {
-          "gmapmenuid": 1,
-          "gmapwidth": 6,
-          "dataList": [
-              {
-                  "id": "44",
-                  "gdmapmc": "恒大中心",
-                  "gdmapjb": "1",
-                  "gdmapjd": "117.296144",
-                  "gdmapwd": "31.709503",
-                  "gdmapxmid": "GDXM4",
-                  "gdmapstate": "1"
-              },
-              {
-                  "id": "33",
-                  "gdmapmc": "金中环中心",
-                  "gdmapjb": "1",
-                  "gdmapjd": "117.305586",
-                  "gdmapwd": "31.82728",
-                  "gdmapxmid": "GDXM3",
-                  "gdmapstate": "1"
-              },
-              {
-                  "id": "22",
-                  "gdmapmc": "TCL工业",
-                  "gdmapjb": "1",
-                  "gdmapjd": "117.134782",
-                  "gdmapwd": "31.745567",
-                  "gdmapxmid": "GDXM2",
-                  "gdmapstate": "1"
-              },
-              {
-                  "id": "111",
-                  "gdmapmc": "合肥经济技术开发区",
-                  "gdmapjb": "1",
-                  "gdmapjd": "117.247049",
-                  "gdmapwd": "31.783806",
-                  "gdmapxmid": "GDXM1",
-                  "gdmapstate": "1"
-              }
-          ],
-          "gmapheight": 8,
-          "gmapmc": "合肥",
-          "gmappositionX": 6,
-          "gmappositionY": 4
-      }
+    {
+      "gmapmenuid": 1,
+      "gmapwidth": 6,
+      "dataList": [
+        {
+          "id": "44",
+          "gdmapmc": "恒大中心",
+          "gdmapjb": "1",
+          "gdmapjd": "117.296144",
+          "gdmapwd": "31.709503",
+          "gdmapxmid": "GDXM4",
+          "gdmapstate": "1"
+        },
+        {
+          "id": "33",
+          "gdmapmc": "金中环中心",
+          "gdmapjb": "1",
+          "gdmapjd": "117.305586",
+          "gdmapwd": "31.82728",
+          "gdmapxmid": "GDXM3",
+          "gdmapstate": "1"
+        },
+        {
+          "id": "22",
+          "gdmapmc": "TCL工业",
+          "gdmapjb": "1",
+          "gdmapjd": "117.134782",
+          "gdmapwd": "31.745567",
+          "gdmapxmid": "GDXM2",
+          "gdmapstate": "1"
+        },
+        {
+          "id": "111",
+          "gdmapmc": "合肥经济技术开发区",
+          "gdmapjb": "1",
+          "gdmapjd": "117.247049",
+          "gdmapwd": "31.783806",
+          "gdmapxmid": "GDXM1",
+          "gdmapstate": "1"
+        }
+      ],
+      "gmapheight": 8,
+      "gmapmc": "合肥",
+      "gmappositionX": 6,
+      "gmappositionY": 4
+    }
   ]
 }
 

@@ -163,9 +163,9 @@ export default {
             trigger: 'item',
             formatter: '{a}: {c}({b})',
             // padding: [0, 5],
+            backgroundColor: this.themeColors[this.theme].backgroundColor,
             textStyle:{
               color: this.themeColors[this.theme].textColor2,
-              backgroundColor: this.themeColors[this.theme].backgroundColor,
               fontSize: 12,
             }
         },

@@ -122,6 +122,21 @@ export default {
       }
       this.myChart = this.$echarts.init(this.$el);
       let series = [];
+      let graphic = [
+        {
+          type: "text", //副标题
+          right: 10,
+          top: 8,
+          z: 3,
+          style: {
+            text: this.options.description,
+            // textAlign:'center',
+            fill: this.themeColors[this.theme].textColor,
+            fontSize: 11
+            // height:60
+          }
+        }
+      ];
       let divider = parseInt(100 / (this.options.series.length * 2))
       Array.isArray(this.options.series) && this.options.series.length
         this.options.series.map((item, index) => {
@@ -178,6 +193,23 @@ export default {
             },
             data: item.data.slice(0,1),
           });
+
+          //
+          graphic.push({
+            type: "text", //副标题
+            // left: this.getCenterPosition(index, this.options.series.length, this.options.size)[0],
+            // top: this.getCenterPosition(index, this.options.series.length, this.options.size)[1],
+            position: this.getTextPosition(index, this.options.series.length, this.options.size),
+            z: 3,
+            style: {
+              text: item.name,
+              width: 60,
+              height: 40,
+              textAlign: 'center',
+              fill: this.themeColors[this.theme].textColor,
+              fontSize: 10
+            }
+          })
         });
 
       this.myChart.setOption({
@@ -204,28 +236,14 @@ export default {
               color: '#ffffff'
             }
         },
-        graphic: [
-          {
-            type: "text", //副标题
-            right: 10,
-            top: 8,
-            z: 3,
-            style: {
-              text: this.options.description,
-              // textAlign:'center',
-              fill: this.themeColors[this.theme].textColor,
-              fontSize: 11
-              // height:60
-            }
-          }
-        ],
+        graphic: graphic,
         color: this.colors,
         series: series
       });
     },
     getRadius( length, size){
       let [colmuns, rows] = this.getColumns(length)
-      return Math.min( this.innerWidth/ 3 /colmuns , this.innerHeight/ 3 /rows )
+      return Math.min( this.innerWidth/ 2.5 /colmuns , this.innerHeight/ 2.5 /rows )
 
     },
     getColumns(length){   //获取行列数
@@ -252,6 +270,22 @@ export default {
 
       return [singleW * (xNth * 2 - 1) , singleH * ( yNth * 2 - 1) + 30 ]
 
+    },
+    getTextPosition( index, length, size){  //获取单个图表的位置
+      let [colmuns, rows] = this.getColumns(length)
+      //每行数量 行数
+      // console.log('====================================');
+      let yNth = Math.ceil((index + 1)/ colmuns)  //当前行数
+      // console.log('yNth '  + yNth)
+      let xNth = index + 1 - (yNth - 1) * colmuns
+      // console.log('xNth '  + xNth)
+      let singleW = (yNth == rows) ? (this.innerWidth/ 2 / (length + colmuns - colmuns * rows)) : (this.innerWidth/ 2 / colmuns)
+      let singleH = this.innerHeight/ 2 / rows
+
+      let r = this.getRadius(length)
+      // console.log('====================================');
+
+      return [singleW * (xNth * 2 - 1) , singleH * ( yNth * 2 - 1) + 30 - r/2 ]
     }
   }
 };
