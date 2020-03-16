@@ -275,7 +275,7 @@ export default {
         // y = index == 0 ? '25%' : '75%'
         x = (0.5 * index + 0.25) * this.innerWidth
       }else if(length == 3){
-        x = (0.3 * index + 0.2) * this.innerWidth
+        x = (0.28 * index + 0.22) * this.innerWidth
       }
       return [x, y]
     },
@@ -285,7 +285,7 @@ export default {
         // y = index == 0 ? '25%' : '75%'
         x = (0.5 * index + 0.25) * this.innerWidth
       }else if(length == 3){
-        x = (0.3 * index + 0.2) * this.innerWidth
+        x = (0.28 * index + 0.22) * this.innerWidth
         y = index == 1 ? this.innerHeight * 1.1 : this.innerHeight
       }
       return [x, y]
