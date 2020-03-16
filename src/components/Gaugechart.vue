@@ -13,21 +13,21 @@ export default {
         dark: {
           textColor: "#dce2f2",
           backgroundColor: '#264e94',
-          shadowColor1: "rgba(255, 255, 255, 0.5)",
+          shadowColor1: "rgba(255, 255, 255, 0.6)",
           shadowColor2: "#2584e8",
           borderColor: "#fff"
         },
         light: {
           textColor: "#333333",
           backgroundColor: 'rgba(0,0,0,0.5)',
-          shadowColor1: "rgba(255, 255, 255, 0.5)",
+          shadowColor1: "rgba(0, 0, 0, 0)",
           shadowColor2: "#77022e",
           borderColor: "#77022e"
         },
         blue: {
           textColor: "#dce2f2",
           backgroundColor: '#264e94',
-          shadowColor1: "rgba(255, 255, 255, 0.5)",
+          shadowColor1: "rgba(255, 255, 255, 0.6)",
           shadowColor2: "#2584e8",
           borderColor: "#fff"
         }
@@ -121,7 +121,7 @@ export default {
         this.innerWidth = 150
       }
       this.myChart = this.$echarts.init(this.$el);
-      let series = [];
+      let series = [], data = [];
       let graphic = [
         {
           type: "text", //副标题
@@ -138,60 +138,77 @@ export default {
         }
       ];
       let divider = parseInt(100 / (this.options.series.length * 2))
-      Array.isArray(this.options.series) && this.options.series.length
-        this.options.series.map((item, index) => {
-          Array.isArray(item.data) && item.data.length
+      if(Array.isArray(this.options.series) && this.options.series.length){
+        data = this.options.series.slice(0, 3)
+        console.log(data.length)
+        data.map((item, index) => {
           series.push({
             name: item.name,
-            type: "gauge",
+            type: 'gauge',
             min: 0,
-            max:  item.data[0].max,
-            splitNumber: 2,
-            // radius: divider* 1.25 +'%',
-            z: index,
-            radius: this.getRadius(this.options.series.length, this.options.size),
-            center: this.getCenterPosition(index, this.options.series.length, this.options.size),
-            // center : [divider + divider * index +'%', '50%'],
-            itemStyle: {
-              width: 5
+            max: item.data[0].max,
+            splitNumber: this.isMajor(index, data.length) ? 10 : 4,
+            startAngle: data.length == 3 && index == 2 ? 135: 225,
+            endAngle: data.length == 3 && index == 0 ? 45: -45,
+            radius: this.getRadius(index, data.length),
+            center: this.getCenterPosition(index, data.length), //['50%', '55%'],
+            axisLine: {            // 坐标轴线
+                lineStyle: {       // 属性lineStyle控制线条样式
+                    color: [[0.2, 'lime'], [0.8, '#1e90ff'], [1, '#ff4500']],
+                    width: 2,
+                    shadowColor: this.themeColors[this.theme].shadowColor1, //阴影
+                    shadowBlur: this.isMajor(index, data.length) ? 5 : 2
+                }
             },
-            axisLine: {
-              // 坐标轴线
-              lineStyle: {
-                color: this.colors[ index ] ? [[1, this.colors[ index ]]] : [[1, this.themeColors[this.theme].borderColor]],
-                width: 5,
-              }
+            axisLabel: {            // 坐标轴小标记
+                fontWeight: 'bolder',
+                // color: '#fff',
+                // shadowColor: this.themeColors[this.theme].shadowColor1, //默认透明
+                // shadowBlur: 5,
+                fontSize: data.length == 0? 10: (this.isMajor(index, data.length) ? 8 : 6)
             },
-            axisLabel:{
-              show: true,
-              distance : 2,
-              fontSize: 8
+            axisTick: {            // 坐标轴小标记
+                length: data.length == 0? 10: (this.isMajor(index, data.length) ? 5 : 3),        // 属性length控制线长
+                lineStyle: {       // 属性lineStyle控制线条样式
+                    color: 'auto',
+                    shadowColor: this.themeColors[this.theme].shadowColor1, //默认透明
+                    shadowBlur: 5
+                },
+                show: this.isMajor(index, data.length) ? true : false,
             },
-            axisTick: {
-              show: false
+            splitLine: {           // 分隔线
+                length: data.length == 0? 10: (this.isMajor(index, data.length) ? 8 : 5),         // 属性length控制线长
+                lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                    width: 2,
+                    color: 'auto',
+                    shadowColor: this.themeColors[this.theme].shadowColor1, //默认透明
+                    shadowBlur: this.isMajor(index, data.length) ? 5 : 2
+                }
             },
-            splitLine: {
-              // 分隔线
-              length: 8, // 属性length控制线长
-              lineStyle: {
-                // 属性lineStyle（详见lineStyle）控制线条样式
-                width: 2,
-                color: this.themeColors[this.theme].textColor,
-              }
-            },
-            pointer: {
-                width: 3,
+            pointer: {           // 分隔线
+                shadowColor: this.themeColors[this.theme].shadowColor1, //默认透明
+                shadowBlur: 5,
+                width: this.isMajor(index, data.length) ? 5 : 3,
             },
             title: {
-              // show: false
-              offsetCenter: [0, '80%'],
-              fontSize: 12,
-              color: this.themeColors[this.theme].textColor,
+                textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                    fontWeight: 'bolder',
+                    fontSize: this.isMajor(index, data.length) ? 14 : 12,
+                    // fontStyle: 'italic',
+                    color: this.themeColors[this.theme].textColor,
+                    shadowColor: this.themeColors[this.theme].shadowColor1, //默认透明
+                    shadowBlur: 5
+                }
             },
             detail: {
-              show:false
+                offsetCenter: [0, '60%'],       // x, y，单位px
+                textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                    fontWeight: 'bolder',
+                    color: this.themeColors[this.theme].textColor,
+                    fontSize: this.isMajor(index, data.length) ? 18 : 14
+                }
             },
-            data: item.data.slice(0,1),
+            data: item.data.slice(0,1)
           });
 
           //
@@ -199,18 +216,20 @@ export default {
             type: "text", //副标题
             // left: this.getCenterPosition(index, this.options.series.length, this.options.size)[0],
             // top: this.getCenterPosition(index, this.options.series.length, this.options.size)[1],
-            position: this.getTextPosition(index, this.options.series.length, this.options.size),
+            position: this.getTextPosition(index, data.length, this.options.size),
             z: 3,
             style: {
               text: item.name,
               width: 60,
               height: 40,
               textAlign: 'center',
+              fontWeight: 'bold',
               fill: this.themeColors[this.theme].textColor,
-              fontSize: 10
+              fontSize: this.isMajor(index, data.length) ? 14 : 11
             }
           })
         });
+      }
 
       this.myChart.setOption({
         title: {
@@ -222,10 +241,6 @@ export default {
             fontSize: 14
           }
         },
-        // tooltip: {
-        //   formatter: "{a} <br/>{c} {b}",
-        //   backgroundColor: this.themeColors[this.theme].backgroundColor,
-        // },
         tooltip: {
             trigger: 'item',
             // confine: true,
@@ -241,51 +256,39 @@ export default {
         series: series
       });
     },
-    getRadius( length, size){
-      let [colmuns, rows] = this.getColumns(length)
-      return Math.min( this.innerWidth/ 2.5 /colmuns , this.innerHeight/ 2.5 /rows )
-
+    isMajor(index, length){
+      return length < 3 || index == 1
     },
-    getColumns(length){   //获取行列数
-      for(let i = 1; i<=length; i++){
-        if(i*i >= length){
-          return [i,i]
-        }else if(i * i+ 1 >= length){
-          return this.innerWidth <= this.innerHeight ? [i, i+1] : [i+1, i]
-        }
+    getRadius(index, length){
+      let r = Math.min( this.innerWidth/ 2.5 , this.innerHeight/ 2.5 )
+      if(length == 2){
+        r = Math.min( this.innerWidth/ 5 , this.innerHeight/ 2.5 )
+      }else if(length == 3){
+        r = index == 1 ? Math.min( this.innerWidth/ 5 , this.innerHeight/ 2.5 ) : Math.min( this.innerWidth/ 8 , this.innerHeight/ 4 )
       }
-    },
-    getCenterPosition( index, length, size){  //获取单个图表的位置
-      let [colmuns, rows] = this.getColumns(length)
-      //每行数量 行数
-      // console.log('====================================');
-      let yNth = Math.ceil((index + 1)/ colmuns)  //当前行数
-      // console.log('yNth '  + yNth)
-      let xNth = index + 1 - (yNth - 1) * colmuns
-      // console.log('xNth '  + xNth)
-      let singleW = (yNth == rows) ? (this.innerWidth/ 2 / (length + colmuns - colmuns * rows)) : (this.innerWidth/ 2 / colmuns)
-      let singleH = this.innerHeight/ 2 / rows
-
-      // console.log('====================================');
-
-      return [singleW * (xNth * 2 - 1) , singleH * ( yNth * 2 - 1) + 30 ]
+      return r
 
     },
-    getTextPosition( index, length, size){  //获取单个图表的位置
-      let [colmuns, rows] = this.getColumns(length)
-      //每行数量 行数
-      // console.log('====================================');
-      let yNth = Math.ceil((index + 1)/ colmuns)  //当前行数
-      // console.log('yNth '  + yNth)
-      let xNth = index + 1 - (yNth - 1) * colmuns
-      // console.log('xNth '  + xNth)
-      let singleW = (yNth == rows) ? (this.innerWidth/ 2 / (length + colmuns - colmuns * rows)) : (this.innerWidth/ 2 / colmuns)
-      let singleH = this.innerHeight/ 2 / rows
-
-      let r = this.getRadius(length)
-      // console.log('====================================');
-
-      return [singleW * (xNth * 2 - 1) , singleH * ( yNth * 2 - 1) + 30 - r/2 ]
+    getCenterPosition( index, length){  //获取单个图表的位置
+      let x = '50%', y = '55%'
+      if(length == 2){
+        // y = index == 0 ? '25%' : '75%'
+        x = (0.5 * index + 0.25) * this.innerWidth
+      }else if(length == 3){
+        x = (0.3 * index + 0.2) * this.innerWidth
+      }
+      return [x, y]
+    },
+    getTextPosition( index, length){  //获取单个图表的位置
+    let x = this.innerWidth/2, y = this.innerHeight * 1.1
+      if(length == 2){
+        // y = index == 0 ? '25%' : '75%'
+        x = (0.5 * index + 0.25) * this.innerWidth
+      }else if(length == 3){
+        x = (0.3 * index + 0.2) * this.innerWidth
+        y = index == 1 ? this.innerHeight * 1.1 : this.innerHeight
+      }
+      return [x, y]
     }
   }
 };
