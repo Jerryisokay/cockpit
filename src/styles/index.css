@@ -193,11 +193,13 @@ div::-webkit-scrollbar-corner{
   padding: 15px;
   font-size: 32px;
   color: #dce2f2;
+  text-align: center;
 }
 .light .nav-title{
   padding: 15px;
   font-size: 32px;
   color: #c6044d;
+  text-align: center;
 }
 .nav-title.fontsmaller{
   font-size: 28px;
