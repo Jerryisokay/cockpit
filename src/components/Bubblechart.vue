@@ -178,7 +178,7 @@ export default {
       })
 
       // console.log(series)
-
+      this.myChart.resize();
       this.myChart.setOption({
         title : {
             text: this.options.title,

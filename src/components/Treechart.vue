@@ -94,6 +94,7 @@ export default {
           index % 2 === 0 && (datum.collapsed = true);
       });
       // console.log(data)
+      this.myChart.resize();
       this.myChart.setOption({
         title : {
             text: this.options.title,

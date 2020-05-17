@@ -106,7 +106,7 @@ export default {
         data = this.options.series[0].data
       }
 
-
+      this.myChart.resize();
       this.myChart.setOption({
         title : {
             text: this.options.title,

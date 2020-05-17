@@ -106,6 +106,7 @@ export default {
       data = this.setData(this.options.sunburstData.children, true)
 
       // console.log(data)
+      this.myChart.resize();
       this.myChart.setOption({
         title : {
             text: this.options.title,

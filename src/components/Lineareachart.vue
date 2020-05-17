@@ -141,6 +141,7 @@ export default {
         data.push( v.value )
       })
       // console.log(data)
+      this.myChart.resize();
       this.myChart.setOption({
         title : {
             text: this.options.title,

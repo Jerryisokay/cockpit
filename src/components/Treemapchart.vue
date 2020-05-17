@@ -99,6 +99,7 @@ export default {
         data = this.options.treeData.children
       }
       // console.log(data)
+      this.myChart.resize();
       this.myChart.setOption({
         title : {
             text: this.options.title,

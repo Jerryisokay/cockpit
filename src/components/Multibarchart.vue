@@ -228,6 +228,7 @@ export default {
         })
       })
 
+      this.myChart.resize();
       this.myChart.setOption({
         title : {
             text: this.options.title,

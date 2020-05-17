@@ -157,6 +157,7 @@ export default {
         _self.$echarts.format.formatTime('yyyy-MM-dd', end)
       ]
       // console.log(range)
+      this.myChart.resize();
 
       this.myChart.setOption({
         title: {

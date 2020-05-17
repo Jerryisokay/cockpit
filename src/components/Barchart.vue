@@ -216,6 +216,7 @@ export default {
         bottom: 15,
         containLabel : true
       }
+      this.myChart.resize();
       this.myChart.setOption({
         title : {
             text: this.options.title,

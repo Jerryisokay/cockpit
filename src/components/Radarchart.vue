@@ -119,6 +119,7 @@ export default {
     },
     drawChart(){
       this.myChart = this.$echarts.init(this.$el)
+      this.myChart.resize();
       this.myChart.setOption({
         title : {
             text: this.options.title,
