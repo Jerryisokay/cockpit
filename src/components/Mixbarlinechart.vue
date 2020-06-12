@@ -49,38 +49,35 @@ export default {
           fillColor3:'rgba(255,255,255,0.1)',
           lineColor:'rgba(255,255,255,0.2)'
         }
+      },
+      optionData: {
+        title: '',
+        description :'',
+        type: 9,
+        colors:[],
+        series: [],
+        treeData: null,
+        sunburstData:null,
+        scatterData:null,
+        riverData:null
       }
     };
   },
   props: {
     id: { type: String },
+    pageId: { type: String },
     width: { type: String, default: "200px" },
     height: { type: String, default: "200px" },
     options:{
       type:Object,
       default(){
         return {
-          // titles: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-          // data: [820, 932, 901, 934, 1290, 1330, 1320],
-          title: '访问来源',
-          description :'单位/人',
-          type: 2,
+          title: '',
+          description :'',
+          type: 9,
           style: 0,
-          colors:['#19D672','#FD517D','#76A5D9'],
-          series: [
-            {
-              name: '一般量级统计',
-              data: [
-                {value:60, name:'Mon', max:100},
-                {value:30, name:'Tue', max:100},
-                {value:10, name:'Wed', max:100},
-                {value:75, name:'Thu', max:100},
-                {value:30, name:'Fri', max:100},
-                {value:10, name:'Sat', max:100},
-                {value:75, name:'Sun', max:100},
-              ]
-            }
-          ],
+          colors:[],
+          series: [],
           treeData: null,
           sunburstData:null,
           scatterData:null,
@@ -92,7 +89,7 @@ export default {
   computed: {
     titles(){
       const titles = []
-      this.options.series.map( v =>{
+      this.optionData.series.map( v =>{
         v.data.map( d => {
           if(titles.indexOf(d.name) < 0) titles.push( d.name )
         })
@@ -103,21 +100,25 @@ export default {
       return store.state.base.THEME_TYPE
     },
     colors(){
-      let colors = this.options.colors || []
+      let colors = this.optionData.colors || []
       return colors.concat(store.state.base.COLOR_REPOSITORY)
     }
   },
   mounted(){
     // console.log(this.options)
-    this.drawChart()
+    this.initialData( this.options )
+    if(this.options.refresh){
+      let timer = setInterval( () => {
+        document.getElementById(this.id) && this.refreshData()
+      }, parseInt(this.options.refresh) * 1000)
+    }
   },
   watch:{
     options:{
       immediate:false,
       handler:function(){
         setTimeout( () => {
-          this.myChart && this.myChart.clear()
-          this.drawChart()
+          this.refreshData()
         },200)
      }
     },
@@ -125,18 +126,33 @@ export default {
       immediate:false,
       handler:function(){
         setTimeout( () => {
-          this.myChart && this.myChart.clear()
-          this.drawChart()
+          this.refreshData()
         },200)
      }
     }
   },
   methods: {
+    initialData( data ){
+      const _self = this
+      _self.myChart && _self.myChart.clear()
+      _self.optionData = Object.assign({}, data)
+      _self.drawChart();
+    },
+    refreshData(){
+      const _self = this
+      // console.log(_self.options.id, _self.pageId)
+      if(_self.options.id && _self.pageId){
+        _self.$store.dispatch('getSingleChartAction', { pageId: _self.pageId, id: _self.options.id })
+        .then( (data) => {
+          _self.initialData(data)
+        })
+      }
+    },
     drawChart(){
       this.myChart = this.$echarts.init(this.$el)
       let series = []
       let arr = []
-      Array.isArray(this.options.series) && this.options.series.length && this.options.series.map( (item, index) => {
+      Array.isArray(this.optionData.series) && this.optionData.series.length && this.optionData.series.map( (item, index) => {
         if(index < 2){
           let data = []
           Array.isArray(item.data) && item.data.map( v => {
@@ -157,7 +173,7 @@ export default {
       this.myChart.resize();
       this.myChart.setOption({
         title : {
-            text: this.options.title,
+            text: this.optionData.title,
             x:'left',
             textStyle:{
               color: this.themeColors[this.theme].textColor,
@@ -182,7 +198,7 @@ export default {
             bottom:0,
             z:3,
             style:{
-                text: this.options.description,
+                text: this.optionData.description,
                 // textAlign:'center',
                 fill: this.themeColors[this.theme].textColor,
                 fontSize:11,

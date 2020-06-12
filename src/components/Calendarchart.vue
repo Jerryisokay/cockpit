@@ -40,53 +40,55 @@ export default {
           fillColor:'#3aaafe',
           emphasisColor: '#2584e8',
         }
+      },
+      optionData: {
+        title: "",
+        description: "",
+        type: 19,
+        series: [],
+        calendarData: []
       }
     };
   },
   props: {
     id: { type: String },
+    pageId: { type: String },
     width: { type: String, default: "200px" },
     height: { type: String, default: "200px" },
     options: {
       type: Object,
       default() {
         return {
-          title: "访问来源",
+          title: "",
           description: "",
-          // titles: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎'],
-          series: [
-            {
-              data: [
-                { value: 100, name: "直接访问" },
-                { value: 220, name: "邮件营销" },
-                { value: 280, name: "联盟广告" },
-                { value: 400, name: "视频广告" },
-                { value: 500, name: "搜索引擎" }
-              ]
-            }
-          ]
+          type: 19,
+          series: [],
+          calendarData: []
         };
       }
     }
   },
   mounted() {
     // console.log(this.options);
-    setTimeout(() => {
-      this.drawChart();
-    });
+    this.initialData( this.options )
+    if(this.options.refresh){
+      let timer = setInterval( () => {
+        document.getElementById(this.id) && this.refreshData()
+      }, parseInt(this.options.refresh) * 1000)
+    }
   },
   computed: {
     theme() {
       return store.state.base.THEME_TYPE;
     },
     colors() {
-      let colors = this.options.colors || [];
+      let colors = this.optionData.colors || [];
       return colors.concat(store.state.base.COLOR_REPOSITORY);
     },
     data(){
       let data = []
-      Array.isArray(this.options.calendarData) && this.options.calendarData.length &&
-      this.options.calendarData.map(v => {
+      Array.isArray(this.optionData.calendarData) && this.optionData.calendarData.length &&
+      this.optionData.calendarData.map(v => {
         data.push(
           [
             v.date,
@@ -128,8 +130,7 @@ export default {
       immediate: false,
       handler: function() {
         setTimeout(() => {
-          this.myChart && this.myChart.clear();
-          this.drawChart();
+          this.refreshData();
         }, 200);
       }
     },
@@ -137,13 +138,28 @@ export default {
       immediate: false,
       handler: function() {
         setTimeout(() => {
-          this.myChart && this.myChart.clear();
-          this.drawChart();
+          this.refreshData();
         }, 200);
       }
     }
   },
   methods: {
+    initialData( data ){
+      const _self = this
+      _self.myChart && _self.myChart.clear()
+      _self.optionData = Object.assign({}, data)
+      _self.drawChart();
+    },
+    refreshData(){
+      const _self = this
+      // console.log(_self.options.id, _self.pageId)
+      if(_self.options.id && _self.pageId){
+        _self.$store.dispatch('getSingleChartAction', { pageId: _self.pageId, id: _self.options.id })
+        .then( (data) => {
+          _self.initialData(data)
+        })
+      }
+    },
     drawChart() {
       let _self = this
       _self.myChart = _self.$echarts.init(_self.$el)
@@ -161,8 +177,8 @@ export default {
 
       this.myChart.setOption({
         title: {
-          text: _self.options.title,
-          // subtext: this.options.description,
+          text: _self.optionData.title,
+          // subtext: this.optionData.description,
           x: "left",
           textStyle: {
             fontSize: 14,
@@ -184,7 +200,7 @@ export default {
         // legend: {
         //     // orient: 'horizontal',
         //     x: 'left',
-        //     data: this.options.titles
+        //     data: this.optionData.titles
         // },
         calculable: true,
         // color: this.colors,
@@ -198,7 +214,7 @@ export default {
             bottom: 0,
             z:3,
             style:{
-                text: _self.options.description,
+                text: _self.optionData.description,
                 // textAlign:'center',
                 fill: _self.themeColors[_self.theme].textColor,
                 fontSize:11,

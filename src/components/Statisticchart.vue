@@ -1,13 +1,13 @@
 <template>
   <div :id="id" class="chart-inner">
-    <div class="chart-title">{{this.options.title}}</div>
+    <div class="chart-title">{{this.optionData.title}}</div>
     <div class="chart-statistic-box" :style="{'max-height': tableHeight + 'px'}">
         <div v-for="(item, $index) in series" :key="$index" class="chart-statistic-item">
           <div class="chart-statistic-value"><span :style="{'color': colors[$index]}">{{item.value}}</span>{{item.name}}</div>
           <div class="chart-statistic-title">{{item.title}}</div>
         </div>
     </div>
-    <div class="chart-subtitle">{{this.options.description}}</div>
+    <div class="chart-subtitle">{{this.optionData.description}}</div>
   </div>
 </template>
 
@@ -23,10 +23,22 @@ export default {
       sortByName: '降序',
       sortProperty: '',
       series: [],
+      optionData: {
+        title: '',
+        description :'',
+        type: 20,
+        colors:[],
+        series: [],
+        treeData: null,
+        sunburstData:null,
+        scatterData:null,
+        riverData:null
+      }
     };
   },
   props: {
     id: { type: String },
+    pageId: { type: String },
     width: { type: String, default: "200px" },
     height: { type: String, default: "200px" },
     options:{
@@ -50,7 +62,7 @@ export default {
   computed: {
     titles(){
       const titles = []
-      this.options.series.map( v =>{
+      this.optionData.series.map( v =>{
         v.data.map( d => {
           if(titles.indexOf(d.name) < 0) titles.push( d.name )
         })
@@ -61,27 +73,31 @@ export default {
       return store.state.base.THEME_TYPE
     },
     colors(){
-      let colors = this.options.colors || []
+      let colors = this.optionData.colors || []
       return colors.concat(store.state.base.COLOR_REPOSITORY)
     },
     gridHeight(){
       return parseInt((store.state.base.PAGE_HEIGHT - 110)/12)
     },
     tableHeight(){
-      return this.gridHeight * this.options.height - 62
+      return this.gridHeight * this.optionData.height - 62
     }
   },
   mounted(){
     // console.log(this.options)
-    this.drawChart()
+    this.initialData(this.options)
+    if(this.options.refresh){
+      let timer = setInterval( () => {
+        document.getElementById(this.id) && this.refreshData()
+      }, parseInt(this.options.refresh) * 1000)
+    }
   },
   watch:{
     options:{
       immediate:false,
       handler:function(){
         setTimeout( () => {
-          this.myChart && this.myChart.clear()
-          this.drawChart()
+          this.refreshData()
         },200)
      }
     },
@@ -89,16 +105,31 @@ export default {
       immediate:false,
       handler:function(){
         setTimeout( () => {
-          this.myChart && this.myChart.clear()
-          this.drawChart()
+          this.refreshData()
         },200)
      }
     }
   },
   methods: {
+    initialData( data ){
+      const _self = this
+      _self.myChart && _self.myChart.clear()
+      _self.optionData = Object.assign({}, data)
+      _self.drawChart();
+    },
+    refreshData(){
+      const _self = this
+      // console.log(_self.options.id, _self.pageId)
+      if(_self.options.id && _self.pageId){
+        _self.$store.dispatch('getSingleChartAction', { pageId: _self.pageId, id: _self.options.id })
+        .then( (data) => {
+          _self.initialData(data)
+        })
+      }
+    },
     drawChart(){
       this.series = []
-      Array.isArray(this.options.series) && this.options.series.map( (item, index) => {
+      Array.isArray(this.optionData.series) && this.optionData.series.map( (item, index) => {
         var values = {}
         if(Array.isArray(item.data) && item.data.length){
           let data = item.data[0]
@@ -106,7 +137,7 @@ export default {
           this.series.push(data)
         }
       })
-      console.log(this.series)
+      // console.log(this.series)
     }
   }
 

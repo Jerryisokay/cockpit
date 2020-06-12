@@ -49,11 +49,23 @@ export default {
           fillColor3:'rgba(255,255,255,0.1)',
           lineColor:'rgba(255,255,255,0.2)'
         }
+      },
+      optionData: {
+        title: '',
+        description :'',
+        type: 2,
+        colors:[],
+        series: [],
+        treeData: null,
+        sunburstData:null,
+        scatterData:null,
+        riverData:null
       }
     };
   },
   props: {
     id: { type: String },
+    pageId: { type: String },
     width: { type: String, default: "200px" },
     height: { type: String, default: "200px" },
     options:{
@@ -92,7 +104,7 @@ export default {
   computed: {
     titles(){
       const titles = []
-      this.options.series.map( v =>{
+      this.optionData.series.map( v =>{
         v.data.map( d => {
           if(titles.indexOf(d.name) < 0) titles.push( d.name )
         })
@@ -103,21 +115,25 @@ export default {
       return store.state.base.THEME_TYPE
     },
     colors(){
-      let colors = this.options.colors || []
+      let colors = this.optionData.colors || []
       return colors.concat(store.state.base.COLOR_REPOSITORY)
     }
   },
   mounted(){
     // console.log(this.options)
-    this.drawChart()
+    this.initialData( this.options )
+    if(this.options.refresh){
+      let timer = setInterval( () => {
+        document.getElementById(this.id) && this.refreshData()
+      }, parseInt(this.options.refresh) * 1000)
+    }
   },
   watch:{
     options:{
       immediate:false,
       handler:function(){
         setTimeout( () => {
-          this.myChart && this.myChart.clear()
-          this.drawChart()
+          this.refreshData()
         },200)
      }
     },
@@ -125,26 +141,41 @@ export default {
       immediate:false,
       handler:function(){
         setTimeout( () => {
-          this.myChart && this.myChart.clear()
-          this.drawChart()
+          this.refreshData()
         },200)
      }
     }
   },
   methods: {
+    initialData( data ){
+      const _self = this
+      _self.myChart && _self.myChart.clear()
+      _self.optionData = Object.assign({}, data)
+      _self.drawChart();
+    },
+    refreshData(){
+      const _self = this
+      // console.log(_self.options.id, _self.pageId)
+      if(_self.options.id && _self.pageId){
+        _self.$store.dispatch('getSingleChartAction', { pageId: _self.pageId, id: _self.options.id })
+        .then( (data) => {
+          _self.initialData(data)
+        })
+      }
+    },
     drawChart(){
       this.myChart = this.$echarts.init(this.$el)
       let data = []
 
-      Array.isArray(this.options.series) && this.options.series.length &&
-       Array.isArray(this.options.series[0].data) && this.options.series[0].data.map( v => {
+      Array.isArray(this.optionData.series) && this.optionData.series.length &&
+       Array.isArray(this.optionData.series[0].data) && this.optionData.series[0].data.map( v => {
         data.push( v.value )
       })
       // console.log(data)
       this.myChart.resize();
       this.myChart.setOption({
         title : {
-            text: this.options.title,
+            text: this.optionData.title,
             x:'left',
             textStyle:{
               color: this.themeColors[this.theme].textColor,//'#76a5d9'
@@ -168,7 +199,7 @@ export default {
             bottom: 0,
             z:3,
             style:{
-                text: this.options.description,
+                text: this.optionData.description,
                 // textAlign:'center',
                 fill: this.themeColors[this.theme].textColor,
                 fontSize:11,

@@ -31,11 +31,23 @@ export default {
           backgroundColor: '#264e94',
           borderColor: '#282a36',
         }
+      },
+      optionData: {
+        title: '',
+        description :'',
+        type: 15,
+        colors:[],
+        series:[],
+        sunburstData: {},
+        treeData: null,
+        scatterData:null,
+        riverData:null
       }
     };
   },
   props: {
     id: { type: String },
+    pageId: { type: String },
     width: { type: String, default: "200px" },
     height: { type: String, default: "200px" },
     options:{
@@ -44,7 +56,7 @@ export default {
         return {
           title: '访问来源',
           description :'单位/人',
-          type: 9,
+          type: 15,
           style: 0,
           colors:['#FD517D','#76A5D9'],
           series:[],
@@ -68,21 +80,25 @@ export default {
       return store.state.base.THEME_TYPE
     },
     colors(){
-      let colors = this.options.colors || []
+      let colors = this.optionData.colors || []
       return colors.concat(store.state.base.COLOR_REPOSITORY)
     }
   },
   mounted(){
     // console.log(this.options)
-    this.drawChart()
+    this.initialData( this.options )
+    if(this.options.refresh){
+      let timer = setInterval( () => {
+        document.getElementById(this.id) && this.refreshData()
+      }, parseInt(this.options.refresh) * 1000)
+    }
   },
   watch:{
     options:{
       immediate:false,
       handler:function(){
         setTimeout( () => {
-          this.myChart && this.myChart.clear()
-          this.drawChart()
+          this.refreshData()
         },200)
      }
     },
@@ -90,26 +106,41 @@ export default {
       immediate:false,
       handler:function(){
         setTimeout( () => {
-          this.myChart && this.myChart.clear()
-          this.drawChart()
+          this.refreshData()
         },200)
      }
     }
   },
   methods: {
+    initialData( data ){
+      const _self = this
+      _self.myChart && _self.myChart.clear()
+      _self.optionData = Object.assign({}, data)
+      _self.drawChart();
+    },
+    refreshData(){
+      const _self = this
+      // console.log(_self.options.id, _self.pageId)
+      if(_self.options.id && _self.pageId){
+        _self.$store.dispatch('getSingleChartAction', { pageId: _self.pageId, id: _self.options.id })
+        .then( (data) => {
+          _self.initialData(data)
+        })
+      }
+    },
     drawChart(){
       this.myChart = this.$echarts.init(this.$el)
       let formatUtil = this.$echarts.format
       let data = []
-      let name = this.options.sunburstData.name
+      let name = this.optionData.sunburstData.name
       // 递归遍历数据, 把value转成数字型
-      data = this.setData(this.options.sunburstData.children, true)
+      data = this.setData(this.optionData.sunburstData.children, true)
 
       // console.log(data)
       this.myChart.resize();
       this.myChart.setOption({
         title : {
-            text: this.options.title,
+            text: this.optionData.title,
             x:'left',
             textStyle:{
               color: this.themeColors[this.theme].textColor,
@@ -124,7 +155,7 @@ export default {
             bottom:0,
             z:3,
             style:{
-                text: this.options.description,
+                text: this.optionData.description,
                 // textAlign:'center',
                 fill: this.themeColors[this.theme].textColor,
                 fontSize:11,

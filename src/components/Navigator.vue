@@ -4,7 +4,7 @@
     <!-- light dark 主题, 菜单分两部分 -->
     <div class="nav-menu nav-menu-left" v-if="theme != 'blue'">
       <div @click="changeRange(0)" v-if="start >= 1 && menuData.length > 6" class="nav-btn-prev">
-        <i class="iconfont icon-triangle-left"></i>
+        <i class="iconfont icon-triangle-left-solid"></i>
       </div>
       <div class="nav-menu-inner">
         <!-- <Angleborder type="0" direction="left"></Angleborder> -->
@@ -15,7 +15,7 @@
     </div>
     <div class="nav-menu nav-menu-right" v-if="theme != 'blue'">
       <div @click="changeRange(1)" v-if="end < menuData.length && menuData.length > 6" class="nav-btn-next">
-        <i class="iconfont icon-triangle-right"></i>
+        <i class="iconfont icon-triangle-right-solid"></i>
       </div>
       <div class="nav-menu-inner">
         <!-- <Angleborder type="0" direction="right"></Angleborder> -->
@@ -27,7 +27,7 @@
     <!-- blue 主题, 菜单合并 -->
     <div class="nav-menu-long" v-if="theme == 'blue'">
       <div @click="changeRange(0)" v-if="start >= 1 && menuData.length > 6" class="nav-btn-prev">
-        <i class="iconfont icon-triangle-left"></i>
+        <i class="iconfont icon-triangle-left-solid"></i>
       </div>
       <div class="nav-menu-inner">
         <!-- <Angleborder type="0" direction="right"></Angleborder> -->
@@ -36,10 +36,10 @@
         </div>
       </div>
       <div @click="changeRange(1)" v-if="end < menuData.length && menuData.length > 6" class="nav-btn-next">
-        <i class="iconfont icon-triangle-right"></i>
+        <i class="iconfont icon-triangle-right-solid"></i>
       </div>
     </div>
-    <!-- <div class="theme-select-btn" @click="showThemeMenu(!themeOnSelect)"><i class="iconfont iconfont-setting"></i> 主题</div>
+    <!-- <div class="theme-select-btn" @click="showThemeMenu(!themeOnSelect)"><i class="iconfont icon-setting"></i> 主题</div>
     <div class="theme-select-menu" :style="{ 'display': themeOnSelect ? 'block' : 'none' }">
       <div @click="changeTheme(item.value)" v-for="(item, $index) in themes" :key="$index" class="theme-select-item" :style="{'background': item.color}">{{ item.name }}</div>
     </div> -->

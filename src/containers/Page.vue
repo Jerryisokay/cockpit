@@ -9,26 +9,27 @@
           <div class="grid-dialog-middle">
             <Angleborder type="2"></Angleborder>
             <div class="grid-dialog-inner" :style='{"height": v.height * gridHeight -22 +"px"}'>
-              <Piechart v-if="v.type == 0" :options="v" :id="'pie_1_' + i + '_' + pageIndex"></Piechart>
-              <Multipiechart v-if="v.type == 1" :options="v" :id="'multipie_1_' + i + '_' + pageIndex"></Multipiechart>
-              <SinglePiechart v-if="v.type == 2" :options="v" :id="'singlepie_1_' + i + '_' + pageIndex" ></SinglePiechart>
-              <Barchart v-if="v.type == 3 || v.type == 4" :options="v" :id="'bar_1_' + i + '_' + pageIndex"></Barchart>
-              <Multibarchart v-if="v.type == 5 || v.type == 6" :options="v" :id="'multibar_1_' + i + '_' + pageIndex"></Multibarchart>
-              <Linechart v-if="v.type == 7" :options="v" :id="'line_1_' + i + '_' + pageIndex"></Linechart>
-              <Lineareachart v-if="v.type == 8" :options="v" :id="'line_1_' + i + '_' + pageIndex"></Lineareachart>
-              <Mixbarlinechart v-if="v.type == 9" :options="v" :id="'line_1_' + i + '_' + pageIndex"></Mixbarlinechart>
-              <Radarchart v-if="v.type == 10" :options="v" :id="'radar_1_' + i + '_' + pageIndex"></Radarchart>
-              <Funnelchart v-if="v.type == 11" :options="v" :id="'funnel_1_' + i + '_' + pageIndex"></Funnelchart>
-              <Gaugechart v-if="v.type == 12" :options="v" :id="'gauge_1_' + i + '_' + pageIndex"></Gaugechart>
-              <Treechart v-if="v.type == 13" :options="v" :id="'treechart_1_' + i + '_' + pageIndex"></Treechart>
-              <Treemapchart v-if="v.type == 14" :options="v" :id="'treechartmap_1_' + i + '_' + pageIndex"></Treemapchart>
-              <Sunburstchart v-if="v.type == 15" :options="v" :id="'sunburst_1_' + i + '_' + pageIndex"></Sunburstchart>
-              <Scatterchart v-if="v.type == 16" :options="v" :id="'scatterchart_1_' + i + '_' + pageIndex"></Scatterchart>
-              <Bubblechart v-if="v.type == 17" :options="v" :id="'bubblechart_1_' + i + '_' + pageIndex"></Bubblechart>
-              <ThemeRiverchart v-if="v.type == 18" :options="v" :id="'themeriverchart_1_' + i + '_' + pageIndex"></ThemeRiverchart>
-              <Calendarchart v-if="v.type == 19" :options="v" :id="'calendarchart_1_' + i + '_' + pageIndex"></Calendarchart>
-              <Tablechart v-if="v.type == 20" :options="v" :id="'tablechart_1_' + i + '_' + pageIndex"></Tablechart>
-              <Statisticchart v-if="v.type == 21" :options="v" :id="'statisticchart_1_' + i + '_' + pageIndex"></Statisticchart>
+              <Piechart v-if="v.type == 0" :options="v" :pageId="pageId" :id="'pie_1_' + i + '_' + pageIndex"></Piechart>
+              <Multipiechart v-if="v.type == 1" :options="v" :pageId="pageId" :id="'multipie_1_' + i + '_' + pageIndex"></Multipiechart>
+              <SinglePiechart v-if="v.type == 2" :options="v" :pageId="pageId" :id="'singlepie_1_' + i + '_' + pageIndex" ></SinglePiechart>
+              <Barchart v-if="v.type == 3 || v.type == 4" :pageId="pageId" :options="v" :id="'bar_1_' + i + '_' + pageIndex"></Barchart>
+              <Multibarchart v-if="v.type == 5 || v.type == 6" :pageId="pageId" :options="v" :id="'multibar_1_' + i + '_' + pageIndex"></Multibarchart>
+              <Linechart v-if="v.type == 7" :options="v" :pageId="pageId" :id="'line_1_' + i + '_' + pageIndex"></Linechart>
+              <Lineareachart v-if="v.type == 8" :options="v" :pageId="pageId" :id="'line_1_' + i + '_' + pageIndex"></Lineareachart>
+              <Mixbarlinechart v-if="v.type == 9" :options="v" :pageId="pageId" :id="'line_1_' + i + '_' + pageIndex"></Mixbarlinechart>
+              <Radarchart v-if="v.type == 10" :options="v" :pageId="pageId" :id="'radar_1_' + i + '_' + pageIndex"></Radarchart>
+              <Funnelchart v-if="v.type == 11" :options="v" :pageId="pageId" :id="'funnel_1_' + i + '_' + pageIndex"></Funnelchart>
+              <Gaugechart v-if="v.type == 12" :options="v" :pageId="pageId" :id="'gauge_1_' + i + '_' + pageIndex"></Gaugechart>
+              <Treechart v-if="v.type == 13" :options="v" :pageId="pageId" :id="'treechart_1_' + i + '_' + pageIndex"></Treechart>
+              <Treemapchart v-if="v.type == 14" :options="v" :pageId="pageId" :id="'treechartmap_1_' + i + '_' + pageIndex"></Treemapchart>
+              <Sunburstchart v-if="v.type == 15" :options="v" :pageId="pageId" :id="'sunburst_1_' + i + '_' + pageIndex"></Sunburstchart>
+              <Scatterchart v-if="v.type == 16" :options="v" :pageId="pageId" :id="'scatterchart_1_' + i + '_' + pageIndex"></Scatterchart>
+              <Bubblechart v-if="v.type == 17" :options="v" :pageId="pageId" :id="'bubblechart_1_' + i + '_' + pageIndex"></Bubblechart>
+              <ThemeRiverchart v-if="v.type == 18" :options="v" :pageId="pageId" :id="'themeriverchart_1_' + i + '_' + pageIndex"></ThemeRiverchart>
+              <Calendarchart v-if="v.type == 19" :options="v" :pageId="pageId" :id="'calendarchart_1_' + i + '_' + pageIndex"></Calendarchart>
+              <Tablechart v-if="v.type == 20" :options="v" :pageId="pageId" :id="'tablechart_1_' + i + '_' + pageIndex"></Tablechart>
+              <Statisticchart v-if="v.type == 21" :options="v" :pageId="pageId" :id="'statisticchart_1_' + i + '_' + pageIndex"></Statisticchart>
+              <Equipmentchart v-if="v.type == 22" :options="v" :pageId="pageId" :index="i" :id="'equipmentchart_1_' + i + '_' + pageIndex"></Equipmentchart>
             </div>
           </div>
         </div>
@@ -142,6 +143,7 @@ import ThemeRiverchart from '@/components/ThemeRiverchart'
 import Calendarchart from '@/components/Calendarchart'
 import Tablechart from '@/components/Tablechart'
 import Statisticchart from '@/components/Statisticchart'
+import Equipmentchart from '@/components/Equipmentchart'
 
 import Mapchart from '@/components/Mapchart'
 
@@ -168,7 +170,8 @@ export default {
         gmapheight: 6,
         gmappositionX: 6,
         gmappositionY: 6,
-      }
+      },
+      pageId: '',
       // pageHeight :  document.documentElement.clientHeight
     }
   },
@@ -202,10 +205,13 @@ export default {
     }
 
     // 定时刷新
-    let timer = setInterval(() => {
+    // let timer = setInterval(() => {
+    //   this.initial()
+    // }, parseInt(this.refreshInterval) * 1000)
+    setTimeout(() => {
+      // console.log('路由变化')
       this.initial()
-    }, parseInt(this.refreshInterval) * 1000)
-    this.initial()
+    },50)
   },
   watch:{ //监听路由变化
     $route(to,from){
@@ -231,9 +237,9 @@ export default {
           // 获取页面ID
           if(Array.isArray(data) && data.length){
             if(data.length > this.pageIndex){
-              let id = data[this.pageIndex].id
-              console.log('id ' + id)
-              console.log('pageIndex ' + this.pageIndex)
+              let id = this.pageId =  data[this.pageIndex].id
+              // console.log('id ' + id)
+              // console.log('pageIndex ' + this.pageIndex)
               //获取图表
               // console.log('获取第'+ parseInt(this.pageIndex + 1) +'页图表');
               this.$store.dispatch('getNavDataAction', { id })
@@ -247,7 +253,7 @@ export default {
               // 获取地图信息
               this.$store.dispatch('loadMarkersAction', { id })
               .then( (data) => {
-                console.log(data.gmapmenuid)
+                // console.log(data.gmapmenuid)
                 this.mapData = data
               })
 
@@ -267,6 +273,7 @@ export default {
         let id = routes[ routes.length - 1 ] || nav[this.pageIndex].id
 
         if(id == nav[this.pageIndex].id ||( id == '' && this.pageIndex == 0)){
+          this.pageId = id
           this.$store.dispatch('getNavDataAction', { id })
           .then( () => {
             // console.log('获取第'+ parseInt(this.pageIndex + 1) +'页图表');
@@ -277,7 +284,7 @@ export default {
             // 获取地图信息
               this.$store.dispatch('loadMarkersAction', { id })
               .then( (data) => {
-                console.log(data.gmapmenuid)
+                // console.log(data.gmapmenuid)
                 this.mapData = data
               })
           })
@@ -325,6 +332,7 @@ export default {
     Tablechart,
     Statisticchart,
     Mapchart,
+    Equipmentchart,
   }
 }
 </script>

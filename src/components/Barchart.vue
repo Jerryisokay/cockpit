@@ -51,11 +51,29 @@ export default {
           fillColor3:'rgba(255,255,255,0.1)',
           lineColor:'rgba(255,255,255,0.2)'
         }
-      }
+      },
+      optionData: {
+          title: '',
+          description :'',
+          type: 3,
+          style: 0,
+          colors:[],
+          series: [
+            {
+              name: '',
+              data: []
+            }
+          ],
+          treeData: null,
+          sunburstData:null,
+          scatterData:null,
+          riverData:null,
+        }
     }
   },
   props:{
     id: { type: String, default: new Date().getTime() },
+    pageId: { type: String },
     options:{
       type:Object,
       default(){
@@ -97,7 +115,7 @@ export default {
     },
     titles(){
       const titles = []
-      this.options.series.map( v =>{
+      this.optionData.series.map( v =>{
         v.data.map( d => {
           if(titles.indexOf(d.name) < 0) titles.push( d.name )
         })
@@ -105,12 +123,12 @@ export default {
       return titles
     },
     colors(){
-      let colors = this.options.colors || []
+      let colors = this.optionData.colors || []
       return colors.concat(store.state.base.COLOR_REPOSITORY)
     },
     values(){
       var values = [];
-      Array.isArray(this.options.series) && this.options.series.map( item => {
+      Array.isArray(this.optionData.series) && this.optionData.series.map( item => {
         Array.isArray(item.data) && item.data.map( v => {
           values.push(v.value)
         })
@@ -124,8 +142,7 @@ export default {
       handler:function(){
         // console.log('options change')
         setTimeout( () => {
-          this.myChart && this.myChart.clear()
-          this.drawChart()
+          this.refreshData()
         },200)
      }
     },
@@ -134,16 +151,35 @@ export default {
       handler:function(){
         // console.log('theme change')
         setTimeout( () => {
-          this.myChart && this.myChart.clear()
-          this.drawChart()
+          this.refreshData()
         },200)
      }
     }
   },
   mounted(){
-    this.drawChart()
+    this.initialData(this.options)
+    if(this.options.refresh){
+      let timer = setInterval( () => {
+        document.getElementById(this.id) && this.refreshData()
+      }, parseInt(this.options.refresh) * 1000)
+    }
   },
   methods:{
+    initialData( data ){
+      const _self = this
+      _self.myChart && _self.myChart.clear()
+        _self.optionData = Object.assign({}, data)
+        _self.drawChart();
+    },
+    refreshData(){
+      const _self = this
+      if(_self.options.id && _self.pageId){
+        _self.$store.dispatch('getSingleChartAction', { pageId: _self.pageId, id: _self.options.id })
+        .then( (data) => {
+          _self.initialData(data)
+        })
+      }
+    },
     getDataMax( num ){
       let divider = Math.pow( 10, num.toString().length - 1)
       return Math.ceil(num/ divider ) * divider
@@ -219,7 +255,7 @@ export default {
       this.myChart.resize();
       this.myChart.setOption({
         title : {
-            text: this.options.title,
+            text: this.optionData.title,
             x:'left',
             textStyle:{
               color: this.themeColors[this.theme].textColor,
@@ -244,15 +280,15 @@ export default {
             bottom:0,
             z:3,
             style:{
-                text: this.options.description,
+                text: this.optionData.description,
                 // textAlign:'center',
                 fill: this.themeColors[this.theme].textColor,
                 fontSize:11
             }
           }
         ],
-        xAxis: this.options.type == 3 ? xAxisOptions : yAxisOptions,
-        yAxis: this.options.type == 3 ? yAxisOptions : xAxisOptions,
+        xAxis: this.optionData.type == 3 ? xAxisOptions : yAxisOptions,
+        yAxis: this.optionData.type == 3 ? yAxisOptions : xAxisOptions,
         series: [
           { // For shadow
               type: 'bar',

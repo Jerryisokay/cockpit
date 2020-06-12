@@ -31,48 +31,52 @@ export default {
           shadowColor2: "#2584e8",
           borderColor: "#fff"
         }
+      },
+      optionData: {
+        name: "",
+        description: "",
+        colors: [],
+        series: []
       }
     };
   },
   props: {
     id: { type: String },
+    pageId: { type: String },
     width: { type: String, default: "200px" },
     height: { type: String, default: "200px" },
     options: {
       type: Object,
       default() {
         return {
-          name: "访问来源",
-          description: "速度表",
-          series: [
-            {
-              name: '速度表',
-              data: [
-                { value: 100, name: "直接访问", max: 200 },
-              ]
-            }
-          ]
+          name: "",
+          description: "",
+          colors: [],
+          series: []
         };
       }
     }
   },
   mounted() {
     // console.log(this.options);
-    setTimeout(() => {
-      this.drawChart();
-    });
+    this.initialData( this.options )
+    if(this.options.refresh){
+      let timer = setInterval( () => {
+        document.getElementById(this.id) && this.refreshData()
+      }, parseInt(this.options.refresh) * 1000)
+    }
   },
   computed: {
     theme() {
       return store.state.base.THEME_TYPE;
     },
     colors(){
-      let colors = this.options.colors || []
+      let colors = this.optionData.colors || []
       return colors.concat(store.state.base.COLOR_REPOSITORY)
     },
     legendData(){
       let data = []
-      this.options.series.map( (item, index) => {
+      this.optionData.series.map( (item, index) => {
         data.push({
           name: item.name,
           textStyle:{
@@ -95,8 +99,7 @@ export default {
       immediate: true,
       handler: function() {
         setTimeout(() => {
-          this.myChart && this.myChart.clear();
-          this.drawChart();
+          this.refreshData();
         }, 200);
       }
     },
@@ -104,16 +107,31 @@ export default {
       immediate: true,
       handler: function() {
         setTimeout(() => {
-          this.myChart && this.myChart.clear();
-          this.drawChart();
+          this.refreshData();
         }, 200);
       }
     }
   },
   methods: {
+    initialData( data ){
+      const _self = this
+      _self.myChart && _self.myChart.clear()
+      _self.optionData = Object.assign({}, data)
+      _self.drawChart();
+    },
+    refreshData(){
+      const _self = this
+      // console.log(_self.options.id, _self.pageId)
+      if(_self.options.id && _self.pageId){
+        _self.$store.dispatch('getSingleChartAction', { pageId: _self.pageId, id: _self.options.id })
+        .then( (data) => {
+          _self.initialData(data)
+        })
+      }
+    },
     drawChart() {
-      this.innerWidth = this.gridWidth * this.options.width - 24
-      this.innerHeight = this.gridHeight * this.options.height - 62
+      this.innerWidth = this.gridWidth * this.optionData.width - 24
+      this.innerHeight = this.gridHeight * this.optionData.height - 62
       if(this.innerWidth < 0){
         this.innerWidth = 300
       }
@@ -129,7 +147,7 @@ export default {
           top: 8,
           z: 3,
           style: {
-            text: this.options.description,
+            text: this.optionData.description,
             // textAlign:'center',
             fill: this.themeColors[this.theme].textColor,
             fontSize: 11
@@ -137,10 +155,10 @@ export default {
           }
         }
       ];
-      let divider = parseInt(100 / (this.options.series.length * 2))
-      if(Array.isArray(this.options.series) && this.options.series.length){
-        data = this.options.series.slice(0, 3)
-        console.log(data.length)
+      let divider = parseInt(100 / (this.optionData.series.length * 2))
+      if(Array.isArray(this.optionData.series) && this.optionData.series.length){
+        data = this.optionData.series.slice(0, 3)
+        // console.log(data.length)
         data.map((item, index) => {
           series.push({
             name: item.name,
@@ -214,9 +232,9 @@ export default {
           //
           graphic.push({
             type: "text", //副标题
-            // left: this.getCenterPosition(index, this.options.series.length, this.options.size)[0],
-            // top: this.getCenterPosition(index, this.options.series.length, this.options.size)[1],
-            position: this.getTextPosition(index, data.length, this.options.size),
+            // left: this.getCenterPosition(index, this.optionData.series.length, this.optionData.size)[0],
+            // top: this.getCenterPosition(index, this.optionData.series.length, this.optionData.size)[1],
+            position: this.getTextPosition(index, data.length, this.optionData.size),
             z: 3,
             style: {
               text: item.name,
@@ -234,7 +252,7 @@ export default {
       this.myChart.resize();
       this.myChart.setOption({
         title: {
-          text: this.options.title,
+          text: this.optionData.title,
           // subtext: '纯属虚构',
           x: "left",
           textStyle: {

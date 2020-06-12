@@ -25,11 +25,23 @@ export default {
           shadowColor1: '#dce2f2',
           fillColor1:'#282a36',
         }
+      },
+      optionData: {
+        title: '',
+        description :'',
+        type: 2,
+        colors: [],
+        series: [],
+        treeData: null,
+        sunburstData:null,
+        scatterData:null,
+        riverData:null,
       }
     };
   },
   props: {
     id: { type: String },
+    pageId: { type: String },
     width: { type: String, default: "200px" },
     height: { type: String, default: "200px" },
     options:{
@@ -68,7 +80,7 @@ export default {
   computed:{
     titles(){
       const titles = []
-      this.options.series.map( v =>{
+      this.optionData.series.map( v =>{
         v.data.map( d => {
           if(titles.indexOf(d.name) < 0) titles.push( d.name )
         })
@@ -79,7 +91,7 @@ export default {
       return store.state.base.THEME_TYPE
     },
     colors(){
-      let colors = this.options.colors || []
+      let colors = this.optionData.colors || []
       return colors.concat(store.state.base.COLOR_REPOSITORY)
     },
     layout(){
@@ -95,17 +107,19 @@ export default {
   },
   mounted(){
     // console.log(this.options)
-    setTimeout( () => {
-      this.drawChart()
-    },200)
+    this.initialData(this.options)
+    if(this.options.refresh){
+      let timer = setInterval( () => {
+        document.getElementById(this.id) && this.refreshData()
+      }, parseInt(this.options.refresh) * 1000)
+    }
   },
   watch:{
     options:{
       immediate:false,
       handler:function(){
         setTimeout( () => {
-          this.myChart && this.myChart.clear()
-          this.drawChart()
+          this.refreshData()
         },200)
      }
     },
@@ -113,16 +127,31 @@ export default {
       immediate:false,
       handler:function(){
         setTimeout( () => {
-          this.myChart && this.myChart.clear()
-          this.drawChart()
+          this.refreshData()
         },200)
      }
     }
   },
   methods: {
+    initialData( data ){
+      const _self = this
+      _self.myChart && _self.myChart.clear()
+      _self.optionData = Object.assign({}, data)
+      _self.drawChart();
+    },
+    refreshData(){
+      const _self = this
+      // console.log(_self.options.id, _self.pageId)
+      if(_self.options.id && _self.pageId){
+        _self.$store.dispatch('getSingleChartAction', { pageId: _self.pageId, id: _self.options.id })
+        .then( (data) => {
+          _self.initialData(data)
+        })
+      }
+    },
     drawChart(){
-      this.innerWidth = this.gridWidth * this.options.width - 24
-      this.innerHeight = this.gridHeight * this.options.height - 62
+      this.innerWidth = this.gridWidth * this.optionData.width - 24
+      this.innerHeight = this.gridHeight * this.optionData.height - 62
       if(this.innerWidth < 0){
         this.innerWidth = 300
       }
@@ -132,16 +161,16 @@ export default {
 
       this.myChart = this.$echarts.init(this.$el)
       let series = []
-      let radius = this.getRadius(this.options.series.length, this.options.size)
-      if(Array.isArray(this.options.series) && this.options.series.length){
-        this.options.series.map( (item, index)=> {
+      let radius = this.getRadius(this.optionData.series.length, this.optionData.size)
+      if(Array.isArray(this.optionData.series) && this.optionData.series.length){
+        this.optionData.series.map( (item, index)=> {
           let data = item.data[0] || {}
           let max = data.max || data.value
           series.push({
             name: item.name,
             type:'pie',
             radius: radius,
-            center : this.getCenterPosition(index, this.options.series.length, this.options.size),
+            center : this.getCenterPosition(index, this.optionData.series.length, this.optionData.size),
             avoidLabelOverlap: false,
             selectedMode: 'single',
             selectedOffset: 0,
@@ -176,8 +205,8 @@ export default {
       this.myChart.resize();
       this.myChart.setOption({
         title : {
-            text: this.options.title,
-            // subtext: this.options.description,
+            text: this.optionData.title,
+            // subtext: this.optionData.description,
             x:'left',
             textStyle: {
               fontSize: 14,
@@ -194,7 +223,7 @@ export default {
             top:8,
             z:3,
             style:{
-                text: this.options.description,
+                text: this.optionData.description,
                 fill: this.themeColors[this.theme].textColor,
                 fontSize:11
             }

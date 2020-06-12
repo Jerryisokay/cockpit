@@ -38,7 +38,21 @@ div::-webkit-scrollbar-corner{
   /* background: rgba(0, 0, 0， 0.1); */
   opacity: 0;
 }
-
+.tx-c{
+  text-align: center;
+}
+.tx-l{
+  text-align: left;
+}
+.tx-r{
+  text-align: right;
+}
+.fl{
+  float: left;
+}
+.fr{
+  float: right;
+}
 /*  主题1  */
 .container{
   width: 100%;
@@ -695,72 +709,6 @@ div::-webkit-scrollbar-corner{
 .blue .mark-status-item.on .mark-status-label{
   color: #1cd1d4;
 }
-/* icon */
-@font-face {font-family: "iconfont";
-  src: url('iconfont.eot?t=1582373834363'); /* IE9 */
-  src: url('iconfont.eot?t=1582373834363#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('data:application/x-font-woff2;charset=utf-8;base64,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') format('woff2'),
-  url('iconfont.woff?t=1582373834363') format('woff'),
-  url('iconfont.ttf?t=1582373834363') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
-  url('iconfont.svg?t=1582373834363#iconfont') format('svg'); /* iOS 4.1- */
-}
-
-.iconfont {
-  font-family: "iconfont" !important;
-  font-size: 16px;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.icon-triangle-right:before {
-  content: "\e708";
-}
-
-.icon-angle-left-wide:before {
-  content: "\e707";
-}
-
-.icon-triangle-left-tiny:before {
-  content: "\e616";
-}
-
-.icon-triangle-right-tiny:before {
-  content: "\e617";
-}
-
-.icon-triangle-left:before {
-  content: "\e624";
-}
-
-.icon-angle-right-wide:before {
-  content: "\e662";
-}
-
-.icon-angle-right:before {
-  content: "\e600";
-}
-
-.icon-angle-left:before {
-  content: "\e601";
-}
-
-.icon-sort-asc:before {
-  content: "\e61a";
-}
-
-.icon-sort-desc:before {
-  content: "\e602";
-}
-
-.icon-mzicon-setting:before {
-  content: "\e606";
-}
-
-.icon-font-publish--:before {
-  content: "\e634";
-}
-
 
 
 .chart-table{
@@ -834,7 +782,7 @@ div::-webkit-scrollbar-corner{
   color: #dce2f2;
 }
 .blue .chart-title,.blue .chart-subtitle{
-  color: #ffffff;
+  color: #DBE1F1;
 }
 .light .chart-title,.light .chart-subtitle{
   color: #c6044d;
@@ -890,7 +838,7 @@ div::-webkit-scrollbar-corner{
   color: #d75083;
 }
 .blue .chart-statistic-value{
-  color: #ffffff;
+  color: #DBE1F1;
 }
 
 .dark .chart-statistic-title{
@@ -906,3 +854,114 @@ div::-webkit-scrollbar-corner{
   border-bottom: #1cd1d4 1px solid;
 }
 
+.refresh-chart{
+  float: right;
+  font-weight: normal;
+}
+.refresh-chart.onloading{
+  animation: refresh-loading 1s infinite;
+}
+.chart-equipment-container{
+  color: #707983;
+  margin: 10px 2.5% 0px;
+  overflow: hidden;
+}
+.chart-equipment-box{
+  overflow-y: auto;
+}
+.equipment-c-number{
+  color: #1BD1D3;
+}
+.equipment-c-active{
+  color: #1369BD;
+}
+.equipment-c-warning{
+  color: #d75083;
+  animation: equipment-warning-action 2s infinite;
+}
+
+@keyframes refresh-loading {
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(360deg);
+  }
+}
+
+@keyframes equipment-warning-action {
+  from {
+    color: #d75083;
+    opacity: 0.1;
+  }
+  to {
+    color: #d75083;
+    opacity: 1;
+  }
+}
+
+
+.equipment-item-hor {
+  width: 45%;
+  height: 50px;
+  margin: 0px 2.5% 10px 2.5%;
+  /* float: left; */
+  text-align: left;
+  border-radius: 5px;
+  float: left;
+}
+.dark .equipment-item-hor, .blue .equipment-item-hor{
+  box-shadow: inset 0px 0px 20px 5px rgba(255,255,255,.2);
+}
+.light .equipment-item-hor{
+  box-shadow: inset 0px 0px 20px 5px rgba(215, 80, 131,.2);
+}
+
+.equipment-item-hor .item-left{
+  line-height: 50px;
+  float: left;
+  width: 40%;
+  text-align: center;
+}
+.equipment-item-hor .item-right{
+  float: right;
+  min-width: 50%;
+  max-width: 60%;
+}
+.equipment-item-hor .equipment-accuracy{
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 28px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.equipment-item-hor .equipment-name, .equipment-item-ver .equipment-name{
+  font-size: 12px;
+  line-height: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.equipment-item-hor .item-sign, .equipment-item-ver .item-sign{
+  font-size: 32px;
+}
+
+.equipment-item-ver{
+  width: 20%;
+  margin: 0px 2.5% 0px 2.5%;
+  padding: 15px 0px;
+  float: left;
+  text-align: center;
+}
+.equipment-number-name{
+  line-height: 50px;
+  font-size: 16px;
+}
+.equipment-number-accuracy{
+  line-height: 50px;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

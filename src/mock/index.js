@@ -8,7 +8,7 @@ const menus = {
   "data": [
     {
       updateInterval: 100,
-      themeType: 0,
+      themeType: 2,
       title: "合肥城建名大数据平台",
       menu: [
         {
@@ -75,6 +75,8 @@ const charts = {
       description: '单系列饼图展示',
       type: 0,
       order: 0,
+      id: '0',
+      refresh: 10,
       size: 0,
       width: 3,
       height: 4,
@@ -116,6 +118,8 @@ const charts = {
       description: '多系列饼图展示',
       order: 0,
       size: 0,
+      id: '1',
+      refresh: 10,
       width: 3,
       height: 5,
       positionX: 3,
@@ -179,6 +183,8 @@ const charts = {
       description: '多系列百分比饼图展示',
       order: 0,
       size: 0,
+      id: '2',
+      refresh: 10,
       width: 3,
       height: 4,
       positionX: 6,
@@ -245,6 +251,8 @@ const charts = {
       description: '单位/人',
       order: 0,
       size: 0,
+      id: '3',
+      refresh: 10,
       width: 3,
       height: 4,
       positionX: 9,
@@ -287,6 +295,8 @@ const charts = {
       description: '单位/人',
       order: 0,
       size: 0,
+      id: '4',
+      refresh: 10,
       width: 3,
       height: 5,
       positionX: 0,
@@ -380,6 +390,8 @@ const charts = {
       description: '统计表数据展示',
       order: 0,
       size: 1,
+      id: '5',
+      refresh: 10,
       width: 3,
       height: 4,
       positionX: 3,
@@ -428,6 +440,8 @@ const charts = {
       description: '单系列纵向显示柱形图展示',
       order: 0,
       size: 0,
+      id: '0',
+      refresh: 10,
       width: 3,
       height: 4,
       positionX: 0,
@@ -470,6 +484,8 @@ const charts = {
       description: '单位/人',
       order: 0,
       size: 0,
+      id: '1',
+      refresh: 10,
       width: 3,
       height: 4,
       positionX: 3,
@@ -532,6 +548,8 @@ const charts = {
       description: '单位/人',
       order: 0,
       size: 0,
+      id: '2',
+      refresh: 10,
       width: 3,
       height: 4,
       positionX: 6,
@@ -594,6 +612,8 @@ const charts = {
       description: '折线图展示',
       order: 0,
       size: 0,
+      id: '3',
+      refresh: 10,
       width: 3,
       height: 4,
       positionX: 9,
@@ -688,6 +708,8 @@ const charts = {
       description: '单位/人',
       order: 0,
       size: 0,
+      id: '0',
+      refresh: 10,
       width: 3,
       height: 4,
       positionX: 0,
@@ -780,6 +802,8 @@ const charts = {
       description: '单位/人',
       order: 0,
       size: 0,
+      id: '1',
+      refresh: 20,
       width: 3,
       height: 4,
       positionX: 3,
@@ -843,6 +867,8 @@ const charts = {
       description: '单位/人',
       order: 0,
       size: 0,
+      id: '2',
+      refresh: 30,
       width: 3,
       height: 4,
       positionX: 6,
@@ -889,6 +915,8 @@ const charts = {
       description: '单位/人',
       order: 0,
       size: 0,
+      id: '3',
+      refresh: 40,
       width: 3,
       height: 4,
       positionX: 9,
@@ -925,6 +953,8 @@ const charts = {
       description: '仪表盘数据展示',
       order: 0,
       size: 1,
+      id: '0',
+      refresh: 10,
       width: 3,
       height: 4,
       positionX: 0,
@@ -989,6 +1019,8 @@ const charts = {
       description: '树图数据展示',
       order: 0,
       size: 1,
+      id: '1',
+      refresh: 20,
       width: 3,
       height: 4,
       positionX: 3,
@@ -1011,6 +1043,8 @@ const charts = {
       order: 0,
       size: 0,
       width: 3,
+      id: '2',
+      refresh: 30,
       height: 4,
       positionX: 6,
       positionY: 0,
@@ -1031,6 +1065,8 @@ const charts = {
       description: '旭日图数据展示',
       order: 0,
       size: 1,
+      id: '3',
+      refresh: 10,
       width: 3,
       height: 4,
       positionX: 9,
@@ -1122,6 +1158,8 @@ const charts = {
       description: '散点图数据展示',
       order: 0,
       size: 0,
+      id: '0',
+      refresh: 10,
       width: 3,
       height: 4,
       positionX: 0,
@@ -1214,6 +1252,8 @@ const charts = {
       description: '气泡图数据展示',
       order: 0,
       size: 0,
+      id: '1',
+      refresh: 20,
       width: 3,
       height: 4,
       positionX: 3,
@@ -1318,6 +1358,8 @@ const charts = {
       description: '主题河流图数据展示',
       order: 0,
       size: 0,
+      id: '2',
+      refresh: 30,
       width: 3,
       height: 4,
       positionX: 6,
@@ -1496,6 +1538,8 @@ const charts = {
       description: '日历热图数据展示',
       order: 0,
       size: 0,
+      id: '3',
+      refresh: 40,
       width: 3,
       height: 4,
       positionX: 9,
@@ -1560,7 +1604,101 @@ const charts = {
         }
       ]
     }
-  ]
+  ],
+  "menu5": [
+    {
+      height:3,
+      width: 4,
+      positionX:0,
+      positionY:0,
+      size:0,
+      id: '0',
+      refresh: 10,
+      series:[{
+        data:[{
+          max:"",
+          name:"08月",
+          value:1020
+        }],
+        name:"燃料发热量统计",
+        id:""
+      }],
+      multiple:0,
+      description:null,
+      title:"燃料发热量统计",
+      type:3,
+      colors:['#F0F14F'],
+      order:1,
+    },{
+      width:4,
+      height: 10,
+      positionX:4,
+      positionY:0,
+      size: 0,
+      id: '1',
+      refresh: 20,
+      series: [],
+      equipData: [
+        { "num1":"WD" , "name":"温度" , "type":0 , "value":"24"  },
+        { "num1":"SD" , "name":"湿度" , "type":0 , "value":"56"  },
+        { "num1":"ZR" , "name":"制热" , "type":1 , "value":"1"  },
+        { "num1":"ZL" , "name":"制冷" , "type":1 , "value":"0"  },
+        { "num1":"JS" , "name":"加湿" , "type":1 , "value":"1"  },
+        { "num1":"CS" , "name":"除湿" , "type":1 , "value":"1"  },
+        { "num1":"FHYJ" , "name":"防火预警" , "type":2 , "value":"1"  },
+        { "num1":"FSYJ" , "name":"防水预警" , "type":2 , "value":"0"  },
+        { "num1":"FCYJ" , "name":"防尘预警" , "type":2 , "value":"1"  },
+        { "num1":"FGYJ" , "name":"防光预警" , "type":2 , "value":"0"  },
+        { "num1":"PM25" , "name":"PM25" , "type":0 , "value":"113"  },
+        { "num1":"PM1" , "name":"PM1" , "type":0 , "value":"160"  },
+        { "num1":"PM10" , "name":"PM10" , "type":0 , "value":"22"  },
+        { "num1":"HCHO" , "name":"HCHO" , "type":0 , "value":"140.4411"  },
+        { "num1":"SO2" , "name":"SO2" , "type":0 , "value":"32.6727"  },
+        { "num1":"TVOC" , "name":"TVOC" , "type":0 , "value":"65.213131"  },
+      ],
+      multiple:0,
+      description:null,
+      title:"设备1",
+      type:22,
+      colors:['#F0FFFF'],
+      order:1,
+    }],
+  "menu6": [
+    {
+      positionY: 0,
+      size:0,
+      id: '0',
+      refresh: 10,
+      series: [
+        {
+          data: [
+            {
+              max:'', name:"会计凭证", value:140
+            }, {
+              max:'', name:'基建案卷档案库', value:5084
+            }, {
+              max:'', name:'科研案卷档案库', value:4
+            }, {
+              max:'', name:'设备案卷档案库', value:742
+            }, {
+              max:'', name:'生产案卷档案库', value:383
+            }, {
+              max:'', name:'照片档案', value:454
+            }],
+          name: '',
+          id: ''
+        }
+      ],
+      multiple: 0,
+      width: 6,
+      description: null,
+      title: '室藏档案数量统计',
+      type: 3,
+      colors: null,
+      order: 6,
+      height: 9,
+      positionX:3
+    }]
 }
 
 const maps = {
@@ -1628,6 +1766,16 @@ const output = {
       "success": true
     }
   },
+  getChartById: (data) => {
+    let { body } = data
+    let { pageId, id } = JSON.parse(body)
+    let chart = charts[pageId] || []
+    return {
+      "code": "1",
+      "data": [chart[id]],
+      "success": true
+    }
+  },
   getMapById: (data) => {
     let { body } = data
     let { id } = JSON.parse(body)
@@ -1643,6 +1791,7 @@ const output = {
 
 Mock.mock(/\/api\/getpages/, 'get', output.getMenu)
 Mock.mock(/\/api\/getcharts/, 'post', output.getChartsById)
+Mock.mock(/\/api\/getsinglechart/, 'post', output.getChartById)
 Mock.mock(/\/api\/getmap/, 'post', output.getMapById)
 
 

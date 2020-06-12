@@ -28,11 +28,24 @@ export default {
           backgroundColor: '#264e94',
           fillColor1:'#282a36'
         }
+      },
+      optionData: {
+        title: '',
+        description: '',
+        type: 18,
+        style: 0,
+        colors: [],
+        series: [],
+        sunburstData: null,
+        treeData: null,
+        scatterData: null,
+        riverData: []
       }
     };
   },
   props: {
     id: { type: String },
+    pageId: { type: String },
     width: { type: String, default: "200px" },
     height: { type: String, default: "200px" },
     options:{
@@ -42,7 +55,7 @@ export default {
           title: '访问来源',
           title: '访问来源',
           description: '单位/人',
-          type: 9,
+          type: 18,
           style: 0,
           colors: ['#19D672', '#FD517D', '#76A5D9'],
           series: [],
@@ -57,7 +70,7 @@ export default {
   computed:{
     titles(){
       const titles = []
-      Array.isArray(this.options.riverData) && this.options.riverData.map( v =>{
+      Array.isArray(this.optionData.riverData) && this.optionData.riverData.map( v =>{
         titles.push(v.name)
       })
       return titles
@@ -65,7 +78,7 @@ export default {
     data(){
       //把数据转成echart需要的二维数组
       let data = []
-      Array.isArray(this.options.riverData) && this.options.riverData.map( v =>{
+      Array.isArray(this.optionData.riverData) && this.optionData.riverData.map( v =>{
         Array.isArray(v.data) && v.data.length && v.data.map( d => {
           data.push([
             d.date,
@@ -91,23 +104,25 @@ export default {
       return store.state.base.THEME_TYPE
     },
     colors(){
-      let colors = this.options.colors || []
+      let colors = this.optionData.colors || []
       return colors.concat(store.state.base.COLOR_REPOSITORY)
     }
   },
   mounted(){
     // console.log(this.options)
-    setTimeout( () => {
-      this.drawChart()
-    },200)
+    this.initialData( this.options )
+    if(this.options.refresh){
+      let timer = setInterval( () => {
+        document.getElementById(this.id) && this.refreshData()
+      }, parseInt(this.options.refresh) * 1000)
+    }
   },
   watch:{
     options:{
       immediate:false,
       handler:function(){
         setTimeout( () => {
-          this.myChart && this.myChart.clear()
-          this.drawChart()
+          this.refreshData()
         },200)
      }
     },
@@ -115,20 +130,35 @@ export default {
       immediate:false,
       handler:function(){
         setTimeout( () => {
-          this.myChart && this.myChart.clear()
-          this.drawChart()
+          this.refreshData()
         },200)
      }
     }
   },
   methods: {
+    initialData( data ){
+      const _self = this
+      _self.myChart && _self.myChart.clear()
+      _self.optionData = Object.assign({}, data)
+      _self.drawChart();
+    },
+    refreshData(){
+      const _self = this
+      // console.log(_self.options.id, _self.pageId)
+      if(_self.options.id && _self.pageId){
+        _self.$store.dispatch('getSingleChartAction', { pageId: _self.pageId, id: _self.options.id })
+        .then( (data) => {
+          _self.initialData(data)
+        })
+      }
+    },
     drawChart(){
       this.myChart = this.$echarts.init(this.$el)
 
       this.myChart.resize();
       this.myChart.setOption({
         title : {
-            text: this.options.title,
+            text: this.optionData.title,
             // subtext: '纯属虚构',
             x:'left',
             textStyle:{
@@ -143,7 +173,7 @@ export default {
             bottom:0,
             z:3,
             style:{
-                text: this.options.description,
+                text: this.optionData.description,
                 // textAlign:'center',
                 fill: this.themeColors[this.theme].textColor,
                 fontSize:11,

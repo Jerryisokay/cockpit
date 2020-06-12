@@ -1,6 +1,6 @@
 <template>
   <div :id="id" class="chart-inner">
-    <div class="chart-title">{{this.options.title}}</div>
+    <div class="chart-title">{{this.optionData.title}}</div>
     <div class="chart-tablebox" :style="{'max-height': tableHeight + 'px'}">
         <table border="0" cellpadding='2' cellspacing ='0' class="chart-table">
         <thead>
@@ -27,7 +27,7 @@
         </tbody>
       </table>
     </div>
-    <div class="chart-subtitle">{{this.options.description}}</div>
+    <div class="chart-subtitle">{{this.optionData.description}}</div>
   </div>
 </template>
 
@@ -43,10 +43,23 @@ export default {
       sortByName: '降序',
       sortProperty: '',
       series: [],
+      optionData: {
+        title: '访问来源',
+        description :'单位/人',
+        type: 20,
+        style: 0,
+        colors:['#19D672','#FD517D','#76A5D9'],
+        series: [],
+        treeData: null,
+        sunburstData:null,
+        scatterData:null,
+        riverData:null
+      }
     };
   },
   props: {
     id: { type: String },
+    pageId: { type: String },
     width: { type: String, default: "200px" },
     height: { type: String, default: "200px" },
     options:{
@@ -70,7 +83,7 @@ export default {
   computed: {
     titles(){
       const titles = []
-      this.options.series.map( v =>{
+      this.optionData.series.map( v =>{
         v.data.map( d => {
           if(titles.indexOf(d.name) < 0) titles.push( d.name )
         })
@@ -81,7 +94,7 @@ export default {
       return store.state.base.THEME_TYPE
     },
     colors(){
-      let colors = this.options.colors || []
+      let colors = this.optionData.colors || []
       return colors.concat(store.state.base.COLOR_REPOSITORY)
     },
     gridHeight(){
@@ -93,15 +106,19 @@ export default {
   },
   mounted(){
     // console.log(this.options)
-    this.drawChart()
+    this.initialData(this.options)
+    if(this.options.refresh){
+      let timer = setInterval( () => {
+        document.getElementById(this.id) && this.refreshData()
+      }, parseInt(this.options.refresh) * 1000)
+    }
   },
   watch:{
     options:{
       immediate:false,
       handler:function(){
         setTimeout( () => {
-          this.myChart && this.myChart.clear()
-          this.drawChart()
+          this.refreshData()
         },200)
      }
     },
@@ -109,16 +126,31 @@ export default {
       immediate:false,
       handler:function(){
         setTimeout( () => {
-          this.myChart && this.myChart.clear()
-          this.drawChart()
+          this.refreshData()
         },200)
      }
     }
   },
   methods: {
+    initialData( data ){
+      const _self = this
+      _self.myChart && _self.myChart.clear()
+      _self.optionData = Object.assign({}, data)
+      _self.drawChart();
+    },
+    refreshData(){
+      const _self = this
+      // console.log(_self.options.id, _self.pageId)
+      if(_self.options.id && _self.pageId){
+        _self.$store.dispatch('getSingleChartAction', { pageId: _self.pageId, id: _self.options.id })
+        .then( (data) => {
+          _self.initialData(data)
+        })
+      }
+    },
     drawChart(){
-      // if(Array.isArray(this.options.series) && this.options.series.length){
-      //   let data = this.options.series[0].data
+      // if(Array.isArray(this.optionData.series) && this.optionData.series.length){
+      //   let data = this.optionData.series[0].data
       //   if(Array.isArray(data) && data.length){
       //     this.sortProperty = data[0].name
       //   }
@@ -129,7 +161,7 @@ export default {
       }
 
       this.series = []
-      Array.isArray(this.options.series) && this.options.series.map( (item, index) => {
+      Array.isArray(this.optionData.series) && this.optionData.series.map( (item, index) => {
         var values = {}
         Array.isArray(item.data) && item.data.map( v => {
           values[v.name] = v.value
@@ -159,7 +191,7 @@ export default {
       this.series.sort(function(prev, next){
         return sortByAsc ? prev.values[sortProperty] - next.values[sortProperty] : next.values[sortProperty] - prev.values[sortProperty]
       })
-      console.log(this.series)
+      // console.log(this.series)
     }
   }
 
