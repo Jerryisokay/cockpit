@@ -59,7 +59,7 @@ export default {
         sunburstData:null,
         scatterData:null,
         riverData:null,
-        equipData: [],
+        equipmentData: [],
       },
       loading: false
     }
@@ -85,7 +85,7 @@ export default {
           sunburstData:null,
           scatterData:null,
           riverData:null,
-          equipData: [],
+          equipmentData: [],
         }
       }
     }
@@ -99,7 +99,7 @@ export default {
       return colors.concat(store.state.base.COLOR_REPOSITORY)
     },
     gridHeight(){
-      return parseInt((store.state.base.PAGE_HEIGHT - 110)/12)
+      return parseInt((store.state.base.PAGE_HEIGHT - 110)/36)
     },
     tableHeight(){
       return this.gridHeight * this.options.height - 62
@@ -107,7 +107,7 @@ export default {
     // 温度湿度
     specialList(){
       let data = []
-      this.optionData.equipData.map( v =>{
+      this.optionData.equipmentData.map( v =>{
         if(v.type == 0 && (v.num1 == 'WD' || v.num1 == 'SD'))
         data.push({
           name: v.name,
@@ -121,7 +121,7 @@ export default {
     // 小图标列表
     iconList(){
       let data = []
-      this.optionData.equipData.map( v =>{
+      this.optionData.equipmentData.map( v =>{
         if(v.type == 1 || v.type == 2)
         data.push({
           name: v.name,
@@ -135,7 +135,7 @@ export default {
     // 数字列表
     numberList(){
       let data = []
-      this.optionData.equipData.map( v =>{
+      this.optionData.equipmentData.map( v =>{
         if(v.type == 0 && v.num1 != 'WD' && v.num1 != 'SD')
         data.push({
           name: v.name,

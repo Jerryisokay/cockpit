@@ -90,10 +90,10 @@ export default {
     },
     //单元宽度
     gridWidth(){
-      return parseInt((document.documentElement.clientWidth - 40)/12)
+      return parseFloat((document.documentElement.clientWidth - 40)/36)
     },
     gridHeight(){
-      return parseInt((store.state.base.PAGE_HEIGHT - 110)/12)
+      return parseFloat((store.state.base.PAGE_HEIGHT - 110)/36)
     },
   },
   mounted(){
@@ -144,10 +144,10 @@ export default {
       this.innerWidth = this.gridWidth * this.optionData.width - 24
       this.innerHeight = this.gridHeight * this.optionData.height - 42
       if(this.innerWidth < 0){
-        this.innerWidth = 300
+        this.innerWidth = 200
       }
       if(this.innerHeight < 0){
-        this.innerWidth = 150
+        this.innerHeight = 100
       }
 
       this.myChart = this.$echarts.init(this.$el)

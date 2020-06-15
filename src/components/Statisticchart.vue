@@ -77,7 +77,7 @@ export default {
       return colors.concat(store.state.base.COLOR_REPOSITORY)
     },
     gridHeight(){
-      return parseInt((store.state.base.PAGE_HEIGHT - 110)/12)
+      return parseFloat((store.state.base.PAGE_HEIGHT - 110)/36)
     },
     tableHeight(){
       return this.gridHeight * this.optionData.height - 62

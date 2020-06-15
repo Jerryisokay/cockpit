@@ -58,6 +58,7 @@
 
     <!-- 传统布局 -->
     <!-- 左边图表列表 -->
+    <!--
     <div v-if="layout == 2" class="aside-lf aside-dialog-group" :style='{"height": pageHeight - 110 + "px"}'>
       <div class="aside-dialog" :key="'dialog_1_' + i " v-for="(v,i) in leftMenu">
         <div class="aside-dialog-inner" :class="{'large': v.size == 1}">
@@ -85,8 +86,10 @@
         </div>
       </div>
     </div>
+    -->
 
     <!-- 右边图表列表 -->
+    <!--
     <div v-if="layout == 2" class="aside-rt aside-dialog-group" :style='{"height": pageHeight - 110 + "px"}'>
       <div class="aside-dialog" :key="'dialog_2_' + i " v-for="(v,i) in rightMenu">
         <div class="aside-dialog-inner" :class="{'large': v.size == 1}">
@@ -113,8 +116,8 @@
           <Statisticchart v-if="v.type == 21" :options="v" :id="'statisticchart_2_' + i + '_' + pageIndex"></Statisticchart>
         </div>
       </div>
-
     </div>
+    -->
   </div>
 </template>
 
@@ -183,11 +186,10 @@ export default {
       return store.state.base.PAGE_HEIGHT
     },
     gridHeight(){
-      return parseInt((this.pageHeight - 110)/12)
+      return parseFloat((this.pageHeight - 110)/36)
     },
     gridWidth(){
-      // console.log('clientWidth ' + document.documentElement.clientWidth);
-      return parseInt((document.documentElement.clientWidth - 40)/12)
+      return parseFloat((document.documentElement.clientWidth - 40)/36)
     },
     refreshInterval(){
       return store.state.base.REFRESH_INTERVAL

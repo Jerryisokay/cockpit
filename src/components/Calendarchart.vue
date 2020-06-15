@@ -119,10 +119,10 @@ export default {
     },
     //单元宽度
     gridWidth(){
-      return parseInt((document.documentElement.clientWidth - 40)/12)
+      return parseFloat((document.documentElement.clientWidth - 40)/36)
     },
     gridHeight(){
-      return parseInt((store.state.base.PAGE_HEIGHT - 110)/12)
+      return parseFloat((store.state.base.PAGE_HEIGHT - 110)/36)
     },
   },
   watch: {
