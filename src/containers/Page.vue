@@ -30,19 +30,11 @@
               <Tablechart v-if="v.type == 20" :options="v" :pageId="pageId" :id="'tablechart_1_' + i + '_' + pageIndex"></Tablechart>
               <Statisticchart v-if="v.type == 21" :options="v" :pageId="pageId" :id="'statisticchart_1_' + i + '_' + pageIndex"></Statisticchart>
               <Equipmentchart v-if="v.type == 22" :options="v" :pageId="pageId" :index="i" :id="'equipmentchart_1_' + i + '_' + pageIndex"></Equipmentchart>
+              <Iframepage v-if="v.type == 23" :options="v" :pageId="pageId" :index="i" :id="'iframepage_1_' + i + '_' + pageIndex" :innerHeight="v.height * gridHeight -22"></Iframepage>
+              <Videopage v-if="v.type == 24" :options="v" :pageId="pageId" :index="i" :id="'videopage_1_' + i + '_' + pageIndex" :innerHeight="v.height * gridHeight -22"></Videopage>
             </div>
           </div>
         </div>
-        <!-- 预留的iframe窗口 -->
-        <!-- <div class="grid-dialog-outer" :style='{"width": 4 * gridWidth +"px", "height": 4 * gridHeight +"px",
-            "left": 0 * gridWidth +"px", "top": 4 * gridHeight +"px" }'>
-          <div class="grid-dialog-middle">
-            <Angleborder type="2"></Angleborder>
-            <div class="grid-dialog-inner" :style='{"height": 4 * gridHeight -22 +"px"}'>
-              <iframe src="http://www.baidu.com" :width="4 * gridWidth - 24" :height="4 * gridHeight - 22" frameborder="0" scrolling="auto"></iframe>
-            </div>
-          </div>
-        </div> -->
         <!-- 地图 -->
         <div v-if="mapData.gmapmenuid == 1" class="grid-dialog-outer" :style='{"width": mapData.gmapwidth * gridWidth +"px", "height": mapData.gmapheight * gridHeight +"px",
             "left": mapData.gmappositionX * gridWidth +"px", "top": mapData.gmappositionY * gridHeight +"px" }'>
@@ -147,6 +139,8 @@ import Calendarchart from '@/components/Calendarchart'
 import Tablechart from '@/components/Tablechart'
 import Statisticchart from '@/components/Statisticchart'
 import Equipmentchart from '@/components/Equipmentchart'
+import Videopage from '@/components/Videopage'
+import Iframepage from '@/components/Iframepage'
 
 import Mapchart from '@/components/Mapchart'
 
@@ -335,6 +329,8 @@ export default {
     Statisticchart,
     Mapchart,
     Equipmentchart,
+    Iframepage,
+    Videopage,
   }
 }
 </script>

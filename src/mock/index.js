@@ -411,18 +411,18 @@ const charts = {
           data: [
             { value: 42, name: '件', max: '' },
           ]
-        // },
-        // {
-        //   name: '重点区域违法量',
-        //   data: [
-        //     { value: 16, name: '件', max: '' },
-        //   ]
-        // },
-        // {
-        //   name: '重点区域违法量1',
-        //   data: [
-        //     { value: 26, name: '件', max: '' },
-        //   ]
+          // },
+          // {
+          //   name: '重点区域违法量',
+          //   data: [
+          //     { value: 16, name: '件', max: '' },
+          //   ]
+          // },
+          // {
+          //   name: '重点区域违法量1',
+          //   data: [
+          //     { value: 26, name: '件', max: '' },
+          //   ]
         }
       ],
       treeData: null,
@@ -1607,97 +1607,111 @@ const charts = {
   ],
   "menu5": [
     {
-      height:9,
+      height: 9,
       width: 12,
-      positionX:0,
-      positionY:0,
-      size:0,
+      positionX: 0,
+      positionY: 0,
+      size: 0,
       id: '0',
       refresh: 10,
-      series:[{
-        data:[{
-          max:"",
-          name:"08月",
-          value:1020
+      series: [{
+        data: [{
+          max: "",
+          name: "08月",
+          value: 1020
         }],
-        name:"燃料发热量统计",
-        id:""
+        name: "燃料发热量统计",
+        id: ""
       }],
-      multiple:0,
-      description:null,
-      title:"燃料发热量统计",
-      type:3,
-      colors:['#F0F14F'],
-      order:1,
-    },{
-      width:12,
+      multiple: 0,
+      description: null,
+      title: "燃料发热量统计",
+      type: 3,
+      colors: ['#F0F14F'],
+      order: 1,
+    }, {
+      width: 12,
       height: 30,
-      positionX:12,
-      positionY:0,
+      positionX: 12,
+      positionY: 0,
       size: 0,
       id: '1',
       refresh: 20,
       series: [],
       equipmentData: [
-        { "num1":"WD" , "name":"温度" , "type":0 , "value":"24"  },
-        { "num1":"SD" , "name":"湿度" , "type":0 , "value":"56"  },
-        { "num1":"ZR" , "name":"制热" , "type":1 , "value":"1"  },
-        { "num1":"ZL" , "name":"制冷" , "type":1 , "value":"0"  },
-        { "num1":"JS" , "name":"加湿" , "type":1 , "value":"1"  },
-        { "num1":"CS" , "name":"除湿" , "type":1 , "value":"1"  },
-        { "num1":"FHYJ" , "name":"防火预警" , "type":2 , "value":"1"  },
-        { "num1":"FSYJ" , "name":"防水预警" , "type":2 , "value":"0"  },
-        { "num1":"FCYJ" , "name":"防尘预警" , "type":2 , "value":"1"  },
-        { "num1":"FGYJ" , "name":"防光预警" , "type":2 , "value":"0"  },
-        { "num1":"PM25" , "name":"PM25" , "type":0 , "value":"113"  },
-        { "num1":"PM1" , "name":"PM1" , "type":0 , "value":"160"  },
-        { "num1":"PM10" , "name":"PM10" , "type":0 , "value":"22"  },
-        { "num1":"HCHO" , "name":"HCHO" , "type":0 , "value":"140.4411"  },
-        { "num1":"SO2" , "name":"SO2" , "type":0 , "value":"32.6727"  },
-        { "num1":"TVOC" , "name":"TVOC" , "type":0 , "value":"65.213131"  },
+        { "num1": "WD", "name": "温度", "type": 0, "value": "24" },
+        { "num1": "SD", "name": "湿度", "type": 0, "value": "56" },
+        { "num1": "ZR", "name": "制热", "type": 1, "value": "1" },
+        { "num1": "ZL", "name": "制冷", "type": 1, "value": "0" },
+        { "num1": "JS", "name": "加湿", "type": 1, "value": "1" },
+        { "num1": "CS", "name": "除湿", "type": 1, "value": "1" },
+        { "num1": "FHYJ", "name": "防火预警", "type": 2, "value": "1" },
+        { "num1": "FSYJ", "name": "防水预警", "type": 2, "value": "0" },
+        { "num1": "FCYJ", "name": "防尘预警", "type": 2, "value": "1" },
+        { "num1": "FGYJ", "name": "防光预警", "type": 2, "value": "0" },
+        { "num1": "PM25", "name": "PM25", "type": 0, "value": "113" },
+        { "num1": "PM1", "name": "PM1", "type": 0, "value": "160" },
+        { "num1": "PM10", "name": "PM10", "type": 0, "value": "22" },
+        { "num1": "HCHO", "name": "HCHO", "type": 0, "value": "140.4411" },
+        { "num1": "SO2", "name": "SO2", "type": 0, "value": "32.6727" },
+        { "num1": "TVOC", "name": "TVOC", "type": 0, "value": "65.213131" },
       ],
-      multiple:0,
-      description:null,
-      title:"设备1",
-      type:22,
-      colors:['#F0FFFF'],
-      order:1,
+      multiple: 0,
+      description: null,
+      title: "设备1",
+      type: 22,
+      colors: ['#F0FFFF'],
+      order: 1,
+    }, {
+      width: 12,
+      height: 24,
+      positionX: 0,
+      positionY: 8,
+      size: 0,
+      id: '2',
+      refresh: 0,
+      series: [],
+      url: "rtmp://58.200.131.2:1935/livetv/hunantv",
+      title: "湖南卫视",
+      type: 24,
+    }, {
+      width: 12,
+      height: 36,
+      positionX: 24,
+      positionY: 0,
+      size: 0,
+      id: '3',
+      refresh: 20,
+      series: [],
+      url: "http://www.baidu.com",
+      title: "百度",
+      type: 23,
     }],
   "menu6": [
     {
+      width: 12,
+      height: 18,
+      positionX: 0,
       positionY: 0,
-      size:0,
+      size: 0,
       id: '0',
-      refresh: 10,
-      series: [
-        {
-          data: [
-            {
-              max:'', name:"会计凭证", value:140
-            }, {
-              max:'', name:'基建案卷档案库', value:5084
-            }, {
-              max:'', name:'科研案卷档案库', value:4
-            }, {
-              max:'', name:'设备案卷档案库', value:742
-            }, {
-              max:'', name:'生产案卷档案库', value:383
-            }, {
-              max:'', name:'照片档案', value:454
-            }],
-          name: '',
-          id: ''
-        }
-      ],
-      multiple: 0,
+      refresh: 0,
+      series: [],
+      url: "rtmp://58.200.131.2:1935/livetv/hunantv",
+      title: "湖南卫视",
+      type: 24,
+    },{
       width: 18,
-      description: null,
-      title: '室藏档案数量统计',
-      type: 3,
-      colors: null,
-      order: 6,
-      height: 27,
-      positionX:9
+      height: 36,
+      positionX: 18,
+      positionY: 0,
+      size: 0,
+      id: '1',
+      refresh: 20,
+      series: [],
+      url: "http://www.qq.com",
+      title: "腾讯",
+      type: 23,
     }]
 }
 
