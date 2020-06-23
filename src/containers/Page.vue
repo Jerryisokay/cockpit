@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 栅格布局 -->
-    <div v-if="layout == 1" :style='{"height": pageHeight - 110 + "px"}'>
+    <div v-if="layout == 1" :style='{"height": pageHeight - 25 - navHeight + "px"}'>
       <div class="grid-dialog-group">
         <div class="grid-dialog-outer" :style='{"width": v.width * gridWidth +"px", "height": v.height * gridHeight +"px",
             "left": v.positionX * gridWidth +"px", "top": v.positionY * gridHeight +"px" }'
@@ -179,11 +179,14 @@ export default {
     pageHeight(){
       return store.state.base.PAGE_HEIGHT
     },
+    navHeight(){
+      return store.state.base.SHOW_NAV ? 85 : 0;
+    },
     gridHeight(){
-      return parseFloat((this.pageHeight - 110)/36)
+      return parseFloat((this.pageHeight - 25 - this.navHeight)/36)
     },
     gridWidth(){
-      return parseFloat((document.documentElement.clientWidth - 40)/36)
+      return parseFloat((document.documentElement.clientWidth - 30)/36)
     },
     refreshInterval(){
       return store.state.base.REFRESH_INTERVAL
@@ -222,14 +225,14 @@ export default {
       let nav = store.state.base.NAV_DATA
       //是否已获取导航
       if(!nav.length){
-        if(this.pageIndex == 0){
-          // 超出菜单长度，跳转回首页
-          this.$router.push({ path: '/' })
-        }
+        // if(this.pageIndex == 0){
+        //   // 超出菜单长度，跳转回首页
+        //   this.$router.push({ path: '/' })
+        // }
         //获取导航
         this.$store.dispatch('loadNavDataAction')
         .then( (data) => {
-          // console.log('首次获取导航');
+          console.log('首次获取导航');
           // 获取页面ID
           if(Array.isArray(data) && data.length){
             if(data.length > this.pageIndex){
@@ -239,7 +242,10 @@ export default {
               //获取图表
               // console.log('获取第'+ parseInt(this.pageIndex + 1) +'页图表');
               this.$store.dispatch('getNavDataAction', { id })
-              .then( () => {
+              .then( (data) => {
+                data.map( (v, $i) => {
+                  if( v.id == id)  this.pageIndex = $i
+                })
                 let list = this.list = store.state.charts.CHARTS_DATA[id] || []
                 // const length = Math.ceil(list.length /2)
                 // this.leftMenu = list.slice(0, length)
@@ -255,20 +261,25 @@ export default {
 
             }else{
               // 超出菜单长度，跳转回首页
+              console.log('261')
               this.$store.dispatch('setPageIndexAction', {index: 0})
               this.$router.push({ path: '/' })
             }
           }
         })
         .catch( err => {
+              console.log('268')
           this.$store.dispatch('setPageIndexAction', {index: 0})
           this.$router.push({ path: '/' })
         } )
       }else{
         let routes = this.$route.path.split('/')
         let id = routes[ routes.length - 1 ] || nav[this.pageIndex].id
+        nav.map( (v, $i) => {
+          if( v.id == id)  this.pageIndex = $i
+        })
 
-        if(id == nav[this.pageIndex].id ||( id == '' && this.pageIndex == 0)){
+        // if(id == nav[this.pageIndex].id ||( id == '' && this.pageIndex == 0)){
           this.pageId = id
           this.$store.dispatch('getNavDataAction', { id })
           .then( () => {
@@ -284,11 +295,12 @@ export default {
                 this.mapData = data
               })
           })
-        }else{
-          // 当前路由不对,跳转回首页
-          this.$store.dispatch('setPageIndexAction', {index: 0})
-          this.$router.push({ path: '/' })
-        }
+        // }else{
+        //   // 当前路由不对,跳转回首页
+        //   console.log('294')
+        //   this.$store.dispatch('setPageIndexAction', {index: 0})
+        //   this.$router.push({ path: '/' })
+        // }
 
       }
 

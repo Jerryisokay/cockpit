@@ -98,8 +98,11 @@ export default {
       let colors = this.options.colors || []
       return colors.concat(store.state.base.COLOR_REPOSITORY)
     },
+    navHeight(){
+      return store.state.base.SHOW_NAV ? 85 : 0;
+    },
     gridHeight(){
-      return parseInt((store.state.base.PAGE_HEIGHT - 110)/36)
+      return parseInt((store.state.base.PAGE_HEIGHT - 25 - this.navHeight)/36)
     },
     tableHeight(){
       return this.gridHeight * this.options.height - 62

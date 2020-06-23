@@ -2,9 +2,9 @@
   <div class="root-container" :class="theme">
     <div class="container" :style='{"min-height": pageHeight + "px"}'>
       <!-- 导航 -->
-      <Navigator></Navigator>
+      <Navigator v-if="showNav"></Navigator>
       <!-- 地图部分 -->
-      <div class="main-container" :style='{"height": pageHeight - 160 + "px"}'>
+      <div class="main-container" :style='{"height": pageHeight - 25 - navHeight + "px"}'>
         <!-- <div v-if="showMap" class="mid-container-outer">
           <div class="mid-container-inner">
             <Angleborder type="1"></Angleborder>
@@ -67,6 +67,12 @@ export default {
     },
     pageHeight(){
       return store.state.base.PAGE_HEIGHT
+    },
+    showNav(){
+      return store.state.base.SHOW_NAV
+    },
+    navHeight(){
+      return this.showNav ? 85 : 0;
     },
     showMap(){
       return store.state.map.SHOW_MAP

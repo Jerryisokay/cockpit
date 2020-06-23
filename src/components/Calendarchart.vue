@@ -118,11 +118,14 @@ export default {
       return store.state.base.LAYOUT_TYPE
     },
     //单元宽度
+    navHeight(){
+      return store.state.base.SHOW_NAV ? 85 : 0;
+    },
     gridWidth(){
       return parseFloat((document.documentElement.clientWidth - 40)/36)
     },
     gridHeight(){
-      return parseFloat((store.state.base.PAGE_HEIGHT - 110)/36)
+      return parseFloat((store.state.base.PAGE_HEIGHT - 25 - this.navHeight)/36)
     },
   },
   watch: {

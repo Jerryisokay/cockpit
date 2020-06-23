@@ -10,6 +10,7 @@ const menus = {
       updateInterval: 100,
       themeType: 2,
       title: "合肥城建名大数据平台",
+      showNav: false,
       menu: [
         {
           name: '主页',
@@ -616,7 +617,7 @@ const charts = {
       refresh: 10,
       width: 9,
       height: 12,
-      positionX: 9,
+      positionX: 27,
       positionY: 0,
       colors: ['#19D672', '#FD517D', '#76A5D9'],
       type: 7,
@@ -1639,8 +1640,6 @@ const charts = {
       refresh: 20,
       series: [],
       equipmentData: [
-        { "num1": "WD", "name": "温度", "type": 0, "value": "24" },
-        { "num1": "SD", "name": "湿度", "type": 0, "value": "56" },
         { "num1": "ZR", "name": "制热", "type": 1, "value": "1" },
         { "num1": "ZL", "name": "制冷", "type": 1, "value": "0" },
         { "num1": "JS", "name": "加湿", "type": 1, "value": "1" },
@@ -1649,6 +1648,8 @@ const charts = {
         { "num1": "FSYJ", "name": "防水预警", "type": 2, "value": "0" },
         { "num1": "FCYJ", "name": "防尘预警", "type": 2, "value": "1" },
         { "num1": "FGYJ", "name": "防光预警", "type": 2, "value": "0" },
+        { "num1": "WD", "name": "温度", "type": 0, "value": "24" },
+        { "num1": "SD", "name": "湿度", "type": 0, "value": "56" },
         { "num1": "PM25", "name": "PM25", "type": 0, "value": "113" },
         { "num1": "PM1", "name": "PM1", "type": 0, "value": "160" },
         { "num1": "PM10", "name": "PM10", "type": 0, "value": "22" },
@@ -1710,7 +1711,7 @@ const charts = {
       refresh: 20,
       series: [],
       url: "http://www.qq.com",
-      title: "腾讯",
+      title: "",
       type: 23,
     }]
 }

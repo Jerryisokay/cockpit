@@ -4,7 +4,7 @@
       <video ref='video' :id="id"
         class="video-js vjs-fluid vjs-big-play-centered"
         controls
-        style="width: 100%; height: 100%;object-fit: fill;"
+        style="height: 100%;object-fit: fill;"
         data-setup='{}'>
         <p class="vjs-no-js">您的浏览器不支持HTML5，请升级浏览器。</p>
       </video>
@@ -148,8 +148,9 @@ export default {
         preload: "auto"
       });
       // 获取链接
-      _self.player.height(_self.innerHeight);
       _self.player.src(_self.optionData.url);
+      console.log(_self.innerHeight)
+      _self.player.height(_self.innerHeight);
       _self.player.play();
     },
     refreshData(){
