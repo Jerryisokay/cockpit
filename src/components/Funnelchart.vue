@@ -21,8 +21,8 @@ export default {
           textColor: '#333333',
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
           shadowColor1: 'rgba(255, 255, 255, 0.5)',
-          shadowColor2: '#77022e',
-          borderColor: '#77022e'
+          shadowColor2: '#2D88F8',
+          borderColor: '#2D88F8'
         },
         blue: {
           textColor: '#dce2f2',

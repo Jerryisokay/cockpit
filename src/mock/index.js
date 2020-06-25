@@ -10,7 +10,7 @@ const menus = {
       updateInterval: 100,
       themeType: 2,
       title: "合肥城建名大数据平台",
-      showNav: false,
+      hideNav: false,
       menu: [
         {
           name: '主页',
@@ -298,6 +298,7 @@ const charts = {
       size: 0,
       id: '4',
       refresh: 10,
+      moreUrl:'http://www.baidu.com',
       width: 9,
       height: 15,
       positionX: 0,
@@ -308,6 +309,7 @@ const charts = {
       series: [{
         name: '2017销售数据',
         id: '',
+        url:"www.baidu.com",
         data: [{
           value: 160,
           name: '第一周',
@@ -324,6 +326,7 @@ const charts = {
       }, {
         name: '2018销售数据',
         id: '',
+        url:"www.baidu.com",
         data: [{
           value: 260,
           name: '第一周',
@@ -340,6 +343,7 @@ const charts = {
       }, {
         name: '2019销售数据',
         id: '',
+        url:"www.baidu.com",
         data: [
           {
             value: 460,
@@ -360,6 +364,7 @@ const charts = {
       }, {
         name: '2020销售数据',
         id: '',
+        url:"www.baidu.com",
         data: [
           {
             value: 310,
@@ -1556,51 +1561,51 @@ const charts = {
       riverData: null,
       calendarData: [
         {
-          date: '2020-01-01',
+          date: '2020-06-01',
           value: 260
         },
         {
-          date: '2020-01-02',
+          date: '2020-06-02',
           value: 200
         },
         {
-          date: '2020-01-03',
+          date: '2020-06-03',
           value: 279
         },
         {
-          date: '2020-01-04',
+          date: '2020-06-04',
           value: 847
         },
         {
-          date: '2020-01-05',
+          date: '2020-07-05',
           value: 241
         },
         {
-          date: '2020-01-06',
+          date: '2020-07-06',
           value: 411
         },
         {
-          date: '2020-01-07',
+          date: '2020-07-07',
           value: 98
         },
         {
-          date: '2020-01-08',
+          date: '2020-08-08',
           value: 122
         },
         {
-          date: '2020-01-09',
+          date: '2020-08-09',
           value: 333
         },
         {
-          date: '2019-10-10',
+          date: '2020-08-10',
           value: 126
         },
         {
-          date: '2019-10-11',
+          date: '2020-08-11',
           value: 211
         },
         {
-          date: '2019-10-12',
+          date: '2020-08-12',
           value: 160
         }
       ]
@@ -1667,7 +1672,7 @@ const charts = {
       width: 12,
       height: 24,
       positionX: 0,
-      positionY: 8,
+      positionY: 9,
       size: 0,
       id: '2',
       refresh: 0,
@@ -1690,7 +1695,7 @@ const charts = {
     }],
   "menu6": [
     {
-      width: 12,
+      width: 9,
       height: 18,
       positionX: 0,
       positionY: 0,
@@ -1698,21 +1703,71 @@ const charts = {
       id: '0',
       refresh: 0,
       series: [],
-      url: "rtmp://58.200.131.2:1935/livetv/hunantv",
-      title: "湖南卫视",
-      type: 24,
-    },{
-      width: 18,
-      height: 36,
-      positionX: 18,
-      positionY: 0,
-      size: 0,
-      id: '1',
-      refresh: 20,
-      series: [],
-      url: "http://www.qq.com",
-      title: "",
-      type: 23,
+      moreUrl:'http://www.baidu.com',
+      btnData: [
+        {
+          icon: "setting",
+          name: "设置",
+          scriptType: 0,
+          script: "javascript: console.log('设置');"
+        },
+        {
+          icon: "document",
+          name: "文件",
+          scriptType: 0,
+          script: "javascript: console.log('文件');"
+        },
+        {
+          icon: "approvallist",
+          name: "审核列表",
+          scriptType: 0,
+          script: "javascript: console.log('审核列表');"
+        },
+        {
+          icon: "statics",
+          name: "统计报表",
+          scriptType: 0,
+          script: "javascript: console.log('统计报表');"
+        },
+        {
+          icon: "checklist",
+          name: "审核表",
+          scriptType: 0,
+          script: "javascript: console.log('审核表');"
+        },
+        {
+          icon: "firsttrial",
+          name: "审核初审",
+          scriptType: 1,
+          script: "http://www.baidu.com"
+        }
+      ],
+      title: "按钮组示例",
+      type: 25,
+    // }, {
+    //   width: 12,
+    //   height: 18,
+    //   positionX: 0,
+    //   positionY: 0,
+    //   size: 0,
+    //   id: '1',
+    //   refresh: 0,
+    //   series: [],
+    //   url: "rtmp://58.200.131.2:1935/livetv/hunantv",
+    //   title: "湖南卫视",
+    //   type: 24,
+    // },{
+    //   width: 18,
+    //   height: 36,
+    //   positionX: 18,
+    //   positionY: 0,
+    //   size: 0,
+    //   id: '2',
+    //   refresh: 20,
+    //   series: [],
+    //   url: "http://www.qq.com",
+    //   title: "",
+    //   type: 23,
     }]
 }
 

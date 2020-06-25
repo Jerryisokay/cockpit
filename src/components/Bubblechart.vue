@@ -22,10 +22,10 @@ export default {
         light: {
           textColor: '#333333',
           textColor2: '#dce2f2',
-          emphasisColor: '#c6044d',
+          emphasisColor: '#01F0D9',
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
           shadowColor1: 'rgba(0, 0, 0, 0.5)',
-          shadowColor2: '#77022e',
+          shadowColor2: '#2D88F8',
           lineColor: '#dddddd'
         },
         blue: {

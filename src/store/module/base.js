@@ -29,7 +29,7 @@ const base = {
     COLOR_REPOSITORY: ['#01f0d9','#3c95fb','#07fe1d','#eaab05','#f54806','#0fd187','#c6044d','#0a9ba6','#c6044d','#f36098','#55db87','#f36098','#e7cc72'],
     // 导航菜单
     NAV_DATA: [],
-    SHOW_NAV: true,
+    HIDE_NAV: false,
     // 当前导航
     PAGE_INDEX: 0,
     // 页面标题
@@ -47,9 +47,9 @@ const base = {
     SET_THEME_TYPE: (state, { theme }) => {
       state.THEME_TYPE = theme
     },
-    SET_PAGE_TITLE: (state, {title, showNav}) => {
+    SET_PAGE_TITLE: (state, {title, hideNav}) => {
       state.PAGE_TITLE = title
-      state.SHOW_NAV = showNav
+      state.HIDE_NAV = hideNav
     },
     SET_NAV_DATA: (state, { data }) => {
       state.NAV_DATA = data
@@ -72,13 +72,13 @@ const base = {
           }
           const data = res.data.data[0] || {menu:[]}
           const title = data.title
-          const showNav = data.showNav
+          const hideNav = data.hideNav
           const themeType = data.themeType == 2 ? 'blue' : ( data.themeType == 1 ? 'light' : 'dark')
           //设置初始参数
           //主题
           commit('SET_THEME_TYPE', { theme: themeType })
           //标题
-          commit('SET_PAGE_TITLE', { title, showNav })
+          commit('SET_PAGE_TITLE', { title, hideNav })
           //导航菜单
           commit('SET_NAV_DATA', { data: data.menu })
           resolve(data.menu)
@@ -101,8 +101,8 @@ const base = {
       let height = document.documentElement.clientHeight
       commit('SET_PAGE_HEIGHT', { height })
     },
-    setPageTitleAction: function({commit},{title, showNav}){
-      commit('SET_PAGE_TITLE', {title, showNav})
+    setPageTitleAction: function({commit},{title, hideNav}){
+      commit('SET_PAGE_TITLE', {title, hideNav})
     }
   }
 }

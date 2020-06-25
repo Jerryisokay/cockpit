@@ -32,7 +32,7 @@ export default {
       },
       icons:{
         dark: defaultIcon,
-        light: lightIcon,
+        light: defaultIcon,
         blue: blueIcon,
       },
       status:{
@@ -49,7 +49,7 @@ export default {
         },
         light: {
           textColor: '#333333',
-          backgroundColor: 'c6044d',
+          backgroundColor: '01f0d9',
         },
         blue: {
           textColor: '#ffffff',

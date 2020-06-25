@@ -18,7 +18,7 @@ export default {
         },
         light: {
           textColor: '#333333',
-          shadowColor1: '#77022e',
+          shadowColor1: '#2D88F8',
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
           fillColor1: '#ffffff',
         },
@@ -230,7 +230,7 @@ export default {
             itemStyle: {
               emphasis: {
                   shadowBlur: 20,
-                  shadowColor: 'rgba(0, 0, 0, 0.8)'
+                  shadowColor: this.themeColors[this.theme].shadowColor1,
               }
             },
             label:{

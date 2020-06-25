@@ -19,10 +19,10 @@ export default {
         },
         light: {
           textColor: '#333333',
-          shadowColor1: '#77022e',
+          shadowColor1: '#01F0D9',
           fillColor1: '#ffffff',
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          borderColor: '#77022e',
+          borderColor: '#2D88F8',
         },
         blue: {
           textColor: '#dce2f2',

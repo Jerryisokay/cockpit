@@ -24,11 +24,11 @@ export default {
           textColor: "#333333",
           backgroundColor: "rgba(0, 0, 0, 0.5)",
           shadowColor1: "rgba(255, 255, 255, 0.5)",
-          shadowColor2: "#77022e",
-          borderColor: "#c6044d",
+          shadowColor2: "#2D88F8",
+          borderColor: "#2D88F8",
           lineColor: 'rgba(0, 0, 0, 0.2)',//'#c6044d',
-          fillColor:'#77022e',
-          emphasisColor: '#2584e8',
+          fillColor:'#5985B8',
+          emphasisColor: '#01F0D9',
         },
         blue: {
           textColor: "#dce2f2",
@@ -119,7 +119,7 @@ export default {
     },
     //单元宽度
     navHeight(){
-      return store.state.base.SHOW_NAV ? 85 : 0;
+      return store.state.base.HIDE_NAV ? 0 : 85;
     },
     gridWidth(){
       return parseFloat((document.documentElement.clientWidth - 40)/36)

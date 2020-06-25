@@ -25,7 +25,6 @@ export default {
      themeColors:{
         dark: {
           textColor: '#dce2f2',
-          textColor2: '#cccccc',
           emphasisColor: '#ffc911',
           backgroundColor: '#264e94',
           tooltipEmphasisColor: '#1eee10',
@@ -37,8 +36,7 @@ export default {
           lineColor:'rgba(255,255,255,0.2)'
         },
         light: {
-          textColor: '#333333',
-          textColor2: '#dce2f2',
+          textColor: '#dce2f2',
           emphasisColor: '#c6044d',
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
           tooltipEmphasisColor: '#ffffff',
@@ -51,7 +49,6 @@ export default {
         },
         blue: {
           textColor: '#dce2f2',
-          textColor2: '#cccccc',
           emphasisColor: '#ffc911',
           backgroundColor: '#264e94',
           tooltipEmphasisColor: '#1eee10',

@@ -32,6 +32,7 @@
               <Equipmentchart v-if="v.type == 22" :options="v" :pageId="pageId" :index="i" :id="'equipmentchart_1_' + i + '_' + pageIndex"></Equipmentchart>
               <Iframepage v-if="v.type == 23" :options="v" :pageId="pageId" :index="i" :id="'iframepage_1_' + i + '_' + pageIndex" :innerHeight="v.height * gridHeight -22"></Iframepage>
               <Videopage v-if="v.type == 24" :options="v" :pageId="pageId" :index="i" :id="'videopage_1_' + i + '_' + pageIndex" :innerHeight="v.height * gridHeight -22"></Videopage>
+              <Buttonchart v-if="v.type == 25" :options="v" :pageId="pageId" :index="i" :id="'buttonchart_1_' + i + '_' + pageIndex" :innerHeight="v.height * gridHeight -22"></Buttonchart>
             </div>
           </div>
         </div>
@@ -141,6 +142,7 @@ import Statisticchart from '@/components/Statisticchart'
 import Equipmentchart from '@/components/Equipmentchart'
 import Videopage from '@/components/Videopage'
 import Iframepage from '@/components/Iframepage'
+import Buttonchart from '@/components/Buttonchart'
 
 import Mapchart from '@/components/Mapchart'
 
@@ -180,7 +182,7 @@ export default {
       return store.state.base.PAGE_HEIGHT
     },
     navHeight(){
-      return store.state.base.SHOW_NAV ? 85 : 0;
+      return store.state.base.HIDE_NAV ? 0 : 85;
     },
     gridHeight(){
       return parseFloat((this.pageHeight - 25 - this.navHeight)/36)
@@ -223,10 +225,12 @@ export default {
   methods:{
     initial(){
       let nav = store.state.base.NAV_DATA
+      let routes = this.$route.path.split('/')
+      let id = routes[ routes.length - 1 ]
       //是否已获取导航
       if(!nav.length){
-        // if(this.pageIndex == 0){
-        //   // 超出菜单长度，跳转回首页
+        // if(!id){
+        //   // 未获取到id
         //   this.$router.push({ path: '/' })
         // }
         //获取导航
@@ -235,73 +239,56 @@ export default {
           console.log('首次获取导航');
           // 获取页面ID
           if(Array.isArray(data) && data.length){
-            if(data.length > this.pageIndex){
-              let id = this.pageId =  data[this.pageIndex].id
-              // console.log('id ' + id)
-              // console.log('pageIndex ' + this.pageIndex)
-              //获取图表
-              // console.log('获取第'+ parseInt(this.pageIndex + 1) +'页图表');
-              this.$store.dispatch('getNavDataAction', { id })
-              .then( (data) => {
-                data.map( (v, $i) => {
-                  if( v.id == id)  this.pageIndex = $i
-                })
-                let list = this.list = store.state.charts.CHARTS_DATA[id] || []
-                // const length = Math.ceil(list.length /2)
-                // this.leftMenu = list.slice(0, length)
-                // this.rightMenu = list.slice(length)
-              })
+            data.map( (v, $i) => {
+              if(!id && $i == 0){
+                id = v.id
+                this.$store.dispatch('setPageIndexAction', {index: 0})
+              }else if( v.id == id){
+                this.$store.dispatch('setPageIndexAction', {index: $i})
+              }
+            })
 
-              // 获取地图信息
-              this.$store.dispatch('loadMarkersAction', { id })
-              .then( (data) => {
-                // console.log(data.gmapmenuid)
-                this.mapData = data
-              })
+            this.pageId =  id
+            //获取图表
+            // console.log('获取第'+ parseInt(this.pageIndex + 1) +'页图表');
+            this.$store.dispatch('getNavDataAction', { id })
+            .then( () => {
+              let list = this.list = store.state.charts.CHARTS_DATA[id] || []
+            })
 
-            }else{
-              // 超出菜单长度，跳转回首页
-              console.log('261')
-              this.$store.dispatch('setPageIndexAction', {index: 0})
-              this.$router.push({ path: '/' })
-            }
+            // 获取地图信息
+            this.$store.dispatch('loadMarkersAction', { id })
+            .then( (data) => {
+              // console.log(data.gmapmenuid)
+              this.mapData = data
+            })
+          }else{
+            this.$store.dispatch('setPageIndexAction', {index: 0})
+            this.$router.push({ path: '/' })
           }
         })
         .catch( err => {
-              console.log('268')
           this.$store.dispatch('setPageIndexAction', {index: 0})
           this.$router.push({ path: '/' })
         } )
       }else{
-        let routes = this.$route.path.split('/')
-        let id = routes[ routes.length - 1 ] || nav[this.pageIndex].id
         nav.map( (v, $i) => {
-          if( v.id == id)  this.pageIndex = $i
+          if( v.id == id){
+            this.$store.dispatch('setPageIndexAction', {index: $i})
+          }
         })
-
-        // if(id == nav[this.pageIndex].id ||( id == '' && this.pageIndex == 0)){
-          this.pageId = id
-          this.$store.dispatch('getNavDataAction', { id })
-          .then( () => {
-            // console.log('获取第'+ parseInt(this.pageIndex + 1) +'页图表');
-            let list = this.list = store.state.charts.CHARTS_DATA[id] || []
-            // const length = Math.ceil(list.length /2)
-            // this.leftMenu = list.slice(0, length)
-            // this.rightMenu = list.slice(length)
-            // 获取地图信息
-              this.$store.dispatch('loadMarkersAction', { id })
-              .then( (data) => {
-                // console.log(data.gmapmenuid)
-                this.mapData = data
-              })
-          })
-        // }else{
-        //   // 当前路由不对,跳转回首页
-        //   console.log('294')
-        //   this.$store.dispatch('setPageIndexAction', {index: 0})
-        //   this.$router.push({ path: '/' })
-        // }
-
+        this.pageId = id
+        this.$store.dispatch('getNavDataAction', { id })
+        .then( () => {
+          // console.log('获取第'+ parseInt(this.pageIndex + 1) +'页图表');
+          let list = this.list = store.state.charts.CHARTS_DATA[id] || []
+          // 获取地图信息
+            this.$store.dispatch('loadMarkersAction', { id })
+            .then( (data) => {
+              // console.log(data.gmapmenuid)
+              this.mapData = data
+            })
+        })
       }
 
     },
@@ -343,6 +330,7 @@ export default {
     Equipmentchart,
     Iframepage,
     Videopage,
+    Buttonchart,
   }
 }
 </script>

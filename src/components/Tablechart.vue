@@ -1,6 +1,8 @@
 <template>
   <div :id="id" class="chart-inner">
-    <div class="chart-title">{{this.optionData.title}}</div>
+    <div class="chart-title">{{this.optionData.title}}
+      <span v-if="optionData.moreUrl" v-on:click="moreAction(optionData.moreUrl)" class="chart-more">更多<i class="iconfont icon-angle-right"></i></span>
+    </div>
     <div class="chart-tablebox" :style="{'max-height': tableHeight + 'px'}">
         <table border="0" cellpadding='2' cellspacing ='0' class="chart-table">
         <thead>
@@ -20,7 +22,7 @@
               <span v-if="$index < 3" :class="'price price-' + $index" ></span>
               <span v-if="$index >= 3">{{$index + 1}}</span>
             </th>
-            <th :title="v.name">{{v.name}}</th>
+            <th :title="v.name" :style="v.url ? 'cursor: pointer;text-decoration: underline;' : ''" v-on:click="viewUrl(v.url)">{{v.name}}</th>
             <th v-for="(title,$i) in titles" :key="'value_'+ $index +'_'+$i"
               :style="{'color': title == sortProperty ? colors[0] : '' }">{{ v.values[title] }}</th>
           </tr>
@@ -98,7 +100,7 @@ export default {
       return colors.concat(store.state.base.COLOR_REPOSITORY)
     },
     navHeight(){
-      return store.state.base.SHOW_NAV ? 85 : 0;
+      return store.state.base.HIDE_NAV ? 0 : 85;
     },
     gridHeight(){
       return parseInt((store.state.base.PAGE_HEIGHT - 25 - this.navHeight)/36)
@@ -171,7 +173,8 @@ export default {
         })
         this.series.push({
           values,
-          name: item.name
+          name: item.name,
+          url: item.url
         })
       })
       //开始排序
@@ -195,6 +198,12 @@ export default {
         return sortByAsc ? prev.values[sortProperty] - next.values[sortProperty] : next.values[sortProperty] - prev.values[sortProperty]
       })
       // console.log(this.series)
+    },
+    viewUrl(url){
+      console.log(url)
+      if(url){
+        window.open(url)
+      }
     }
   }
 

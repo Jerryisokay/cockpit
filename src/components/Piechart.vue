@@ -23,13 +23,13 @@ export default {
         },
         light: {
           textColor: '#333333',
-          emphasisColor: '#c6044d',
+          emphasisColor: '#01F0D9',
           backgroundColor: 'rgba(0,0,0,0.5)',
           shadowColor1: 'rgba(255, 255, 255, 0.5)',
-          shadowColor2: '#77022e',
-          fillColor1: '#77022e',
-          fillColor2: '#c6044d',
-          fillColor3: '#444',
+          shadowColor2: '#2D88F8',
+          fillColor1: '#2D88F8',
+          fillColor2: '#01F0D9',
+          fillColor3: '#555',
         },
         blue: {
           textColor: '#dce2f2',

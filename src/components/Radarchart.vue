@@ -18,8 +18,8 @@ export default {
         light: {
           textColor: '#333333',
           shadowColor1: 'rgba(255, 255, 255, 0.5)',
-          tooltipBackgroundColor: '#c6044d',
-          backgroundEmphasisColor: '#77022e',
+          tooltipBackgroundColor: '#2D88F8',
+          backgroundEmphasisColor: '#2D88F8',
         },
         blue: {
           textColor: '#dce2f2',

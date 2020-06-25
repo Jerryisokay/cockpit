@@ -19,7 +19,7 @@ export default {
         },
         light: {
           textColor: '#333333',
-          shadowColor1: '#77022e',
+          shadowColor1: '#2D88F8',
           fillColor1: '#ffffff',
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
           borderColor: '#ffffff',
@@ -93,7 +93,7 @@ export default {
       return parseFloat((document.documentElement.clientWidth - 40)/36)
     },
     navHeight(){
-      return store.state.base.SHOW_NAV ? 85 : 0;
+      return store.state.base.HIDE_NAV ? 0 : 85;
     },
     gridHeight(){
       return parseFloat((store.state.base.PAGE_HEIGHT - 25 - this.navHeight)/36)

@@ -26,12 +26,12 @@ export default {
         light: {
           textColor: '#333333',
           textColor2: '#dce2f2',
-          emphasisColor: '#c6044d',
+          emphasisColor: '#01f0d9',
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
           tooltipEmphasisColor: '#ffffff',
           shadowColor1: 'rgba(255, 255, 255, 0.5)',
-          shadowColor2: '#77022e',
-          fillColor1: '#77022e',
+          shadowColor2: '#2D88F8',
+          fillColor1: '#2D88F8',
           fillColor2: 'rgba(0,0,0,0.05)',
           fillColor3: 'rgba(0,0,0,0.1)',
           lineColor: '#dddddd'
@@ -193,7 +193,7 @@ export default {
         },
         tooltip : {
             trigger: 'item',
-            formatter: '{a}: {c}({b})',
+            formatter: '{a}: <span style="color:'+ this.themeColors[this.theme].tooltipEmphasisColor +'">{c}</span>({b})',
             // padding: [0, 5],
             backgroundColor: this.themeColors[this.theme].backgroundColor,
             textStyle:{

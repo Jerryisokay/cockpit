@@ -16,7 +16,7 @@ export default {
         },
         light: {
           textColor: '#333333',
-          shadowColor1: '#77022e',
+          shadowColor1: '#2D88F8',
           fillColor1: '#ffffff',
         },
         blue: {

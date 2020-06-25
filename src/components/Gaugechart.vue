@@ -21,8 +21,8 @@ export default {
           textColor: "#333333",
           backgroundColor: 'rgba(0,0,0,0.5)',
           shadowColor1: "rgba(0, 0, 0, 0)",
-          shadowColor2: "#77022e",
-          borderColor: "#77022e"
+          shadowColor2: "#2D88F8",
+          borderColor: "#2D88F8"
         },
         blue: {
           textColor: "#dce2f2",
@@ -91,7 +91,7 @@ export default {
       return parseFloat((document.documentElement.clientWidth - 40)/36)
     },
     navHeight(){
-      return store.state.base.SHOW_NAV ? 85 : 0;
+      return store.state.base.HIDE_NAV ? 0 : 85;
     },
     gridHeight(){
       return parseFloat((store.state.base.PAGE_HEIGHT - 25 - this.navHeight)/36)

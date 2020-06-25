@@ -1,7 +1,7 @@
 <template>
   <div :id="id" class="chart-inner">
     <div class="chart-title">{{this.options.title}}
-      <span :click="refreshData" :class="{onloading: loading}" class="refresh-chart iconfont icon-refresh equipment-c-number"></span>
+      <span v-on:click="refreshData" :class="{onloading: loading}" class="refresh-chart iconfont icon-refresh equipment-c-number"></span>
     </div>
     <div class="chart-equipment-box" :style="{'max-height': tableHeight + 'px'}">
       <div class="chart-equipment-container" v-if="specialList.length">
@@ -99,7 +99,7 @@ export default {
       return colors.concat(store.state.base.COLOR_REPOSITORY)
     },
     navHeight(){
-      return store.state.base.SHOW_NAV ? 85 : 0;
+      return store.state.base.HIDE_NAV ? 0 : 85;
     },
     gridHeight(){
       return parseInt((store.state.base.PAGE_HEIGHT - 25 - this.navHeight)/36)
