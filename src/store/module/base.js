@@ -15,14 +15,19 @@ const base = {
         color:'#0b3262',
       },
       {
-        name: '亮色皮肤',
-        value:'light',
+        name: '粉色皮肤',
+        value:'pink',
         color:'#c6044d',
       },
       {
         name: '深蓝皮肤',
         value:'blue',
         color:'#0b4757',
+      },
+      {
+        name: '亮色皮肤',
+        value:'light',
+        color:'#2D88F8',
       },
     ],
     //默认颜色库 用于后台数据未返回颜色或者颜色数量不足时补充
@@ -73,7 +78,8 @@ const base = {
           const data = res.data.data[0] || {menu:[]}
           const title = data.title
           const hideNav = data.hideNav
-          const themeType = data.themeType == 2 ? 'blue' : ( data.themeType == 1 ? 'light' : 'dark')
+          const themes = ['dark', 'pink', 'blue', 'light']
+          const themeType = themes[data.themeType]
           //设置初始参数
           //主题
           commit('SET_THEME_TYPE', { theme: themeType })

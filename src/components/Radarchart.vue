@@ -15,6 +15,12 @@ export default {
           tooltipBackgroundColor: '#264e94',
           backgroundEmphasisColor:'#333'
         },
+        pink: {
+          textColor: '#333333',
+          shadowColor1: 'rgba(255, 255, 255, 0.5)',
+          tooltipBackgroundColor: '#c6044d',
+          backgroundEmphasisColor: '#77022e',
+        },
         light: {
           textColor: '#333333',
           shadowColor1: 'rgba(255, 255, 255, 0.5)',

@@ -16,6 +16,12 @@ export default {
           backgroundColor: '#264e94',
           fillColor1:'#282a36'
         },
+        pink: {
+          textColor: '#333333',
+          shadowColor1: '#77022e',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          fillColor1: '#ffffff',
+        },
         light: {
           textColor: '#333333',
           shadowColor1: '#2D88F8',

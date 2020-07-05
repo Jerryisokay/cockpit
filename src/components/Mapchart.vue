@@ -27,11 +27,13 @@ export default {
       markers:[],
       styles:{
         dark: 'amap://styles/grey',
+        pink: 'amap://styles/normal',
         light: 'amap://styles/normal',
         blue: 'amap://styles/blue',
       },
       icons:{
         dark: defaultIcon,
+        pink: lightIcon,
         light: defaultIcon,
         blue: blueIcon,
       },
@@ -47,9 +49,13 @@ export default {
           textColor: '#dce2f2',
           backgroundColor: '#264e94',
         },
+        pink: {
+          textColor: '#333333',
+          backgroundColor: '#c6044d',
+        },
         light: {
           textColor: '#333333',
-          backgroundColor: '01f0d9',
+          backgroundColor: '#01f0d9',
         },
         blue: {
           textColor: '#ffffff',

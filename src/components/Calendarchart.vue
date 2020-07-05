@@ -20,6 +20,16 @@ export default {
           fillColor:'#2584e8',
           emphasisColor: '#2584e8',
         },
+        pink: {
+          textColor: "#333333",
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          shadowColor1: "rgba(255, 255, 255, 0.5)",
+          shadowColor2: "#77022e",
+          borderColor: "#c6044d",
+          lineColor: 'rgba(0, 0, 0, 0.2)',//'#c6044d',
+          fillColor:'#77022e',
+          emphasisColor: '#2584e8',
+        },
         light: {
           textColor: "#333333",
           backgroundColor: "rgba(0, 0, 0, 0.5)",

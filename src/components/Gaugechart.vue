@@ -17,6 +17,13 @@ export default {
           shadowColor2: "#2584e8",
           borderColor: "#fff"
         },
+        pink: {
+          textColor: "#333333",
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          shadowColor1: "rgba(0, 0, 0, 0)",
+          shadowColor2: "#77022e",
+          borderColor: "#77022e"
+        },
         light: {
           textColor: "#333333",
           backgroundColor: 'rgba(0,0,0,0.5)',

@@ -1,7 +1,7 @@
 <template>
   <div :id="id" class="chart-inner">
     <div class="chart-title">{{this.optionData.title}}
-      <span v-if="optionData.moreUrl" v-on:click="moreAction(optionData.moreUrl)" class="chart-more">更多<i class="iconfont icon-angle-right"></i></span>
+      <span v-if="optionData.moreUrl" v-on:click="viewUrl(optionData.moreUrl)" class="chart-more">更多<i class="iconfont icon-angle-right"></i></span>
     </div>
     <div class="chart-tablebox" :style="{'max-height': tableHeight + 'px'}">
         <table border="0" cellpadding='2' cellspacing ='0' class="chart-table">

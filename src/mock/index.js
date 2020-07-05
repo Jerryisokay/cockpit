@@ -8,37 +8,37 @@ const menus = {
   "data": [
     {
       updateInterval: 100,
-      themeType: 2,
+      themeType: 3,
       title: "合肥城建名大数据平台",
       hideNav: false,
       menu: [
         {
           name: '主页',
-          id: 'homepage1',
+          id: '1',
         },
         {
           name: '菜单1',
-          id: 'menu1',
+          id: '2',
         },
         {
           name: '菜单2',
-          id: 'menu2',
+          id: '3',
         },
         {
           name: '菜单3',
-          id: 'menu3',
+          id: '4',
         },
         {
           name: '菜单4',
-          id: 'menu4',
+          id: '5',
         },
         {
           name: '菜单5',
-          id: 'menu5',
+          id: '6',
         },
         {
           name: '菜单6',
-          id: 'menu6',
+          id: '7',
         },
       ]
     }
@@ -69,7 +69,7 @@ const menus = {
 */
 
 const charts = {
-  'homepage1': [
+  '1': [
     //单系列饼图
     {
       title: '单系列饼图',
@@ -439,7 +439,7 @@ const charts = {
       calendarData: null
     }
   ],
-  "menu1": [
+  "2": [
     //单系列纵向显示柱形图数据示例
     {
       title: '单系列纵向显示柱形图数据示例',
@@ -707,7 +707,7 @@ const charts = {
       calendarData: null
     }
   ],
-  "menu2": [
+  "3": [
     //数据面积图数据示例
     {
       title: '数据面积图数据示例',
@@ -952,7 +952,7 @@ const charts = {
       calendarData: null
     }
   ],
-  "menu3": [
+  "4": [
     //仪表盘示例
     {
       title: '仪表盘示例',
@@ -1157,7 +1157,7 @@ const charts = {
       calendarData: null
     }
   ],
-  "menu4": [
+  "5": [
     //散点图数据示例
     {
       title: '散点图数据示例',
@@ -1611,7 +1611,7 @@ const charts = {
       ]
     }
   ],
-  "menu5": [
+  "6": [
     {
       height: 9,
       width: 12,
@@ -1693,7 +1693,7 @@ const charts = {
       title: "百度",
       type: 23,
     }],
-  "menu6": [
+  "7": [
     {
       width: 9,
       height: 18,

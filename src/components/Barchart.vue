@@ -25,6 +25,19 @@ export default {
           fillColor3:'rgba(255,255,255,0.1)',
           lineColor:'rgba(255,255,255,0.2)'
         },
+        pink: {
+          textColor: '#333333',
+          textColor2: '#dce2f2',
+          emphasisColor: '#c6044d',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          tooltipEmphasisColor: '#ffffff',
+          shadowColor1: 'rgba(255, 255, 255, 0.5)',
+          shadowColor2: '#77022e',
+          fillColor1: '#77022e',
+          fillColor2: 'rgba(0,0,0,0.05)',
+          fillColor3: 'rgba(0,0,0,0.1)',
+          lineColor: '#dddddd'
+        },
         light: {
           textColor: '#333333',
           textColor2: '#dce2f2',

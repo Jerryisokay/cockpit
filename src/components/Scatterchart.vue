@@ -19,6 +19,15 @@ export default {
           shadowColor2: '#2584e8',
           lineColor:'rgba(255,255,255,0.2)'
         },
+        pink: {
+          textColor: '#333333',
+          textColor2: '#dce2f2',
+          emphasisColor: '#c6044d',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          shadowColor1: 'rgba(0, 0, 0, 0.5)',
+          shadowColor2: '#77022e',
+          lineColor: '#dddddd'
+        },
         light: {
           textColor: '#333333',
           textColor2: '#dce2f2',
