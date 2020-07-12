@@ -12,19 +12,22 @@
           </div>
         </div> -->
         <!-- 动态路由表 -->
-        <router-view></router-view>
+        <!-- <router-view></router-view> -->
+        <Page></Page>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Page from './Page'
 import Mapchart from '@/components/Mapchart'
 import Piechart from '@/components/Piechart'
 import Linechart from '@/components/Linechart'
 
 import Navigator from '@/components/Navigator'
 import Angleborder from '@/components/Angleborder'
+import { mapGetters } from 'vuex'
 
 import store from '@/store'
 
@@ -44,6 +47,7 @@ export default {
     }
   },
   components:{
+    Page,
     Navigator,
     Piechart,
     Linechart,
@@ -51,11 +55,13 @@ export default {
     Angleborder,
   },
   mounted(){
-
     //监听屏幕大小
     window.onresize = () =>{
       this.$store.dispatch('setPageHeightAction')
     }
+
+    // this.initial()
+
 
   },
   computed : {
@@ -90,6 +96,16 @@ export default {
     //     nearestPOI: data.nearestPOI
     //   }
     // },
+    initial(){
+      let sysid = this.$route.params.sysid
+      if(sysid){
+        console.log('sysid ' + sysid)
+        this.$store.dispatch('setSystemIdAction', {sysid})
+        .then( () => {
+          this.$store.dispatch('loadNavDataAction', {sysid})
+        })
+      }
+    }
   }
 
 }

@@ -19,14 +19,15 @@ export default new Router({
       component: Container,
       children:[
         {
-          path: '/',
-          name: 'homepage',
-          component: Page
+          path: '/:sysid',
+          name: 'sysid',
+          component: Container,
+          children: [{
+            path: 'page/:id',
+            name: 'id',
+            component: Container
+          }]
         },
-        {
-          path: '/page/:id',
-          component: Page
-        }
       ]
     }
   ]

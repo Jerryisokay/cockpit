@@ -68,24 +68,25 @@ export default {
   },
   computed:{
     ...mapGetters(['menuData']),
+    sysid(){
+      return store.state.base.SYSTEM_ID
+    },
     // 当前展示的导航列表
     showMenu(){
-      let data = this.menuData
+      let data = this.menuData.map( (item) => {
+        item.path = `/${this.sysid}/page/${item.id}`
+        return item
+      })
+      console.log(data)
       return data.slice(this.start, this.end)
     },
     leftMenu(){
       let data = this.showMenu
-      return data.slice(0, 3).map( item => {
-        item.path = '/page/' + item.id
-        return item
-      })
+      return data.slice(0, 3)
     },
     rightMenu(){
       let data = this.showMenu
-      return data.slice(3, 6).map( item => {
-        item.path = '/page/' + item.id
-        return item
-      })
+      return data.slice(3, 6)
     },
     pageIndex(){
       return store.state.base.PAGE_INDEX

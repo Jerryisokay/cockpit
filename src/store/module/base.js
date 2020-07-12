@@ -30,6 +30,7 @@ const base = {
         color:'#2D88F8',
       },
     ],
+    SYSTEM_ID: '',
     //默认颜色库 用于后台数据未返回颜色或者颜色数量不足时补充
     COLOR_REPOSITORY: ['#01f0d9','#3c95fb','#07fe1d','#eaab05','#f54806','#0fd187','#c6044d','#0a9ba6','#c6044d','#f36098','#55db87','#f36098','#e7cc72'],
     // 导航菜单
@@ -49,6 +50,9 @@ const base = {
     SET_PAGE_INDEX: (state, { index }) => {
       state.PAGE_INDEX = index
     },
+    SET_SYSTEM_ID: (state, { sysid }) => {
+      state.SYSTEM_ID = sysid
+    },
     SET_THEME_TYPE: (state, { theme }) => {
       state.THEME_TYPE = theme
     },
@@ -64,11 +68,12 @@ const base = {
     }
   },
   actions: {
-    loadNavDataAction({commit}){
+    loadNavDataAction({ commit }, { sysid }){
       return new Promise((resolve, reject) => {
-        getNavDataApi()
+        commit('SET_SYSTEM_ID', { sysid })
+        getNavDataApi( sysid )
           .then(res => {
-          console.log(res.data)
+          // console.log(res.data)
           if(!res.data){
             reject('error')
           }
@@ -97,6 +102,9 @@ const base = {
     //  切换路由导航
     setPageIndexAction: function({commit}, {index}){
       commit('SET_PAGE_INDEX', { index })
+    },
+    setSystemIdAction: function ({commit}, {sysid}){
+      commit('SET_SYSTEM_ID', { sysid })
     },
     //  切换主题
     setThemeTypeAction: function({commit}, {theme}){

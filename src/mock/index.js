@@ -3,48 +3,63 @@ import treeData from './tree.json'
 
 
 
-const menus = {
-  "code": "1",
-  "data": [
-    {
-      updateInterval: 100,
-      themeType: 3,
-      title: "合肥城建名大数据平台",
-      hideNav: false,
-      menu: [
-        {
-          name: '主页',
-          id: '1',
-        },
-        {
-          name: '菜单1',
-          id: '2',
-        },
-        {
-          name: '菜单2',
-          id: '3',
-        },
-        {
-          name: '菜单3',
-          id: '4',
-        },
-        {
-          name: '菜单4',
-          id: '5',
-        },
-        {
-          name: '菜单5',
-          id: '6',
-        },
-        {
-          name: '菜单6',
-          id: '7',
-        },
-      ]
-    }
-  ],
-  "success": true
-}
+const menus = [
+  {
+    updateInterval: 100,
+    themeType: 3,
+    title: "合肥城建名大数据平台",
+    hideNav: false,
+    menu: [
+      {
+        name: '主页',
+        id: '1',
+      },
+      {
+        name: '菜单1',
+        id: '2',
+      },
+      {
+        name: '菜单2',
+        id: '3',
+      },
+      {
+        name: '菜单3',
+        id: '4',
+      },
+      {
+        name: '菜单4',
+        id: '5',
+      },
+      {
+        name: '菜单5',
+        id: '6',
+      },
+      {
+        name: '菜单6',
+        id: '7',
+      },
+    ]
+  },
+  {
+    themeType: 2,
+    title: "合肥城建名大数据平台",
+    hideNav: false,
+    menu: [
+      {
+        name: '主页',
+        id: '1',
+      },
+      {
+        name: '菜单1',
+        id: '2',
+      },
+      {
+        name: '菜单2',
+        id: '3',
+      },
+    ]
+  },
+]
 
 /*
 0 单系列饼图,
@@ -1823,8 +1838,15 @@ const maps = {
 }
 
 const output = {
-  getMenu: () => {
-    return menus
+  getMenu: (data) => {
+    let { body } = data
+    let { id } = JSON.parse(body)
+    if (!id || id == 'undefined' || id == 'null') { id = 0 }
+    return {
+      "code": "1",
+      "data": [menus[id]],
+      "success": true
+    }
   },
   getChartsById: (data) => {
     let { body } = data
@@ -1859,7 +1881,7 @@ const output = {
 }
 
 
-Mock.mock(/\/api\/getpages/, 'get', output.getMenu)
+Mock.mock(/\/api\/getpages/, 'post', output.getMenu)
 Mock.mock(/\/api\/getcharts/, 'post', output.getChartsById)
 Mock.mock(/\/api\/getsinglechart/, 'post', output.getChartById)
 Mock.mock(/\/api\/getmap/, 'post', output.getMapById)

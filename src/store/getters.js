@@ -1,11 +1,7 @@
 const getters = {
   // 完整导航菜单
   menuData: state => {
-    const data =  state.base.NAV_DATA
-    data.map( item => {
-      item.path = item.id == 'homepage' ? '/' : '/page/' + item.id
-    })
-    return data
+    return state.base.NAV_DATA
   },
   // 左边菜单
   // leftMenu: state => {

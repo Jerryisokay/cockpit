@@ -1,11 +1,14 @@
 import request from '@/utils/request'
 // 注释部分为前端模拟数据的测试接口 需在main.js中启用mock,且注释掉/utils/request中的 baseURL
 //获取基础数据
-export function getNavDataApi(){
+export function getNavDataApi(id){
   return request({
-    // url:'/api/getpages',
     url:'/ksh/fg',
+    params: {id},
     method: 'get',
+    // url:'/api/getpages',
+    // data: { id },
+    // method: 'post',
   })
 }
 
@@ -42,7 +45,7 @@ export function getMapApi(id){
     method: 'get',
     // url:'/api/getmap',
     // data:{ id },
-    // method: 'post',
+    method: 'post',
   })
 }
 

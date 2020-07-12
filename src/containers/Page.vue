@@ -225,18 +225,13 @@ export default {
   methods:{
     initial(){
       let nav = store.state.base.NAV_DATA
-      let routes = this.$route.path.split('/')
-      let id = routes[ routes.length - 1 ]
+      let id = this.$route.params.id
+      let sysid = this.$route.params.sysid || store.state.base.SYSTEM_ID
       //是否已获取导航
-      if(!nav.length){
-        // if(!id){
-        //   // 未获取到id
-        //   this.$router.push({ path: '/' })
-        // }
-        //获取导航
-        this.$store.dispatch('loadNavDataAction')
+      //获取导航
+        this.$store.dispatch('loadNavDataAction',{sysid})
         .then( (data) => {
-          console.log('首次获取导航');
+          // console.log('首次获取导航');
           // 获取页面ID
           if(Array.isArray(data) && data.length){
             data.map( (v, $i) => {
@@ -271,25 +266,6 @@ export default {
           this.$store.dispatch('setPageIndexAction', {index: 0})
           this.$router.push({ path: '/' })
         } )
-      }else{
-        nav.map( (v, $i) => {
-          if( v.id == id){
-            this.$store.dispatch('setPageIndexAction', {index: $i})
-          }
-        })
-        this.pageId = id
-        this.$store.dispatch('getNavDataAction', { id })
-        .then( () => {
-          // console.log('获取第'+ parseInt(this.pageIndex + 1) +'页图表');
-          let list = this.list = store.state.charts.CHARTS_DATA[id] || []
-          // 获取地图信息
-            this.$store.dispatch('loadMarkersAction', { id })
-            .then( (data) => {
-              // console.log(data.gmapmenuid)
-              this.mapData = data
-            })
-        })
-      }
 
     },
     //地图拖拽数据
