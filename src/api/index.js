@@ -45,7 +45,7 @@ export function getMapApi(id){
     method: 'get',
     // url:'/api/getmap',
     // data:{ id },
-    method: 'post',
+    // method: 'post',
   })
 }
 

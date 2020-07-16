@@ -9,6 +9,7 @@ const menus = [
     themeType: 3,
     title: "合肥城建名大数据平台",
     hideNav: false,
+    id: '0',
     menu: [
       {
         name: '主页',
@@ -44,6 +45,7 @@ const menus = [
     themeType: 2,
     title: "合肥城建名大数据平台",
     hideNav: false,
+    id: '1',
     menu: [
       {
         name: '主页',

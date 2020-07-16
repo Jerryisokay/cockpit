@@ -70,7 +70,6 @@ const base = {
   actions: {
     loadNavDataAction({ commit }, { sysid }){
       return new Promise((resolve, reject) => {
-        commit('SET_SYSTEM_ID', { sysid })
         getNavDataApi( sysid )
           .then(res => {
           // console.log(res.data)
@@ -86,6 +85,7 @@ const base = {
           const themes = ['dark', 'pink', 'blue', 'light']
           const themeType = themes[data.themeType]
           //设置初始参数
+          commit('SET_SYSTEM_ID', { sysid: sysid || data.id })
           //主题
           commit('SET_THEME_TYPE', { theme: themeType })
           //标题
