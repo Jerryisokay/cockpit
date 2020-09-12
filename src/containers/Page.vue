@@ -33,6 +33,7 @@
               <Iframepage v-if="v.type == 23" :options="v" :pageId="pageId" :index="i" :id="'iframepage_1_' + i + '_' + pageIndex" :innerHeight="v.height * gridHeight -22"></Iframepage>
               <Videopage v-if="v.type == 24" :options="v" :pageId="pageId" :index="i" :id="'videopage_1_' + i + '_' + pageIndex" :innerHeight="v.height * gridHeight -22"></Videopage>
               <Buttonchart v-if="v.type == 25" :options="v" :pageId="pageId" :index="i" :id="'buttonchart_1_' + i + '_' + pageIndex" :innerHeight="v.height * gridHeight -22"></Buttonchart>
+              <Gallerypage v-if="v.type == 26" :options="v" :pageId="pageId" :index="i" :id="'buttonchart_1_' + i + '_' + pageIndex" :innerHeight="v.height * gridHeight -22"></Gallerypage>
             </div>
           </div>
         </div>
@@ -143,6 +144,7 @@ import Equipmentchart from '@/components/Equipmentchart'
 import Videopage from '@/components/Videopage'
 import Iframepage from '@/components/Iframepage'
 import Buttonchart from '@/components/Buttonchart'
+import Gallerypage from '@/components/Gallerypage'
 
 import Mapchart from '@/components/Mapchart'
 
@@ -307,6 +309,7 @@ export default {
     Iframepage,
     Videopage,
     Buttonchart,
+    Gallerypage,
   }
 }
 </script>

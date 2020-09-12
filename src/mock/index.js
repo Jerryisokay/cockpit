@@ -59,6 +59,10 @@ const menus = [
         name: '菜单2',
         id: '3',
       },
+      {
+        name: '菜单3',
+        id: '8',
+      },
     ]
   },
 ]
@@ -67,22 +71,29 @@ const menus = [
 0 单系列饼图,
 1 多系列饼图,
 2 多系列百分比饼图,
- 3 单系列横向柱形图,
-4  单系列纵向柱形图,
+3 单系列横向柱形图,
+4 单系列纵向柱形图,
 5 多系列横向柱形图,
 6 多系列纵向柱形图,
 7 折线图, 8 数据面积图,
- 9 柱形折线混合图,
- 10 雷达图,
+9 柱形折线混合图,
+10 雷达图,
 11 漏斗图,
 12 仪表盘图,
 13 树图,
-14  矩形树图,
+14 矩形树图,
 15 旭日图,
 16 散点图,
 17 气泡图,
 18 主题河流图 ,
 19 日历坐标系
+20 表格
+21 统计图表
+22 设备指示灯
+23 内嵌网页
+24 视频源rmtp
+25 按钮组
+26 幻灯片
 */
 
 const charts = {
@@ -1785,7 +1796,50 @@ const charts = {
     //   url: "http://www.qq.com",
     //   title: "",
     //   type: 23,
-    }]
+    }],
+  "8": [{
+    width: 24,
+    height: 35,
+    positionX: 6,
+    positionY: 0,
+    size: 0,
+    id: '0',
+    refresh: 0,
+    series: [],
+    gallerys: [
+      {
+        url: 'http://zhaopin.cscec3b.com.cn:9100/video_campus_star.mp4',
+        type: 1,
+        time: 10
+      },
+      {
+        url: 'https://trunk.wintalent.cn/wt/component1000/corp/cscec3b/images/star_banner.jpg',
+        type: 0,
+        time: 5
+      },
+      {
+        url: 'http://zhaopin.cscec3b.com.cn:9100/video01.mp4',
+        type: 1,
+        time: 6
+      },
+      {
+        url: 'http://zhaopin.cscec3b.com.cn/wt/component1000/corp/cscec3b/images/intern.jpg',
+        type: 0,
+        time: 5
+      },      {
+        url: 'http://zhaopin.cscec3b.com.cn:9100/video02.mp4',
+        type: 1,
+        time: 10
+      },
+      {
+        url: 'http://zhaopin.cscec3b.com.cn/wt/component1000/corp/cscec3b/images/xingju_daily.jpg',
+        type: 0,
+        time: 8
+      },
+    ],
+    title: "幻灯片",
+    type: 26,
+  }]
 }
 
 const maps = {
