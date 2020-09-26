@@ -102,6 +102,13 @@ export default {
     }
   },
   computed: {
+    legends(){
+      const legends = []
+      this.optionData.series.map( v =>{
+        if(legends.indexOf(v.name) < 0) legends.push( v.name )
+      })
+      return legends
+    },
     titles(){
       const titles = []
       this.optionData.series.map( v =>{
@@ -232,6 +239,14 @@ export default {
                 color: this.themeColors[this.theme].textColor,//'#76a5d9'
               },
             },
+        },
+        legend: {
+          data: this.legends,
+          right: 0,
+          top: 0,
+          textStyle:{
+            fontSize: 10
+          }
         },
         yAxis: {
             type: 'value',
